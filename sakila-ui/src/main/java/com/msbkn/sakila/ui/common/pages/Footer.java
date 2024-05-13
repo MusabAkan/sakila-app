@@ -8,7 +8,7 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Footer extends VerticalLayout {
+public class Footer extends SkVerticalLayoutField {
     public Footer() {
         setSizeFull();
         buildFooterLayout();

@@ -15,7 +15,7 @@ public class LanguageListPage extends SkVerticalLayoutField {
     private String languageNameStr = "Dil Adı";
     private String creationDateStr = "Oluşturma Tarihi";
 
-    private Table tableData;
+    private SkTableField tableData;
     private SkVerticalLayoutField verticalLayoutField;
     private SkFormLayoutField filterLayoutField;
 
@@ -51,10 +51,7 @@ public class LanguageListPage extends SkVerticalLayoutField {
     }
 
     private void builTableField() {
-        tableData = new Table();
-
-        tableData.setSizeFull();
-        tableData.setSelectable(true);
+        tableData = new SkTableField();
 
         tableData.addContainerProperty(languageNameStr, String.class, null);
         tableData.addContainerProperty(creationDateStr, String.class, null);

@@ -1,11 +1,9 @@
 package com.msbkn.sakila.ui.common.pages;
 
-import com.vaadin.ui.VerticalLayout;
+import com.msbkn.sakila.ui.common.components.SkVerticalLayoutField;
 
-public class Content extends VerticalLayout {
+public class Content extends SkVerticalLayoutField {
     public Content() {
-        setMargin(true);
-        setSpacing(true);
-        setSizeFull();
+
     }
 }

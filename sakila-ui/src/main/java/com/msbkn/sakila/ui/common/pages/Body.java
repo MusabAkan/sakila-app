@@ -1,16 +1,15 @@
 package com.msbkn.sakila.ui.common.pages;
 
+import com.msbkn.sakila.ui.common.components.SkHorizontalLayoutField;
 import com.vaadin.ui.HorizontalLayout;
 
-public class Body extends HorizontalLayout {
+public class Body extends SkHorizontalLayoutField {
     private Content content;
     private Sidebar sidebar;
     private Header header;
 
     public Body(Header header) {
         this.header = header;
-        setSizeFull();
-        setSpacing(true);
         buidContentLayout();
     }
 

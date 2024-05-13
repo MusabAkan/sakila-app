@@ -17,7 +17,7 @@ public class ActorListPage extends SkVerticalLayoutField {
     private String lastNameStr = "Soyad";
     private String birthDateStr = "Oluşturma Tarihi";
 
-    private Table tableData;
+    private SkTableField tableData;
     private SkVerticalLayoutField verticalLayoutField;
     private SkFormLayoutField filterLayoutField;
 
@@ -35,6 +35,8 @@ public class ActorListPage extends SkVerticalLayoutField {
 
         verticalLayoutField.setExpandRatio(filterLayoutField, 0.2f);
         verticalLayoutField.setExpandRatio(tableData, 0.8f);
+
+
     }
 
     private void builFilterPanel() {
@@ -61,10 +63,7 @@ public class ActorListPage extends SkVerticalLayoutField {
     }
 
     private void builTableField() {
-        tableData = new Table();
-
-        tableData.setSizeFull();
-        tableData.setSelectable(true);
+        tableData = new SkTableField();
 
         tableData.addContainerProperty(nameStr, String.class, null);
         tableData.addContainerProperty(lastNameStr, String.class, null);

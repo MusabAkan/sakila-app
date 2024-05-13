@@ -1,19 +1,16 @@
 package com.msbkn.sakila.ui.common.pages;
 
+import com.msbkn.sakila.ui.common.components.SkHorizontalLayoutField;
 import com.msbkn.sakila.ui.common.components.SkLabelField;
-import com.vaadin.server.FontAwesome;
-import com.vaadin.server.FontIcon;
 import com.vaadin.ui.Alignment;
-import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class Header extends HorizontalLayout {
+
+
+public class Header extends SkHorizontalLayoutField {
 
 
     public Header() {
-        setMargin(true);
-        setSpacing(true);
-        setSizeFull();
         builderHeaderLayout();
     }
 

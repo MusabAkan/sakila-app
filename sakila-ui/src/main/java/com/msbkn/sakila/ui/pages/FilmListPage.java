@@ -5,7 +5,6 @@ import com.msbkn.sakila.service.FilmService;
 import com.msbkn.sakila.ui.MyUI;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.component.FilmCardWindow;
-import com.vaadin.ui.Table;
 
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class FilmListPage extends SkVerticalLayoutField {
     private String languageStr = "Dil";
     private String creationDateStr = "Oluşturma Tarihi";
 
-    private Table tableData;
+    private SkTableField tableData;
     private SkVerticalLayoutField verticalLayoutField;
     private SkFormLayoutField filterLayoutField;
 
@@ -34,8 +33,9 @@ public class FilmListPage extends SkVerticalLayoutField {
 
         addComponent(verticalLayoutField);
 
-        verticalLayoutField.setExpandRatio(filterLayoutField, 0.2f);
-        verticalLayoutField.setExpandRatio(tableData, 0.8f);
+        verticalLayoutField.setExpandRatio(filterLayoutField, 0.3f);
+        verticalLayoutField.setExpandRatio(tableData, 0.7f);
+
     }
 
     private void builFilterPanel() {
@@ -73,10 +73,7 @@ public class FilmListPage extends SkVerticalLayoutField {
     }
 
     private void builTableField() {
-        tableData = new Table();
-
-        tableData.setSizeFull();
-        tableData.setSelectable(true);
+        tableData = new SkTableField();
 
         tableData.addContainerProperty(titleStr, String.class, null);
         tableData.addContainerProperty(descriptionStr, String.class, null);
