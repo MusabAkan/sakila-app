@@ -3,6 +3,8 @@ package com.msbkn.sakila.domain;
 import org.hibernate.annotations.ForeignKey;
 
 import javax.persistence.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Table
@@ -149,5 +151,10 @@ public class Film {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+    @Override
+    public String toString() {
+        Format formatDate = new SimpleDateFormat("dd.MM.yyyy");
+        return formatDate.format(lastUpdate);
     }
 }

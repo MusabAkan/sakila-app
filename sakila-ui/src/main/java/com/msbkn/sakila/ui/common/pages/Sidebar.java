@@ -1,7 +1,9 @@
 package com.msbkn.sakila.ui.common.pages;
 
 import com.msbkn.sakila.ui.pages.ActorListPage;
+import com.msbkn.sakila.ui.pages.LanguageListPage;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
@@ -73,12 +75,21 @@ public class Sidebar extends VerticalLayout {
             String selectedItemChildren = event.getItemId().toString();
 
             if (selectedItemChildren.equals(actorListStr)) {
-                ActorListPage personSavePage = new ActorListPage();
-                content.removeAllComponents();
-                content.addComponent(personSavePage);
+                ActorListPage actorListPage = new ActorListPage();
+                loadFormPage(actorListPage);
+            }
+
+            if(selectedItemChildren.equals(languageListStr)){
+                LanguageListPage languageListPage = new LanguageListPage();
+                loadFormPage(languageListPage);
             }
 
         });
+    }
+
+    private void loadFormPage(Component page) {
+        content.removeAllComponents();
+        content.addComponent(page);
     }
 
 

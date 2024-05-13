@@ -3,21 +3,19 @@ package com.msbkn.sakila.ui.pages;
 import com.msbkn.sakila.domain.Actor;
 import com.msbkn.sakila.service.ActorService;
 import com.msbkn.sakila.ui.MyUI;
-import com.msbkn.sakila.ui.common.components.SkFormLayoutField;
-import com.msbkn.sakila.ui.common.components.SkTextField;
-import com.msbkn.sakila.ui.common.components.SkVerticalLayoutField;
-import com.msbkn.sakila.ui.pages.component.ActorCardWindow;
+import com.msbkn.sakila.ui.common.components.*;
+import com.msbkn.sakila.ui.pages.component.*;
 import com.vaadin.ui.*;
 
 import java.util.List;
 
 
-public class ActorListPage extends VerticalLayout {
+public class ActorListPage extends SkVerticalLayoutField {
     private ActorService actorService;
 
     private String nameStr = "Ad";
     private String lastNameStr = "Soyad";
-    private String birthDateStr = "Tarih";
+    private String birthDateStr = "Oluşturma Tarihi";
 
     private Table tableData;
     private SkVerticalLayoutField verticalLayoutField;
@@ -26,7 +24,7 @@ public class ActorListPage extends VerticalLayout {
 
 
     public ActorListPage() {
-
+        setSizeFull();
 
         verticalLayoutField = new SkVerticalLayoutField();
         verticalLayoutField.setSizeFull();
@@ -38,6 +36,9 @@ public class ActorListPage extends VerticalLayout {
         verticalLayoutField.addComponent(tableData);
 
         addComponent(verticalLayoutField);
+
+        verticalLayoutField.setExpandRatio(filterLayoutField, 0.2f);
+        verticalLayoutField.setExpandRatio(tableData, 0.8f);
 
     }
 

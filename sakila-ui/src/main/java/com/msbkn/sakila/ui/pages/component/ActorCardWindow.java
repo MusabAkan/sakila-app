@@ -1,10 +1,7 @@
 package com.msbkn.sakila.ui.pages.component;
 
 import com.msbkn.sakila.domain.Actor;
-import com.msbkn.sakila.ui.common.components.SkLabelField;
-import com.msbkn.sakila.ui.common.components.SkSaveButtonField;
-import com.msbkn.sakila.ui.common.components.SkTextField;
-import com.msbkn.sakila.ui.common.components.SkVerticalLayoutField;
+import com.msbkn.sakila.ui.common.components.*;
 import com.vaadin.ui.*;
 
 import java.text.Format;

@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Table(name = "film_actor")
 @Entity
-public class FilmActor {
+public class FilmActor   {
 
 
     @Id

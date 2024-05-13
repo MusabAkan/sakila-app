@@ -58,7 +58,7 @@ public class Actor {
 
     @Override
     public String toString() {
-        Format formatDate = new SimpleDateFormat("dd.MM.yyyy");
+        Format formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         return formatDate.format(lastUpdate);
     }
 }
