@@ -1,3 +1,4 @@
 com\msbkn\sakila\service\FilmServiceTest.class
-com\msbkn\sakila\service\LanguageServiceTest.class
 com\msbkn\sakila\service\ActorServiceTest.class
+com\msbkn\sakila\service\FilmActorServiceTest.class
+com\msbkn\sakila\service\LanguageServiceTest.class

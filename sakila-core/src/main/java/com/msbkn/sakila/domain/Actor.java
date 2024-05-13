@@ -1,11 +1,14 @@
 package com.msbkn.sakila.domain;
 
 import javax.persistence.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Table
 @Entity
 public class Actor {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,5 +54,11 @@ public class Actor {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    @Override
+    public String toString() {
+        Format formatDate = new SimpleDateFormat("dd.MM.yyyy");
+        return formatDate.format(lastUpdate);
     }
 }
