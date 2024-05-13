@@ -28,15 +28,6 @@ public class Film {
     @ForeignKey(name = "FK_LANGUAGE_FLIM")
     private Language language;
 
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
-
-
     @Column(name = "rental_duration")
     private long duration;
 
@@ -94,6 +85,14 @@ public class Film {
         this.year = year;
     }
 
+
+    public Language getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(Language language) {
+        this.language = language;
+    }
 
 
     public long getDuration() {

@@ -22,7 +22,7 @@ public class FilmActorServiceTest {
     public void getFilmById() {
         filmActorService = new FilmActorService();
         FilmActor filmActor = filmActorService.findById(5);
-        text = filmActor.getId() + " " + filmActor.getLastUpdate();
+        text = filmActor.getId() + " " + filmActor.getLastUpdate()  + " " +filmActor.getActor().getLastName() + " " +filmActor.getActor().getFirstName();
         System.out.println(text);
     }
 

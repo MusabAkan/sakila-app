@@ -9,27 +9,30 @@ import java.util.Date;
 @Entity
 public class FilmActor {
 
+
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "film_actor_id")
+    private int id;
 
     @ManyToOne
     @JoinColumn(name = "ACTOR_ID")
-    @ForeignKey(name = "FK_FILM_ACTOR_ACTOR")
+    @ForeignKey(name = "FK_FILM_ACTOR_ACTOR_2")
     private Actor actor;
 
     @ManyToOne
     @JoinColumn(name =  "FILM_ID")
-    @ForeignKey(name = "FK_FILM_ACTOR_FILM")
+    @ForeignKey(name = "FK_FILM_ACTOR_FILM_2")
     private Film filmId;
 
     @Column(name = "last_update")
     private Date lastUpdate;
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
