@@ -6,7 +6,6 @@ import com.msbkn.sakila.ui.pages.FilmListPage;
 import com.msbkn.sakila.ui.pages.LanguageListPage;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Tree;
-import com.vaadin.ui.VerticalLayout;
 
 public class Sidebar extends SkVerticalLayoutField {
     private Tree childrenListTree;
@@ -27,7 +26,6 @@ public class Sidebar extends SkVerticalLayoutField {
     public Sidebar(Content content, Header header) {
         this.content = content;
         this.header = header;
-
         builSidebarLayout();
     }
 
@@ -87,6 +85,7 @@ public class Sidebar extends SkVerticalLayoutField {
                 FilmListPage filmListPage = new FilmListPage();
                 loadFormPage(filmListPage);
             }
+
         });
     }
 

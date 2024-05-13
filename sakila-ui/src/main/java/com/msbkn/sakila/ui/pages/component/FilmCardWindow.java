@@ -13,7 +13,7 @@ public class FilmCardWindow extends SkWindowField {
     SkTextField durationTextField;
     SkTextField rateTextField;
     SkTextField lengthTextField;
-    StRatingCombobox ratingCombobox;
+
     SkTextField costTextField;
 
     SkSaveButtonField saveButtonField;
