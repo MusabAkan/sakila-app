@@ -25,7 +25,7 @@ public class FilmServiceTest {
 
     private void writter(Film film) {
 
-        text =film.getLanguage().getName();
+        text = film.getLanguageName();
     }
 
     @Test
@@ -39,4 +39,5 @@ public class FilmServiceTest {
         }
 
     }
+
 }

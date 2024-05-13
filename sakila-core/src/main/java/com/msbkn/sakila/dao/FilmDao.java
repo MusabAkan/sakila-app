@@ -3,6 +3,7 @@ package com.msbkn.sakila.dao;
 import com.msbkn.sakila.common.HibernateUtil;
 import com.msbkn.sakila.domain.Film;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -28,4 +29,6 @@ public class FilmDao {
         Criteria criteria = session.createCriteria(Film.class);
         return criteria.list();
     }
+
+
 }

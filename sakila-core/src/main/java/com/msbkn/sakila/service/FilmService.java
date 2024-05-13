@@ -7,6 +7,7 @@ import java.util.List;
 
 public class FilmService {
     FilmDao filmDao = new FilmDao();
+
     public void saveFilm(Film film) {
         filmDao.saveFilm(film);
     }
@@ -14,7 +15,10 @@ public class FilmService {
     public Film findById(long id) {
         return filmDao.findById(id);
     }
+
     public List<Film> findAll() {
         return filmDao.findAll();
     }
 }
+
+

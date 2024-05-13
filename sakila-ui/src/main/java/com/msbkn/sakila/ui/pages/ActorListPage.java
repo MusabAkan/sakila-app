@@ -22,12 +22,8 @@ public class ActorListPage extends SkVerticalLayoutField {
     private SkFormLayoutField filterLayoutField;
 
 
-
     public ActorListPage() {
-        setSizeFull();
-
         verticalLayoutField = new SkVerticalLayoutField();
-        verticalLayoutField.setSizeFull();
 
         builFilterPanel();
         verticalLayoutField.addComponent(filterLayoutField);
@@ -39,13 +35,12 @@ public class ActorListPage extends SkVerticalLayoutField {
 
         verticalLayoutField.setExpandRatio(filterLayoutField, 0.2f);
         verticalLayoutField.setExpandRatio(tableData, 0.8f);
-
     }
 
     private void builFilterPanel() {
         filterLayoutField = new SkFormLayoutField();
 
-        SkTextField  nameFilterField = new SkTextField();
+        SkTextField nameFilterField = new SkTextField();
         nameFilterField.setCaption("Adı Ara..");
         nameFilterField.addTextChangeListener(event -> {
             String searchIdField = event.getText();
@@ -77,7 +72,6 @@ public class ActorListPage extends SkVerticalLayoutField {
 
         doubleClickGetItem();
 
-
         fillData();
     }
 
@@ -102,7 +96,7 @@ public class ActorListPage extends SkVerticalLayoutField {
 
         Object result = actorService.findAll();
 
-        if (result == null) return;
+        if (result == null && result  instanceof  List) return;
 
         List<Actor> actors = (List<Actor>) result;
 
@@ -115,16 +109,13 @@ public class ActorListPage extends SkVerticalLayoutField {
         tableData.addItem(actor);
 
         String firstNameField = actor.getFirstName();
-        tableData.getContainerProperty(actor, nameStr)
-                .setValue(firstNameField);
+        tableData.getContainerProperty(actor, nameStr).setValue(firstNameField);
 
         String lastNameField = actor.getLastName();
-        tableData.getContainerProperty(actor, lastNameStr)
-                .setValue(lastNameField);
+        tableData.getContainerProperty(actor, lastNameStr).setValue(lastNameField);
 
         String birthDateField = actor.toString();
-        tableData.getContainerProperty(actor, birthDateStr)
-                .setValue(birthDateField);
+        tableData.getContainerProperty(actor, birthDateStr).setValue(birthDateField);
 
     }
 

@@ -4,12 +4,11 @@ import com.msbkn.sakila.domain.Language;
 import com.msbkn.sakila.ui.common.components.*;
 import com.vaadin.ui.FormLayout;
 
-import com.vaadin.ui.*;
-
-public class LanguageCardWindow extends Window {
-    SkLabelField idTextField;;
+public class LanguageCardWindow extends SkWindowField {
+    SkLabelField idTextField;
     SkTextField languageNameTextField;
     SkSaveButtonField saveButtonField;
+    SkVerticalLayoutField verticalLayout;
 
     public LanguageCardWindow() {
         buildWindow();
@@ -32,10 +31,7 @@ public class LanguageCardWindow extends Window {
 
 
     private void buildWindow() {
-        SkVerticalLayoutField verticalLayout = new SkVerticalLayoutField();
-        setModal(true);
-        setWidth("30%");
-        setWidth("35%");
+         verticalLayout = new SkVerticalLayoutField();
 
         FormLayout formLayout = new FormLayout();
         verticalLayout.addComponent(formLayout);

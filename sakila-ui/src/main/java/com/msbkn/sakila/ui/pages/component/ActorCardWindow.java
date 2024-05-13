@@ -4,9 +4,7 @@ import com.msbkn.sakila.domain.Actor;
 import com.msbkn.sakila.ui.common.components.*;
 import com.vaadin.ui.*;
 
-import java.text.Format;
-
-public class ActorCardWindow extends Window {
+public class ActorCardWindow extends SkWindowField {
     SkLabelField idTextField;
     SkTextField nameTextField;
     SkTextField lastNameTextField;
@@ -27,21 +25,16 @@ public class ActorCardWindow extends Window {
         String idField = actor.getId().toString();
         idTextField.setValue(idField);
 
-        String lastNameField = actor.getLastName().toString();
-        lastNameTextField.setValue(lastNameField);
-
-        String nameField = actor.getFirstName().toString();
+        String nameField = actor.getFirstName();
         nameTextField.setValue(nameField);
 
+        String lastNameField = actor.getLastName();
+        lastNameTextField.setValue(lastNameField);
     }
 
 
     private void buildWindow() {
         SkVerticalLayoutField verticalLayout = new SkVerticalLayoutField();
-
-        setModal(true);
-        setWidth("30%");
-        setWidth("35%");
 
         FormLayout formLayout = new FormLayout();
         verticalLayout.addComponent(formLayout);

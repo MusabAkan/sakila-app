@@ -21,12 +21,7 @@ public class LanguageListPage extends SkVerticalLayoutField {
 
 
     public LanguageListPage() {
-
-        setSizeFull();
-
         verticalLayoutField = new SkVerticalLayoutField();
-        verticalLayoutField.setSizeFull();
-        verticalLayoutField.setMargin(true);
 
         builFilterPanel();
         verticalLayoutField.addComponent(filterLayoutField);
@@ -36,10 +31,8 @@ public class LanguageListPage extends SkVerticalLayoutField {
 
         addComponent(verticalLayoutField);
 
-
         verticalLayoutField.setExpandRatio(filterLayoutField, 0.2f);
         verticalLayoutField.setExpandRatio(tableData, 0.8f);
-
 
     }
 
@@ -69,8 +62,6 @@ public class LanguageListPage extends SkVerticalLayoutField {
         fillData();
 
         doubleClickSelectItem();
-
-
     }
 
     private void doubleClickSelectItem() {
@@ -107,13 +98,11 @@ public class LanguageListPage extends SkVerticalLayoutField {
         tableData.addItem(language);
 
         String languageNameField = language.getName();
-        tableData.getContainerProperty(language, languageNameStr)
-                .setValue(languageNameField);
+        tableData.getContainerProperty(language, languageNameStr).setValue(languageNameField);
 
 
         String creationDateeField = language.toString();
-        tableData.getContainerProperty(language, creationDateStr)
-                .setValue(creationDateeField);
+        tableData.getContainerProperty(language, creationDateStr).setValue(creationDateeField);
 
     }
 

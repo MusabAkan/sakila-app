@@ -75,6 +75,10 @@ public class Film {
         return description;
     }
 
+    public String getDescription25Limt() {
+        return description.substring(0,25) + "...";
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -88,8 +92,9 @@ public class Film {
     }
 
 
-    public Language getLanguage() {
-        return language;
+
+    public  String getLanguageName(){
+        return  language.getName();
     }
 
     public void setLanguage(Language language) {
@@ -152,6 +157,7 @@ public class Film {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
     @Override
     public String toString() {
         Format formatDate = new SimpleDateFormat("dd.MM.yyyy");

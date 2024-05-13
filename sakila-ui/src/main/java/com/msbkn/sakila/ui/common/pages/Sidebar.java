@@ -1,13 +1,14 @@
 package com.msbkn.sakila.ui.common.pages;
 
+import com.msbkn.sakila.ui.common.components.SkVerticalLayoutField;
 import com.msbkn.sakila.ui.pages.ActorListPage;
+import com.msbkn.sakila.ui.pages.FilmListPage;
 import com.msbkn.sakila.ui.pages.LanguageListPage;
-import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Tree;
 import com.vaadin.ui.VerticalLayout;
 
-public class Sidebar extends VerticalLayout {
+public class Sidebar extends SkVerticalLayoutField {
     private Tree childrenListTree;
     private Content content;
     private Header header;
@@ -26,9 +27,7 @@ public class Sidebar extends VerticalLayout {
     public Sidebar(Content content, Header header) {
         this.content = content;
         this.header = header;
-        setMargin(true);
-        setSpacing(true);
-        setSizeFull();
+
         builSidebarLayout();
     }
 
@@ -74,17 +73,25 @@ public class Sidebar extends VerticalLayout {
 
             String selectedItemChildren = event.getItemId().toString();
 
-            if (selectedItemChildren.equals(actorListStr)) {
+            if (isItemEqual(selectedItemChildren, actorListStr)) {
                 ActorListPage actorListPage = new ActorListPage();
                 loadFormPage(actorListPage);
             }
 
-            if(selectedItemChildren.equals(languageListStr)){
+            if (isItemEqual(selectedItemChildren, languageListStr)) {
                 LanguageListPage languageListPage = new LanguageListPage();
                 loadFormPage(languageListPage);
             }
 
+            if (isItemEqual(selectedItemChildren, flimListStr)) {
+                FilmListPage filmListPage = new FilmListPage();
+                loadFormPage(filmListPage);
+            }
         });
+    }
+
+    private boolean isItemEqual(String searchField, String searchedField) {
+        return searchField.equals(searchedField);
     }
 
     private void loadFormPage(Component page) {
