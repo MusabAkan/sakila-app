@@ -38,6 +38,19 @@ public class FilmServiceTest {
             System.out.println(text);
         }
 
+
+    }
+
+
+    @Test
+    public void findRatingList() {
+
+        filmService = new FilmService();
+        List<String> strings = filmService.findRatingList();
+        for (String string : strings) {
+            System.out.println(string);
+        }
+
     }
 
 }

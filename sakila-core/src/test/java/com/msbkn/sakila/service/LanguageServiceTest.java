@@ -33,6 +33,15 @@ public class LanguageServiceTest {
             text = language.getId() + " " + language.getName() + " "   + language.getLastUpdate();
             System.out.println(text);
         }
+    }
+
+    @Test
+    public  void  getLanguageList(){
+        languageService = new LanguageService();
+        List<String> languages = languageService.findLanguageList();
+        for (String language : languages) {
+            System.out.println(language);
+        }
 
     }
 

@@ -22,7 +22,7 @@ public class MyUI extends UI {
         Header header = new Header();
         layoutField.addComponent(header);
 
-        Body body = new Body(header);
+        Body body = new Body();
         layoutField.addComponent(body);
 
         Footer footer = new Footer();

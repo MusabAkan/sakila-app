@@ -23,9 +23,8 @@ public class Sidebar extends SkVerticalLayoutField {
     private String languageListStr = "Dil Listele";
 
 
-    public Sidebar(Content content, Header header) {
+    public Sidebar(Content content) {
         this.content = content;
-        this.header = header;
         builSidebarLayout();
     }
 
@@ -71,17 +70,17 @@ public class Sidebar extends SkVerticalLayoutField {
 
             String selectedItemChildren = event.getItemId().toString();
 
-            if (isItemEqual(selectedItemChildren, actorListStr)) {
+            if (isEqual(selectedItemChildren, actorListStr)) {
                 ActorListPage actorListPage = new ActorListPage();
                 loadFormPage(actorListPage);
             }
 
-            if (isItemEqual(selectedItemChildren, languageListStr)) {
+            if (isEqual(selectedItemChildren, languageListStr)) {
                 LanguageListPage languageListPage = new LanguageListPage();
                 loadFormPage(languageListPage);
             }
 
-            if (isItemEqual(selectedItemChildren, flimListStr)) {
+            if (isEqual(selectedItemChildren, flimListStr)) {
                 FilmListPage filmListPage = new FilmListPage();
                 loadFormPage(filmListPage);
             }
@@ -89,7 +88,7 @@ public class Sidebar extends SkVerticalLayoutField {
         });
     }
 
-    private boolean isItemEqual(String searchField, String searchedField) {
+    private boolean isEqual(String searchField, String searchedField) {
         return searchField.equals(searchedField);
     }
 

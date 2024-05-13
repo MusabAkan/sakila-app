@@ -33,13 +33,12 @@ public class LanguageCardWindow extends SkWindowField {
     private void buildWindow() {
          verticalLayout = new SkVerticalLayoutField();
 
-        FormLayout formLayout = new FormLayout();
+        SkFormLayoutField formLayout = new SkFormLayoutField();
         verticalLayout.addComponent(formLayout);
 
         idTextField = new SkLabelField();
         idTextField.setCaption("Id :");
         formLayout.addComponent(idTextField);
-
 
         languageNameTextField = new SkTextField();
         languageNameTextField.setCaption("Dilin Adı :");

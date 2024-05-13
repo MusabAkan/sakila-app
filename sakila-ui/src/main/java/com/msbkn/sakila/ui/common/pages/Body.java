@@ -8,14 +8,14 @@ public class Body extends SkHorizontalLayoutField {
     private Sidebar sidebar;
     private Header header;
 
-    public Body(Header header) {
+    public Body() {
         this.header = header;
         buidContentLayout();
     }
 
     private void buidContentLayout() {
         content = new Content();
-        sidebar = new Sidebar(content, header);
+        sidebar = new Sidebar(content);
 
         addComponent(sidebar);
         addComponent(content);

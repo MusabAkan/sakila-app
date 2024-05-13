@@ -19,6 +19,10 @@ public class FilmService {
     public List<Film> findAll() {
         return filmDao.findAll();
     }
+
+    public  List<String> findRatingList(){
+        return filmDao.findRatingList();
+    }
 }
 
 

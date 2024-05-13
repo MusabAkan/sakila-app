@@ -36,7 +36,7 @@ public class ActorCardWindow extends SkWindowField {
     private void buildWindow() {
         SkVerticalLayoutField verticalLayout = new SkVerticalLayoutField();
 
-        FormLayout formLayout = new FormLayout();
+        SkFormLayoutField formLayout = new SkFormLayoutField();
         verticalLayout.addComponent(formLayout);
 
         idTextField = new SkLabelField();

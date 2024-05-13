@@ -5,7 +5,6 @@ import com.msbkn.sakila.service.LanguageService;
 import com.msbkn.sakila.ui.*;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.component.*;
-import com.vaadin.ui.Table;
 
 import java.util.List;
 

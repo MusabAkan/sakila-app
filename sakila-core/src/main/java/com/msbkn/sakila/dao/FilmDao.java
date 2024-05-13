@@ -31,4 +31,11 @@ public class FilmDao {
     }
 
 
+    public List<String> findRatingList() {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        String sqlQuery = "select DISTINCT( rating) as rating from sakila.film";
+        Query query = session.createSQLQuery(sqlQuery);
+        return query.list();
+    }
+
 }
