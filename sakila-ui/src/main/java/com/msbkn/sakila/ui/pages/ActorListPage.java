@@ -85,6 +85,7 @@ public class ActorListPage extends SkVerticalLayoutField {
                 ActorCardWindow actorCardWindow = new ActorCardWindow(selectActor);
                 MyUI.getCurrent().addWindow(actorCardWindow);
 
+                fillData();
             }
         });
     }
@@ -92,6 +93,7 @@ public class ActorListPage extends SkVerticalLayoutField {
 
     private void fillData() {
         actorService = new ActorService();
+        tableData.removeAllItems();
 
         Object result = actorService.findAll();
 

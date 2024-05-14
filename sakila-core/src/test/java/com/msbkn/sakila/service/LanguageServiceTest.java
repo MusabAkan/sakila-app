@@ -1,7 +1,7 @@
 package com.msbkn.sakila.service;
 
 import com.msbkn.sakila.domain.Language;
-import org.junit.Test;
+import org.junit.*;
 
 import java.util.Date;
 import java.util.List;
@@ -35,14 +35,6 @@ public class LanguageServiceTest {
         }
     }
 
-    @Test
-    public  void  getLanguageList(){
-        languageService = new LanguageService();
-        List<String> languages = languageService.findLanguageList();
-        for (String language : languages) {
-            System.out.println(language);
-        }
 
-    }
 
 }

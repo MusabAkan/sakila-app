@@ -5,7 +5,12 @@ import com.vaadin.data.util.filter.Like;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Table;
 
-public class SkFormLayoutField  extends FormLayout {
+public class SkFormLayoutField extends FormLayout {
+
+    public SkFormLayoutField() {
+        setMargin(true);
+        setSpacing(true);
+    }
 
     public void filterSearch(String filterString, String columnName, Table table) {
 
@@ -13,5 +18,6 @@ public class SkFormLayoutField  extends FormLayout {
         filter.removeAllContainerFilters();
         if (filterString.length() > 0)
             filter.addContainerFilter(new Like(columnName, "%" + filterString + "%"));
+        ;
     }
 }

@@ -4,6 +4,7 @@ import com.msbkn.sakila.domain.Film;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Set;
 
 public class FilmServiceTest {
 
@@ -51,6 +52,15 @@ public class FilmServiceTest {
             System.out.println(string);
         }
 
+    }
+
+    @Test
+    public void findFilmByTitle() {
+        filmService = new FilmService();
+        Set<String> strings = filmService.findFeatureList();
+        for (String string : strings) {
+            System.out.println(string);
+        }
     }
 
 }

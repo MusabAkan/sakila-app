@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table(name = "language")
@@ -57,4 +58,16 @@ public class Language   {
         return formatDate.format(lastUpdate);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Language language = (Language) o;
+        return id == language.id && Objects.equals(name, language.name) && Objects.equals(lastUpdate, language.lastUpdate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, lastUpdate);
+    }
 }

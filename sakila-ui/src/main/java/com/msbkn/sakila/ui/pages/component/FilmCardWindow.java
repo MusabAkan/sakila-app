@@ -1,25 +1,27 @@
 package com.msbkn.sakila.ui.pages.component;
 
 import com.msbkn.sakila.domain.Film;
-import com.msbkn.sakila.service.FilmService;
-import com.msbkn.sakila.service.LanguageService;
+import com.msbkn.sakila.domain.Language;
 import com.msbkn.sakila.ui.common.components.*;
-import com.vaadin.ui.RichTextArea;
-import com.vaadin.ui.TextArea;
 
+import java.text.Format;
 import java.util.List;
+import java.util.Set;
 
 public class FilmCardWindow extends SkWindowField {
-    SkLabelField idLabelField;
-    SkTextField titleTextField;
-    SkTextAreaField descriptionTextField;
-    SkTextField yearTextField;
-    SkTextField durationTextField;
-    SkTextField rateTextField;
-    SkTextField lengthTextField;
-    SkTextField costTextField;
-    SkComboboxField ratingComboboxField;
-    SkComboboxField languageComboboxField;
+    private Film selectFilmField;
+
+    private SkLabelField idLabelField;
+    private SkTextField titleTextField;
+    private SkTextAreaField descriptionTextField;
+    private SkTextField yearTextField;
+    private SkTextField durationTextField;
+    private SkTextField rateTextField;
+    private SkTextField lengthTextField;
+    private SkTextField costTextField;
+    private RatingComboboxField ratingComboboxField;
+    private LanguageComboboxField languageComboboxField;
+    private FeatureOptionField featureOptionField;
 
 
     SkSaveButtonField saveButtonField;
@@ -36,12 +38,22 @@ public class FilmCardWindow extends SkWindowField {
 
     private void fillWindowByFilm(Film film) {
 
+        selectFilmField = film;
 
         String idField = String.valueOf(film.getId());
         idLabelField.setValue(idField);
 
+        Language language = film.getLanguage();
+        languageComboboxField.setValue(language);
+
+
+        String ratingField = String.valueOf(film.getRating());
+        ratingComboboxField.setValue(ratingField);
+
         String titleField = film.getTitle();
         titleTextField.setValue(titleField);
+
+        getFeatureField(film.getFeatureList());
 
         String yearField = String.valueOf(film.getYear());
         yearTextField.setValue(yearField);
@@ -60,10 +72,7 @@ public class FilmCardWindow extends SkWindowField {
 
         String costField = String.valueOf(film.getCost());
         costTextField.setValue(costField);
-
-
     }
-
 
     private void buildWindow() {
         verticalLayout = new SkVerticalLayoutField();
@@ -83,19 +92,25 @@ public class FilmCardWindow extends SkWindowField {
         titleTextField.setCaption("Başlık :");
         formLayout.addComponent(titleTextField);
 
-        buildLanguageCombobox();
+        languageComboboxField = new LanguageComboboxField();
+        languageComboboxField.setCaption("Dil :");
         formLayout.addComponent(languageComboboxField);
 
         descriptionTextField = new SkTextAreaField();
         descriptionTextField.setCaption("Açıklama:");
         formLayout.addComponent(descriptionTextField);
 
+        ratingComboboxField = new RatingComboboxField();
+        ratingComboboxField.setCaption("Değerlendirme : ");
+        formLayout.addComponent(ratingComboboxField);
+
+        featureOptionField = new FeatureOptionField();
+        featureOptionField.setCaption("Özellikler : ");
+        formLayout.addComponent(featureOptionField);
+
         durationTextField = new SkTextField();
         durationTextField.setCaption("Süre : ");
         formLayout.addComponent(durationTextField);
-
-        buildRatingCombobox();
-        formLayout.addComponent(ratingComboboxField);
 
         yearTextField = new SkTextField();
         yearTextField.setCaption("Yıl : ");
@@ -116,23 +131,81 @@ public class FilmCardWindow extends SkWindowField {
 
         saveButtonField = new SkSaveButtonField();
         formLayout.addComponent(saveButtonField);
+        saveFilmField();
 
         setContent(verticalLayout);
 
 
     }
 
-    private void buildRatingCombobox() {
-        FilmService filmService = new FilmService();
-        List<String> ratingList = filmService.findRatingList();
-        ratingComboboxField = new SkComboboxField(ratingList);
-        ratingComboboxField.setCaption("Değerlendirme : ");
+    private void saveFilmField() {
+        saveButtonField.addClickListener(clickEvent -> {
+            Film film = new Film();
+
+            String idField = String.valueOf(idLabelField.getValue());
+            film.setId(Long.valueOf(idField));
+
+            String titleField = titleTextField.getValue();
+            film.setTitle(titleField);
+
+            String descriptionField = descriptionTextField.getValue();
+            film.setDescription(descriptionField);
+
+            String durationField = durationTextField.getValue();
+            film.setDuration(Integer.parseInt(durationField));
+
+            String rateField = rateTextField.getValue();
+            film.setRate(Double.parseDouble(rateField));
+
+            String lengthField = lengthTextField.getValue();
+            film.setLength(Long.parseLong(lengthField));
+
+            String costField = costTextField.getValue();
+            film.setCost(Double.parseDouble(costField));
+
+            String yearField = yearTextField.getValue();
+            film.setYear(Integer.parseInt(yearField));
+
+            Set<String> optionsFieldValue = (Set<String>) featureOptionField.getValue();
+            film.setFeatures(setFeatureField(optionsFieldValue));
+
+            Language languageField = (Language) languageComboboxField.getValue();
+            film.setLanguage(languageField);
+
+            String ratingField = ratingComboboxField.getValue().toString();
+            film.setRating(ratingField);
+
+            if (selectFilmField == null) {
+
+            } else {
+
+            }
+
+
+        });
     }
 
-    private void buildLanguageCombobox() {
-        LanguageService languageService = new LanguageService();
-        List<String> languageList = languageService.findLanguageList();
-        languageComboboxField = new SkComboboxField(languageList);
-        languageComboboxField. setCaption("Dil :");
+    private void getFeatureField(String[] features) {
+
+        for (String feature : features) {
+            featureOptionField.select(feature);
+        }
+
     }
+
+    private String setFeatureField(Set<String> features) {
+
+        int size = features.size();
+        if (size == 0) return "";
+
+        String text = "";
+        for (String feature : features) {
+            text += feature + ",";
+        }
+        int endIndex = text.length() - 1;
+        text = text.substring(0, endIndex);
+        return text;
+    }
+
+
 }

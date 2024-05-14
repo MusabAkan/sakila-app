@@ -20,7 +20,5 @@ public class LanguageService {
     public List<Language> findAll() {
         return languageDao.findAll();
     }
-    public List<String> findLanguageList(){
-        return  languageDao.findLanguageList();
-    }
+
 }

@@ -4,6 +4,7 @@ import com.msbkn.sakila.dao.FilmDao;
 import com.msbkn.sakila.domain.Film;
 
 import java.util.List;
+import java.util.Set;
 
 public class FilmService {
     FilmDao filmDao = new FilmDao();
@@ -22,6 +23,9 @@ public class FilmService {
 
     public  List<String> findRatingList(){
         return filmDao.findRatingList();
+    }
+    public Set<String> findFeatureList(){
+        return  filmDao.findFeatureList();
     }
 }
 

@@ -96,6 +96,7 @@ public class FilmListPage extends SkVerticalLayoutField {
                FilmCardWindow FilmCardWindow = new FilmCardWindow(selectFilm);
                MyUI.getCurrent().addWindow(FilmCardWindow);
 
+               fillData();
             }
         });
     }
@@ -103,6 +104,7 @@ public class FilmListPage extends SkVerticalLayoutField {
 
     private void fillData() {
         filmService = new FilmService();
+        tableData.removeAllItems();
 
         Object result = filmService.findAll();
 

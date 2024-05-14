@@ -71,6 +71,8 @@ public class LanguageListPage extends SkVerticalLayoutField {
                 LanguageCardWindow languageCardWindow = new LanguageCardWindow(selectItemField);
                 MyUI.getCurrent().addWindow(languageCardWindow);
 
+                fillData();
+
             }
         });
     }
@@ -78,6 +80,7 @@ public class LanguageListPage extends SkVerticalLayoutField {
 
     private void fillData() {
         languageService = new LanguageService();
+        tableData.removeAllItems();
 
         Object result = languageService.findAll();
 
@@ -95,7 +98,6 @@ public class LanguageListPage extends SkVerticalLayoutField {
 
         String languageNameField = language.getName();
         tableData.getContainerProperty(language, languageNameStr).setValue(languageNameField);
-
 
         String creationDateeField = language.toString();
         tableData.getContainerProperty(language, creationDateStr).setValue(creationDateeField);

@@ -4,6 +4,7 @@ import org.hibernate.annotations.ForeignKey;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Table(name = "film_actor")
 @Entity
@@ -58,5 +59,18 @@ public class FilmActor   {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FilmActor filmActor = (FilmActor) o;
+        return id == filmActor.id && Objects.equals(actor, filmActor.actor) && Objects.equals(filmId, filmActor.filmId) && Objects.equals(lastUpdate, filmActor.lastUpdate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, actor, filmId, lastUpdate);
     }
 }

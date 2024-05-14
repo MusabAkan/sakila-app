@@ -30,10 +30,4 @@ public class LanguageDao {
     }
 
 
-    public List<String> findLanguageList() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        String sqlQuery = "select distinct(name) from sakila.language";
-        Query query = session.createSQLQuery(sqlQuery);
-        return query.list();
-    }
 }
