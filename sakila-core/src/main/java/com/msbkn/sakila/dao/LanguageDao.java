@@ -3,7 +3,6 @@ package com.msbkn.sakila.dao;
 import com.msbkn.sakila.common.HibernateUtil;
 import com.msbkn.sakila.domain.Language;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 
 import java.util.List;
@@ -14,6 +13,13 @@ public class LanguageDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.save(language);
+        session.getTransaction().commit();
+    }
+
+    public  void updateLanguage(Language language) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(language);
         session.getTransaction().commit();
     }
 
@@ -30,4 +36,10 @@ public class LanguageDao {
     }
 
 
+    public void deleteLanguage(Language language) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.delete(language);
+        session.getTransaction().commit();
+    }
 }

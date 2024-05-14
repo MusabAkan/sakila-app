@@ -1,11 +1,16 @@
 package com.msbkn.sakila.ui.common.pages;
 
+import com.msbkn.sakila.ui.MyUI;
 import com.msbkn.sakila.ui.common.components.SkVerticalLayoutField;
 import com.msbkn.sakila.ui.pages.ActorListPage;
 import com.msbkn.sakila.ui.pages.FilmListPage;
 import com.msbkn.sakila.ui.pages.LanguageListPage;
+import com.msbkn.sakila.ui.pages.component.FilmCardWindow;
+import com.msbkn.sakila.ui.pages.component.LanguageCardWindow;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Tree;
+
+import java.awt.*;
 
 public class Sidebar extends SkVerticalLayoutField {
     private Tree childrenListTree;
@@ -29,7 +34,6 @@ public class Sidebar extends SkVerticalLayoutField {
     }
 
     private void builSidebarLayout() {
-
         childrenListTree = new Tree();
 
         childrenListTree.addItem(flimOperationStr);
@@ -42,7 +46,6 @@ public class Sidebar extends SkVerticalLayoutField {
         childrenListTree.addItem(languageAddStr);
         childrenListTree.addItem(languageListStr);
 
-
         childrenListTree.setParent(flimListStr, flimOperationStr);
         childrenListTree.setParent(flimAddStr, flimOperationStr);
         childrenListTree.setParent(languageListStr, languageOperationStr);
@@ -50,15 +53,12 @@ public class Sidebar extends SkVerticalLayoutField {
         childrenListTree.setParent(actorListStr, actorOperationStr);
         childrenListTree.setParent(actorAddStr, actorOperationStr);
 
-
-        //areChildrenAllowed = parentes başka var mı ?
         childrenListTree.setChildrenAllowed(languageAddStr, false);
         childrenListTree.setChildrenAllowed(languageListStr, false);
         childrenListTree.setChildrenAllowed(actorAddStr, false);
         childrenListTree.setChildrenAllowed(actorListStr, false);
         childrenListTree.setChildrenAllowed(flimListStr, false);
         childrenListTree.setChildrenAllowed(flimAddStr, false);
-
 
         selectedChildrenList();
 
@@ -76,8 +76,7 @@ public class Sidebar extends SkVerticalLayoutField {
             }
 
             if (isEqual(selectedItemChildren, languageListStr)) {
-                LanguageListPage languageListPage = new LanguageListPage();
-                loadFormPage(languageListPage);
+                languageListPageField();
             }
 
             if (isEqual(selectedItemChildren, flimListStr)) {
@@ -85,8 +84,20 @@ public class Sidebar extends SkVerticalLayoutField {
                 loadFormPage(filmListPage);
             }
 
+            if (isEqual(selectedItemChildren, languageAddStr)) {
+                LanguageCardWindow languageCardWindow = new LanguageCardWindow();
+                MyUI.getCurrent().addWindow(languageCardWindow);
+                languageCardWindow.addCloseListener(closeEvent -> languageListPageField());
+            }
+
         });
     }
+
+    private void languageListPageField() {
+        LanguageListPage languageListPage = new LanguageListPage();
+        loadFormPage(languageListPage);
+    }
+
 
     private boolean isEqual(String searchField, String searchedField) {
         return searchField.equals(searchedField);

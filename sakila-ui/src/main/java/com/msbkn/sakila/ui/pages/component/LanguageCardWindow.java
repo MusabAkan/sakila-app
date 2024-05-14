@@ -1,17 +1,22 @@
 package com.msbkn.sakila.ui.pages.component;
 
 import com.msbkn.sakila.domain.Language;
+import com.msbkn.sakila.service.LanguageService;
 import com.msbkn.sakila.ui.common.components.*;
-import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Notification;
+
+import java.util.Date;
 
 public class LanguageCardWindow extends SkWindowField {
-    SkLabelField idTextField;
-    SkTextField languageNameTextField;
-    SkSaveButtonField saveButtonField;
-    SkVerticalLayoutField verticalLayout;
+    private SkLabelField languageIdTextField;
+    private SkTextField languageNameTextField;
+    private SkSaveButtonField languageSaveButtonField;
+    private SkVerticalLayoutField verticalLayout;
+    private LanguageService languageService;
+    private Language selectLanguageField;
 
     public LanguageCardWindow() {
-        buildWindow();
+        buildWindowField();
     }
 
     public LanguageCardWindow(Language language) {
@@ -20,36 +25,72 @@ public class LanguageCardWindow extends SkWindowField {
     }
 
     private void fillWindowByLanguage(Language language) {
+        selectLanguageField = language;
 
         String idField = String.valueOf(language.getId());
-        idTextField.setValue(idField);
+        languageIdTextField.setValue(idField);
 
         String languageNameField = language.getName();
         languageNameTextField.setValue(languageNameField);
 
     }
 
-
-    private void buildWindow() {
-         verticalLayout = new SkVerticalLayoutField();
+    private void buildWindowField() {
+        verticalLayout = new SkVerticalLayoutField();
+        selectLanguageField = new Language();
 
         SkFormLayoutField formLayout = new SkFormLayoutField();
         verticalLayout.addComponent(formLayout);
 
-        idTextField = new SkLabelField();
-        idTextField.setCaption("Id :");
-        formLayout.addComponent(idTextField);
+        languageIdTextField = new SkLabelField();
+        languageIdTextField.setCaption("Id :");
+        formLayout.addComponent(languageIdTextField);
 
         languageNameTextField = new SkTextField();
         languageNameTextField.setCaption("Dilin Adı :");
+
         formLayout.addComponent(languageNameTextField);
 
-        saveButtonField = new SkSaveButtonField();
-        formLayout.addComponent(saveButtonField);
+        languageSaveButtonField = new SkSaveButtonField();
+        formLayout.addComponent(languageSaveButtonField);
+        buildSaveLanguageField();
 
         setContent(verticalLayout);
+    }
 
+    private void buildSaveLanguageField() {
+        languageSaveButtonField.addClickListener(clickEvent -> {
 
+            String languageNameField = languageNameTextField.getValue();
+            selectLanguageField.setName(languageNameField);
+
+            Date languageLastUpdateField = new Date();
+            selectLanguageField.setLastUpdate(languageLastUpdateField);
+
+            long languageFieldId = selectLanguageField.getId();
+
+            if (languageFieldId == 0)
+                addLanguageField();
+
+            else
+                uptadeLanguageField();
+
+            quit();
+
+        });
+    }
+
+    private void uptadeLanguageField() {
+        languageService = new LanguageService();
+        languageService.updateLanguage(selectLanguageField);
+        Notification.show("Dil Günceleme yapılmıştır. Lütfen Sayfayı yeniliyin !!");
+
+    }
+
+    private void addLanguageField() {
+        languageService = new LanguageService();
+        languageService.saveLanguage(selectLanguageField);
+        Notification.show("Dil ekleme yapılmıştır. Lütfen Sayfayı yeniliyin !!");
     }
 }
 

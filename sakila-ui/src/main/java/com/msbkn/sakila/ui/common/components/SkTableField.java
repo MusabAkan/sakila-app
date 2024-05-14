@@ -6,6 +6,7 @@ public class SkTableField  extends Table {
     public SkTableField() {
         setSizeFull();
         setSelectable(true);
+        setImmediate(true);
 
     }
 }

@@ -8,4 +8,7 @@ public class SkWindowField extends Window {
         setHeight("35%");
         setModal(true);
     }
+    public void quit() {
+        this.close();
+    }
 }

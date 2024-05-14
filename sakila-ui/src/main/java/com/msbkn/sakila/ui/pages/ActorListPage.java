@@ -84,8 +84,6 @@ public class ActorListPage extends SkVerticalLayoutField {
 
                 ActorCardWindow actorCardWindow = new ActorCardWindow(selectActor);
                 MyUI.getCurrent().addWindow(actorCardWindow);
-
-                fillData();
             }
         });
     }

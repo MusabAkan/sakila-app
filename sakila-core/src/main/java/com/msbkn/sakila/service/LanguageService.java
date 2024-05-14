@@ -13,6 +13,10 @@ public class LanguageService {
         languageDao.saveLanguage(language);
     }
 
+    public void updateLanguage(Language language) {
+        languageDao.updateLanguage(language);
+    }
+
     public Language findById(long id) {
         return languageDao.findById(id);
     }
@@ -20,5 +24,10 @@ public class LanguageService {
     public List<Language> findAll() {
         return languageDao.findAll();
     }
+
+    public void deleteLanguage(Language language) {
+        languageDao.deleteLanguage(language);
+    }
+
 
 }

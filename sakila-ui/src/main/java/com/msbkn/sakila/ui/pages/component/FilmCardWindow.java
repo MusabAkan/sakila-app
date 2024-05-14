@@ -1,11 +1,8 @@
 package com.msbkn.sakila.ui.pages.component;
 
-import com.msbkn.sakila.domain.Film;
-import com.msbkn.sakila.domain.Language;
+import com.msbkn.sakila.domain.*;
 import com.msbkn.sakila.ui.common.components.*;
 
-import java.text.Format;
-import java.util.List;
 import java.util.Set;
 
 public class FilmCardWindow extends SkWindowField {
@@ -177,7 +174,9 @@ public class FilmCardWindow extends SkWindowField {
 
             if (selectFilmField == null) {
 
-            } else {
+            }
+            else
+            {
 
             }
 

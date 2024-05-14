@@ -3,6 +3,7 @@ package com.msbkn.sakila.service;
 import com.msbkn.sakila.domain.Language;
 import org.junit.*;
 
+import javax.persistence.EntityResult;
 import java.util.Date;
 import java.util.List;
 
@@ -11,17 +12,17 @@ public class LanguageServiceTest {
     String text;
 
     @Test
-    public void save() {
+    public void saveLanguage() {
         languageService = new LanguageService();
         Language language = new Language("Japanese", new Date());
-       languageService.saveLanguage(language);
+        languageService.saveLanguage(language);
     }
 
     @Test
     public void getLanguageById() {
         languageService = new LanguageService();
         Language language = languageService.findById(5);
-        text = language.getId() + " " + language.getName() + " "   + language.getLastUpdate();
+        text = language.getId() + " " + language.getName() + " " + language.getLastUpdate();
         System.out.println(text);
     }
 
@@ -30,11 +31,27 @@ public class LanguageServiceTest {
         languageService = new LanguageService();
         List<Language> languages = languageService.findAll();
         for (Language language : languages) {
-            text = language.getId() + " " + language.getName() + " "   + language.getLastUpdate();
+            text = language.getId() + " " + language.getName() + " " + language.getLastUpdate();
             System.out.println(text);
         }
     }
 
+    @Test
+    public void updateLanguage() {
+        languageService = new LanguageService();
+        Language language = languageService.findById(10);
+        language.setLastUpdate(new Date());
+        language.setName("New Language");
+        languageService.updateLanguage(language);
+    }
+
+    @Test
+    public void deleteLanguage() {
+        languageService = new LanguageService();
+        Language language = languageService.findById(10);
+        languageService.deleteLanguage(language);
+
+    }
 
 
 }

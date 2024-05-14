@@ -87,16 +87,11 @@ public class FilmListPage extends SkVerticalLayoutField {
 
     private void doubleClickSelectItem() {
         tableData.addItemClickListener(event -> {
-
             boolean isDoubleClick = event.isDoubleClick();
-
             if (isDoubleClick) {
                 Film selectFilm = (Film) event.getItemId();
-
-               FilmCardWindow FilmCardWindow = new FilmCardWindow(selectFilm);
-               MyUI.getCurrent().addWindow(FilmCardWindow);
-
-               fillData();
+                FilmCardWindow FilmCardWindow = new FilmCardWindow(selectFilm);
+                MyUI.getCurrent().addWindow(FilmCardWindow);
             }
         });
     }
