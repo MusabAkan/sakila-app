@@ -12,5 +12,6 @@ public class SkDeleteButtonField  extends Button {
     public SkDeleteButtonField() {
         setIcon(FontAwesome.TRASH);
         setStyleName(ValoTheme.BUTTON_DANGER);
+        setHtmlContentAllowed(true);
     }
 }

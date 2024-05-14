@@ -14,7 +14,7 @@ public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "actor_id")
-    private Long id;
+    private long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -25,7 +25,7 @@ public class Actor {
     @Column(name = "last_update")
     private Date lastUpdate;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -35,6 +35,10 @@ public class Actor {
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
     }
 
     public void setFirstName(String firstName) {
@@ -68,11 +72,13 @@ public class Actor {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Actor actor = (Actor) o;
-        return Objects.equals(id, actor.id) && Objects.equals(firstName, actor.firstName) && Objects.equals(lastName, actor.lastName) && Objects.equals(lastUpdate, actor.lastUpdate);
+        return id == actor.id && Objects.equals(firstName, actor.firstName) && Objects.equals(lastName, actor.lastName) && Objects.equals(lastUpdate, actor.lastUpdate);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, lastUpdate);
     }
+
+
 }

@@ -1,18 +1,24 @@
 package com.msbkn.sakila.ui.pages.component;
 
 import com.msbkn.sakila.domain.Actor;
+import com.msbkn.sakila.service.ActorService;
 import com.msbkn.sakila.ui.common.components.*;
-import com.vaadin.ui.*;
+import com.vaadin.ui.Notification;
+
+import java.util.Date;
 
 public class ActorCardWindow extends SkWindowField {
-    SkLabelField idTextField;
-    SkTextField nameTextField;
-    SkTextField lastNameTextField;
-    SkSaveButtonField saveButtonField;
+    private SkLabelField actorIdTextField;
+    private SkTextField actorNameTextField;
+    private SkTextField actorLastNameTextField;
+    private SkSaveButtonField actorSaveButtonField;
+    private SkVerticalLayoutField verticalLayoutField;
+    private ActorService actorService;
+    private Actor selectActorField;
 
 
     public ActorCardWindow() {
-        buildWindow();
+        buildWindowField();
     }
 
     public ActorCardWindow(Actor actor) {
@@ -21,42 +27,81 @@ public class ActorCardWindow extends SkWindowField {
     }
 
     private void fillWindowByActor(Actor actor) {
+        selectActorField = actor;
 
-        String idField = actor.getId().toString();
-        idTextField.setValue(idField);
+        String idField = String.valueOf(actor.getId());
+        actorIdTextField.setValue(idField);
 
         String nameField = actor.getFirstName();
-        nameTextField.setValue(nameField);
+        actorNameTextField.setValue(nameField);
 
         String lastNameField = actor.getLastName();
-        lastNameTextField.setValue(lastNameField);
+        actorLastNameTextField.setValue(lastNameField);
     }
 
 
-    private void buildWindow() {
-        SkVerticalLayoutField verticalLayout = new SkVerticalLayoutField();
+    private void buildWindowField() {
+        verticalLayoutField = new SkVerticalLayoutField();
+        selectActorField = new Actor();
 
         SkFormLayoutField formLayout = new SkFormLayoutField();
-        verticalLayout.addComponent(formLayout);
+        verticalLayoutField.addComponent(formLayout);
 
-        idTextField = new SkLabelField();
-        idTextField.setCaption("Id :");
-        formLayout.addComponent(idTextField);
+        actorIdTextField = new SkLabelField();
+        actorIdTextField.setCaption("Id :");
+        formLayout.addComponent(actorIdTextField);
 
-        nameTextField = new SkTextField();
-        nameTextField.setCaption("Adı:");
-        formLayout.addComponent(nameTextField);
+        actorNameTextField = new SkTextField();
+        actorNameTextField.setCaption("Adı:");
+        formLayout.addComponent(actorNameTextField);
 
-        lastNameTextField = new SkTextField();
-        lastNameTextField.setCaption("Soyadı :");
-        formLayout.addComponent(lastNameTextField);
+        actorLastNameTextField = new SkTextField();
+        actorLastNameTextField.setCaption("Soyadı :");
+        formLayout.addComponent(actorLastNameTextField);
 
-        saveButtonField = new SkSaveButtonField();
-        formLayout.addComponent(saveButtonField);
+        actorSaveButtonField = new SkSaveButtonField();
+        formLayout.addComponent(actorSaveButtonField);
+        buildSaveActorField();
 
-        setContent(verticalLayout);
+        setContent(verticalLayoutField);
 
+    }
 
+    private void buildSaveActorField() {
+        actorSaveButtonField.addClickListener(clickEvent -> {
+
+            String actorNameField = actorNameTextField.getValue();
+            selectActorField.setFirstName(actorNameField);
+            
+            String actorLastNameField = actorLastNameTextField.getValue();
+            selectActorField.setLastName(actorLastNameField);
+
+            Date actorLastUpdateField = new Date();
+            selectActorField.setLastUpdate(actorLastUpdateField);
+
+            long actorFieldId = selectActorField.getId();
+
+            if (actorFieldId == 0)
+                addActorField();
+
+            else
+                uptadeActorField();
+
+            quit();
+
+        });
+    }
+
+    private void uptadeActorField() {
+        actorService = new ActorService();
+        actorService.updateActor(selectActorField);
+        Notification.show("Aktör günceleme yapılmıştır.");
+    }
+
+    private void addActorField() {
+        actorService = new ActorService();
+        actorService.saveActor(selectActorField);
+        Notification.show("Aktör ekleme yapılmıştır.");
     }
 
 

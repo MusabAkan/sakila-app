@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "language")
-public class Language   {
+public class Language {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,6 +52,7 @@ public class Language   {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
     @Override
     public String toString() {
         Format formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");

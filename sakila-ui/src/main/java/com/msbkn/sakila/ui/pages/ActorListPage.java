@@ -5,7 +5,6 @@ import com.msbkn.sakila.service.ActorService;
 import com.msbkn.sakila.ui.MyUI;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.component.*;
-import com.vaadin.ui.*;
 
 import java.util.List;
 
@@ -15,11 +14,13 @@ public class ActorListPage extends SkVerticalLayoutField {
 
     private String nameStr = "Ad";
     private String lastNameStr = "Soyad";
-    private String birthDateStr = "Oluşturma Tarihi";
+    private String creationDateStr = "Oluşturma Tarihi";
+    private String emptyStr = " ";
 
-    private SkTableField tableData;
+    private SkTableField tableDataField;
     private SkVerticalLayoutField verticalLayoutField;
     private SkFormLayoutField filterLayoutField;
+    private SkDeleteButtonField deleteButtonField;
 
 
     public ActorListPage() {
@@ -29,24 +30,22 @@ public class ActorListPage extends SkVerticalLayoutField {
         verticalLayoutField.addComponent(filterLayoutField);
 
         builTableField();
-        verticalLayoutField.addComponent(tableData);
+        verticalLayoutField.addComponent(tableDataField);
 
         addComponent(verticalLayoutField);
 
         verticalLayoutField.setExpandRatio(filterLayoutField, 0.2f);
-        verticalLayoutField.setExpandRatio(tableData, 0.8f);
-
+        verticalLayoutField.setExpandRatio(tableDataField, 0.8f);
 
     }
 
     private void builFilterPanel() {
-        filterLayoutField = new SkFormLayoutField();
-
+        filterLayoutField = new SkFormLayoutField();       
         SkTextField nameFilterField = new SkTextField();
         nameFilterField.setCaption("Adı Ara..");
         nameFilterField.addTextChangeListener(event -> {
             String searchIdField = event.getText();
-            filterLayoutField.filterSearch(searchIdField, nameStr, tableData);
+            filterLayoutField.filterSearch(searchIdField, nameStr, tableDataField);
         });
 
         filterLayoutField.addComponents(nameFilterField);
@@ -55,7 +54,7 @@ public class ActorListPage extends SkVerticalLayoutField {
         lastFilterField.setCaption("Soyadı Ara...");
         lastFilterField.addTextChangeListener(event -> {
             String searchNameField = event.getText();
-            filterLayoutField.filterSearch(searchNameField, nameStr, tableData);
+            filterLayoutField.filterSearch(searchNameField, nameStr, tableDataField);
         });
 
         filterLayoutField.addComponent(lastFilterField);
@@ -63,58 +62,81 @@ public class ActorListPage extends SkVerticalLayoutField {
     }
 
     private void builTableField() {
-        tableData = new SkTableField();
-
-        tableData.addContainerProperty(nameStr, String.class, null);
-        tableData.addContainerProperty(lastNameStr, String.class, null);
-        tableData.addContainerProperty(birthDateStr, String.class, null);
-
+        tableDataField = new SkTableField();
+        tableDataField.addContainerProperty(emptyStr, SkDeleteButtonField.class, null);
+        tableDataField.addContainerProperty(nameStr, String.class, null);
+        tableDataField.addContainerProperty(lastNameStr, String.class, null);
+        tableDataField.addContainerProperty(creationDateStr, String.class, null);
+        fillDataField();
         doubleClickGetItem();
-
-        fillData();
     }
 
     private void doubleClickGetItem() {
-        tableData.addItemClickListener(event -> {
-
+        tableDataField.addItemClickListener(event -> {
             boolean isDoubleClick = event.isDoubleClick();
-
             if (isDoubleClick) {
                 Actor selectActor = (Actor) event.getItemId();
-
                 ActorCardWindow actorCardWindow = new ActorCardWindow(selectActor);
                 MyUI.getCurrent().addWindow(actorCardWindow);
+                actorCardWindow.addCloseListener(closeEvent -> fillDataField());
             }
         });
     }
 
 
-    private void fillData() {
+    private void fillDataField() {
         actorService = new ActorService();
-        tableData.removeAllItems();
+        tableDataField.removeAllItems();
 
         Object result = actorService.findAll();
 
-        if (result == null && result  instanceof  List) return;
+        if (result == null && result instanceof List) return;
 
         List<Actor> actors = (List<Actor>) result;
 
         for (Actor actor : actors) {
-            addItemToGrid(actor);
+            addItemToTable(actor);
         }
     }
 
-    private void addItemToGrid(Actor actor) {
-        tableData.addItem(actor);
+    private void actorDeleteField(Actor actor) {
+        ActorService actorService = new ActorService();
+        String question = actor.getFullName() + " seçili Aktör silmek istediğinizden emin misiniz?";
+
+        DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
+        MyUI.getCurrent().addWindow(dialogCardWinddow);
+
+        dialogCardWinddow.addCloseListener(closeEvent -> {
+            boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
+            if (dialogCardWinddowResult) {
+                actorService.deleteActor(actor);
+                fillDataField();
+            }
+        });
+    }
+
+
+    private void addItemToTable(Actor actor) {
+        tableDataField.addItem(actor);
 
         String firstNameField = actor.getFirstName();
-        tableData.getContainerProperty(actor, nameStr).setValue(firstNameField);
+        tableDataField.getContainerProperty(actor, nameStr).setValue(firstNameField);
 
         String lastNameField = actor.getLastName();
-        tableData.getContainerProperty(actor, lastNameStr).setValue(lastNameField);
+        tableDataField.getContainerProperty(actor, lastNameStr).setValue(lastNameField);
 
-        String birthDateField = actor.toString();
-        tableData.getContainerProperty(actor, birthDateStr).setValue(birthDateField);
+        String creationDateField = actor.toString();
+        tableDataField.getContainerProperty(actor, creationDateStr).setValue(creationDateField);
+
+        deleteButtonField = new SkDeleteButtonField();
+        deleteButtonField.setData(actor);
+
+        tableDataField.getContainerProperty(actor, emptyStr).setValue(deleteButtonField);
+
+        deleteButtonField.addClickListener(event -> {
+            Actor selectActorField = (Actor) event.getButton().getData();
+            actorDeleteField(selectActorField);
+        });
 
     }
 

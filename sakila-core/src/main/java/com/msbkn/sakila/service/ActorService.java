@@ -15,7 +15,16 @@ public class ActorService {
     public Actor findById(long id) {
         return actorDao.findById(id);
     }
+
     public List<Actor> findAll() {
         return actorDao.findAll();
+    }
+
+    public void deleteActor(Actor actor) {
+        actorDao.deleteActor(actor);
+    }
+
+    public void updateActor(Actor actor) {
+        actorDao.updateActor(actor);
     }
 }

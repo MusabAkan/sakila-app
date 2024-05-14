@@ -39,6 +39,24 @@ public class ActorServiceTest {
             text += " Tarih : " + actor.getLastUpdate();
             System.out.println(text);
         }
+    }
+    @Test
+    public void deleteActor() {
+        actorService = new ActorService();
+        Actor actor = actorService.findById(999);
+        actorService.deleteActor(actor);
+    }
+
+    @Test
+    public void updateActor() {
+        actorService = new ActorService();
+        Actor actor = actorService.findById(999);
+        actor.setFirstName("Musab");
+        actor.setLastName("Akan");
+        actor.setLastUpdate(new Date(98,01,01));
+        actorService.updateActor(actor);
+
 
     }
+
 }

@@ -19,6 +19,13 @@ public class ActorDao {
         session.getTransaction().commit();
     }
 
+    public void updateActor(Actor actor) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(actor);
+        session.getTransaction().commit();
+    }
+
     public Actor findById(long id) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -30,5 +37,12 @@ public class ActorDao {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(Actor.class);
         return criteria.list();
+    }
+
+    public void deleteActor(Actor actor) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.delete(actor);
+        session.getTransaction().commit();
     }
 }

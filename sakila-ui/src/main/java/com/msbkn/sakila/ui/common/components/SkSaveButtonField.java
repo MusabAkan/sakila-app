@@ -8,5 +8,6 @@ public class SkSaveButtonField extends Button {
     public SkSaveButtonField() {
         setIcon(FontAwesome.SAVE);
         addStyleName(ValoTheme.BUTTON_FRIENDLY);
+        setHtmlContentAllowed(true);
     }
 }

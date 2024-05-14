@@ -11,7 +11,7 @@ public class LanguageCardWindow extends SkWindowField {
     private SkLabelField languageIdTextField;
     private SkTextField languageNameTextField;
     private SkSaveButtonField languageSaveButtonField;
-    private SkVerticalLayoutField verticalLayout;
+    private SkVerticalLayoutField verticalLayoutField;
     private LanguageService languageService;
     private Language selectLanguageField;
 
@@ -36,11 +36,11 @@ public class LanguageCardWindow extends SkWindowField {
     }
 
     private void buildWindowField() {
-        verticalLayout = new SkVerticalLayoutField();
+        verticalLayoutField = new SkVerticalLayoutField();
         selectLanguageField = new Language();
 
         SkFormLayoutField formLayout = new SkFormLayoutField();
-        verticalLayout.addComponent(formLayout);
+        verticalLayoutField.addComponent(formLayout);
 
         languageIdTextField = new SkLabelField();
         languageIdTextField.setCaption("Id :");
@@ -55,7 +55,7 @@ public class LanguageCardWindow extends SkWindowField {
         formLayout.addComponent(languageSaveButtonField);
         buildSaveLanguageField();
 
-        setContent(verticalLayout);
+        setContent(verticalLayoutField);
     }
 
     private void buildSaveLanguageField() {
@@ -83,14 +83,14 @@ public class LanguageCardWindow extends SkWindowField {
     private void uptadeLanguageField() {
         languageService = new LanguageService();
         languageService.updateLanguage(selectLanguageField);
-        Notification.show("Dil Günceleme yapılmıştır. Lütfen Sayfayı yeniliyin !!");
+        Notification.show("Dil günceleme yapılmıştır.");
 
     }
 
     private void addLanguageField() {
         languageService = new LanguageService();
         languageService.saveLanguage(selectLanguageField);
-        Notification.show("Dil ekleme yapılmıştır. Lütfen Sayfayı yeniliyin !!");
+        Notification.show("Dil ekleme yapılmıştır.");
     }
 }
 

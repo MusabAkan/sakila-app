@@ -5,7 +5,6 @@ import com.msbkn.sakila.service.LanguageService;
 import com.msbkn.sakila.ui.*;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.component.*;
-import com.vaadin.ui.Notification;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class LanguageListPage extends SkVerticalLayoutField {
     private String creationDateStr = "Oluşturma Tarihi";
     private String emptyStr = " ";
 
-    private SkTableField tableData;
+    private SkTableField tableDataField;
     private SkVerticalLayoutField verticalLayoutField;
     private SkFormLayoutField filterLayoutField;
     private SkDeleteButtonField deleteButtonField;
@@ -29,12 +28,12 @@ public class LanguageListPage extends SkVerticalLayoutField {
         verticalLayoutField.addComponent(filterLayoutField);
 
         builTableField();
-        verticalLayoutField.addComponent(tableData);
+        verticalLayoutField.addComponent(tableDataField);
 
         addComponent(verticalLayoutField);
 
         verticalLayoutField.setExpandRatio(filterLayoutField, 0.2f);
-        verticalLayoutField.setExpandRatio(tableData, 0.8f);
+        verticalLayoutField.setExpandRatio(tableDataField, 0.8f);
 
     }
 
@@ -44,36 +43,36 @@ public class LanguageListPage extends SkVerticalLayoutField {
         languageNameFilterField.setCaption("Dil Adı Ara..");
         languageNameFilterField.addTextChangeListener(event -> {
             String searchIdField = event.getText();
-            filterLayoutField.filterSearch(searchIdField, languageNameStr, tableData);
+            filterLayoutField.filterSearch(searchIdField, languageNameStr, tableDataField);
         });
         filterLayoutField.addComponent(languageNameFilterField);
     }
 
     private void builTableField() {
-        tableData = new SkTableField();
-        tableData.addContainerProperty(emptyStr, SkDeleteButtonField.class, null);
-        tableData.addContainerProperty(languageNameStr, String.class, null);
-        tableData.addContainerProperty(creationDateStr, String.class, null);
-        fillData();
+        tableDataField = new SkTableField();
+        tableDataField.addContainerProperty(emptyStr, SkDeleteButtonField.class, null);
+        tableDataField.addContainerProperty(languageNameStr, String.class, null);
+        tableDataField.addContainerProperty(creationDateStr, String.class, null);
+        fillDataField();
         doubleClickSelectItem();
     }
 
     private void doubleClickSelectItem() {
-        tableData.addItemClickListener(event -> {
+        tableDataField.addItemClickListener(event -> {
             boolean isDoubleClick = event.isDoubleClick();
             if (isDoubleClick) {
                 Language selectItemField = (Language) event.getItemId();
                 LanguageCardWindow languageCardWindow = new LanguageCardWindow(selectItemField);
                 MyUI.getCurrent().addWindow(languageCardWindow);
-                languageCardWindow.addCloseListener(closeEvent -> fillData());
+                languageCardWindow.addCloseListener(closeEvent -> fillDataField());
             }
         });
     }
 
 
-    public void fillData() {
+    public void fillDataField() {
         languageService = new LanguageService();
-        tableData.removeAllItems();
+        tableDataField.removeAllItems();
 
         Object result = languageService.findAll();
 
@@ -97,25 +96,25 @@ public class LanguageListPage extends SkVerticalLayoutField {
             boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
             if (dialogCardWinddowResult) {
                 languageService.deleteLanguage(language);
-                fillData();
+                fillDataField();
             }
         });
     }
 
 
     private void addItemToTable(Language language) {
-        tableData.addItem(language);
+        tableDataField.addItem(language);
 
         String languageNameField = language.getName();
-        tableData.getContainerProperty(language, languageNameStr).setValue(languageNameField);
+        tableDataField.getContainerProperty(language, languageNameStr).setValue(languageNameField);
 
         String creationDateField = language.toString();
-        tableData.getContainerProperty(language, creationDateStr).setValue(creationDateField);
+        tableDataField.getContainerProperty(language, creationDateStr).setValue(creationDateField);
 
         deleteButtonField = new SkDeleteButtonField();
         deleteButtonField.setData(language);
 
-        tableData.getContainerProperty(language, emptyStr).setValue(deleteButtonField);
+        tableDataField.getContainerProperty(language, emptyStr).setValue(deleteButtonField);
 
         deleteButtonField.addClickListener(event -> {
             Language selectLanguageField = (Language) event.getButton().getData();
