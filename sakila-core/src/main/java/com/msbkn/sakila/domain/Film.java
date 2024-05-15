@@ -52,6 +52,18 @@ public class Film {
     @Column(name = "last_update")
     private Date lastUpdate;
 
+    @Column(name = "film_deleted")
+    private boolean deleted;
+
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -170,6 +182,7 @@ public class Film {
     public String toString() {
         Format formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         return formatDate.format(lastUpdate);
+
     }
 
     @Override
@@ -177,12 +190,12 @@ public class Film {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Film film = (Film) o;
-        return id == film.id && year == film.year && duration == film.duration && Double.compare(rate, film.rate) == 0 && length == film.length && Double.compare(cost, film.cost) == 0 && Objects.equals(title, film.title) && Objects.equals(description, film.description) && Objects.equals(language, film.language) && Objects.equals(rating, film.rating) && Objects.equals(features, film.features) && Objects.equals(lastUpdate, film.lastUpdate);
+        return id == film.id && year == film.year && duration == film.duration && Double.compare(rate, film.rate) == 0 && length == film.length && Double.compare(cost, film.cost) == 0 && deleted == film.deleted && Objects.equals(title, film.title) && Objects.equals(description, film.description) && Objects.equals(language, film.language) && Objects.equals(rating, film.rating) && Objects.equals(features, film.features) && Objects.equals(lastUpdate, film.lastUpdate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, year, language, duration, rate, length, cost, rating, features, lastUpdate);
+        return Objects.hash(id, title, description, year, language, duration, rate, length, cost, rating, features, lastUpdate, deleted);
     }
 
 }

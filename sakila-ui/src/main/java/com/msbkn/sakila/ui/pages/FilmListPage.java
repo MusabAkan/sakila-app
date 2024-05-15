@@ -1,9 +1,11 @@
 package com.msbkn.sakila.ui.pages;
 
+import com.msbkn.sakila.domain.Actor;
 import com.msbkn.sakila.domain.Film;
 import com.msbkn.sakila.service.FilmService;
 import com.msbkn.sakila.ui.MyUI;
 import com.msbkn.sakila.ui.common.components.*;
+import com.msbkn.sakila.ui.pages.component.DialogCardWinddow;
 import com.msbkn.sakila.ui.pages.component.FilmCardWindow;
 
 import java.util.List;
@@ -15,10 +17,12 @@ public class FilmListPage extends SkVerticalLayoutField {
     private String descriptionStr = "Kısa Açıklama";
     private String languageStr = "Dil";
     private String creationDateStr = "Oluşturma Tarihi";
+    private String emptyStr = " ";
 
-    private SkTableField tableData;
+    private SkTableField tableDataField;
     private SkVerticalLayoutField verticalLayoutField;
     private SkFormLayoutField filterLayoutField;
+    private SkDeleteButtonField deleteButtonField;
 
 
     public FilmListPage() {
@@ -29,12 +33,12 @@ public class FilmListPage extends SkVerticalLayoutField {
         verticalLayoutField.addComponent(filterLayoutField);
 
         builTableField();
-        verticalLayoutField.addComponent(tableData);
+        verticalLayoutField.addComponent(tableDataField);
 
         addComponent(verticalLayoutField);
 
         verticalLayoutField.setExpandRatio(filterLayoutField, 0.3f);
-        verticalLayoutField.setExpandRatio(tableData, 0.7f);
+        verticalLayoutField.setExpandRatio(tableDataField, 0.7f);
 
     }
 
@@ -45,7 +49,7 @@ public class FilmListPage extends SkVerticalLayoutField {
         titleFilterTextField.setCaption("Başlık Ara..");
         titleFilterTextField.addTextChangeListener(event -> {
             String searchIdField = event.getText();
-            filterLayoutField.filterSearch(searchIdField, titleStr, tableData);
+            filterLayoutField.filterSearch(searchIdField, titleStr, tableDataField);
         });
 
         filterLayoutField.addComponents(titleFilterTextField);
@@ -55,7 +59,7 @@ public class FilmListPage extends SkVerticalLayoutField {
         descriptionFilterTextField.setCaption("Açıklama Ara..");
         descriptionFilterTextField.addTextChangeListener(event -> {
             String searchIdField = event.getText();
-            filterLayoutField.filterSearch(searchIdField, descriptionStr, tableData);
+            filterLayoutField.filterSearch(searchIdField, descriptionStr, tableDataField);
         });
 
         filterLayoutField.addComponents(descriptionFilterTextField);
@@ -65,7 +69,7 @@ public class FilmListPage extends SkVerticalLayoutField {
         languageFilterTextField.setCaption("Dil Adı Ara..");
         languageFilterTextField.addTextChangeListener(event -> {
             String searchIdField = event.getText();
-            filterLayoutField.filterSearch(searchIdField, languageStr, tableData);
+            filterLayoutField.filterSearch(searchIdField, languageStr, tableDataField);
         });
 
         filterLayoutField.addComponents(languageFilterTextField);
@@ -73,33 +77,32 @@ public class FilmListPage extends SkVerticalLayoutField {
     }
 
     private void builTableField() {
-        tableData = new SkTableField();
-
-        tableData.addContainerProperty(titleStr, String.class, null);
-        tableData.addContainerProperty(descriptionStr, String.class, null);
-        tableData.addContainerProperty(languageStr, String.class, null);
-        tableData.addContainerProperty(creationDateStr, String.class, null);
-
+        tableDataField = new SkTableField();
+        tableDataField.addContainerProperty(emptyStr, SkDeleteButtonField.class, null);
+        tableDataField.addContainerProperty(titleStr, String.class, null);
+        tableDataField.addContainerProperty(descriptionStr, String.class, null);
+        tableDataField.addContainerProperty(languageStr, String.class, null);
+        tableDataField.addContainerProperty(creationDateStr, String.class, null);
+        fillDataField();
         doubleClickSelectItem();
-
-        fillData();
     }
 
     private void doubleClickSelectItem() {
-        tableData.addItemClickListener(event -> {
+        tableDataField.addItemClickListener(event -> {
             boolean isDoubleClick = event.isDoubleClick();
             if (isDoubleClick) {
                 Film selectFilm = (Film) event.getItemId();
-                FilmCardWindow FilmCardWindow = new FilmCardWindow(selectFilm);
-                MyUI.getCurrent().addWindow(FilmCardWindow);
+                FilmCardWindow filmCardWindow = new FilmCardWindow(selectFilm);
+                MyUI.getCurrent().addWindow(filmCardWindow);
+                filmCardWindow.addCloseListener(closeEvent -> fillDataField());
             }
         });
     }
 
 
-    private void fillData() {
+    private void fillDataField() {
         filmService = new FilmService();
-        tableData.removeAllItems();
+        tableDataField.removeAllItems();
 
         Object result = filmService.findAll();
 
@@ -108,24 +111,52 @@ public class FilmListPage extends SkVerticalLayoutField {
         List<Film> films = (List<Film>) result;
 
         for (Film film : films) {
-            addItemToGrid(film);
+            addItemToTable(film);
         }
     }
 
-    private void addItemToGrid(Film film) {
-        tableData.addItem(film);
+    private void filmDeleteField(Film film) {
+        FilmService filmService = new FilmService();
+        String question = film.getTitle() + " seçili Flim silmek istediğinizden emin misiniz?";
+
+        DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
+        MyUI.getCurrent().addWindow(dialogCardWinddow);
+
+        dialogCardWinddow.addCloseListener(closeEvent -> {
+            boolean dialogCardWindowResult = dialogCardWinddow.getResult();
+            if (dialogCardWindowResult) {
+                filmService.deleteFilm(film);
+                fillDataField();
+            }
+        });
+
+    }
+
+
+    private void addItemToTable(Film film) {
+        tableDataField.addItem(film);
 
         String firstNameField = film.getTitle();
-        tableData.getContainerProperty(film, titleStr).setValue(firstNameField);
+        tableDataField.getContainerProperty(film, titleStr).setValue(firstNameField);
 
         String lastNameField = film.getDescription25Limt();
-        tableData.getContainerProperty(film, descriptionStr).setValue(lastNameField);
+        tableDataField.getContainerProperty(film, descriptionStr).setValue(lastNameField);
 
         String languageNameField = film.getLanguageName();
-        tableData.getContainerProperty(film, languageStr).setValue(languageNameField);
+        tableDataField.getContainerProperty(film, languageStr).setValue(languageNameField);
 
         String creationDateField = film.toString();
-        tableData.getContainerProperty(film, creationDateStr).setValue(creationDateField);
+        tableDataField.getContainerProperty(film, creationDateStr).setValue(creationDateField);
+
+        deleteButtonField = new SkDeleteButtonField();
+        deleteButtonField.setData(film);
+
+        tableDataField.getContainerProperty(film, emptyStr).setValue(deleteButtonField);
+
+        deleteButtonField.addClickListener(event -> {
+            Film selectFilmField = (Film) event.getButton().getData();
+            filmDeleteField(selectFilmField);
+        });
 
     }
 

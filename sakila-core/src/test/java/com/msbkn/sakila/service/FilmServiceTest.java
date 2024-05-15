@@ -14,18 +14,20 @@ public class FilmServiceTest {
     @Test
     public void save() {
         filmService = new FilmService();
+        Film film = new Film();
+        filmService.saveFilm(film);
     }
 
     @Test
     public void getFilmById() {
         filmService = new FilmService();
-        Film Film = filmService.findById(26);
+        Film Film = filmService.findById(999);
+        if (Film == null) return;
         writter(Film);
         System.out.println(text);
     }
 
     private void writter(Film film) {
-
         text = film.getLanguageName();
     }
 
@@ -38,20 +40,16 @@ public class FilmServiceTest {
             writter(Film);
             System.out.println(text);
         }
-
-
     }
 
 
     @Test
     public void findRatingList() {
-
         filmService = new FilmService();
-        List<String> strings = filmService.findRatingList();
+        Set<String> strings = filmService.findRatingList();
         for (String string : strings) {
             System.out.println(string);
         }
-
     }
 
     @Test
@@ -61,6 +59,13 @@ public class FilmServiceTest {
         for (String string : strings) {
             System.out.println(string);
         }
+    }
+
+    @Test
+    public void deleteFilmTest() {
+        filmService = new FilmService();
+        Film film = filmService.findById(999);
+        filmService.deleteFilm(film);
     }
 
 }

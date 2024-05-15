@@ -7,7 +7,6 @@ import java.util.Set;
 
 public class FilmCardWindow extends SkWindowField {
     private Film selectFilmField;
-
     private SkLabelField idLabelField;
     private SkTextField titleTextField;
     private SkTextAreaField descriptionTextField;
@@ -50,7 +49,7 @@ public class FilmCardWindow extends SkWindowField {
         String titleField = film.getTitle();
         titleTextField.setValue(titleField);
 
-        getFeatureField(film.getFeatureList());
+        fillFeatureField(film.getFeatureList());
 
         String yearField = String.valueOf(film.getYear());
         yearTextField.setValue(yearField);
@@ -78,7 +77,6 @@ public class FilmCardWindow extends SkWindowField {
         setWidth("40%");
 
         SkFormLayoutField formLayout = new SkFormLayoutField();
-
         verticalLayout.addComponent(formLayout);
 
         idLabelField = new SkLabelField();
@@ -125,14 +123,11 @@ public class FilmCardWindow extends SkWindowField {
         rateTextField.setCaption("Oran : ");
         formLayout.addComponent(rateTextField);
 
-
         saveButtonField = new SkSaveButtonField();
         formLayout.addComponent(saveButtonField);
         saveFilmField();
 
         setContent(verticalLayout);
-
-
     }
 
     private void saveFilmField() {
@@ -164,7 +159,7 @@ public class FilmCardWindow extends SkWindowField {
             film.setYear(Integer.parseInt(yearField));
 
             Set<String> optionsFieldValue = (Set<String>) featureOptionField.getValue();
-            film.setFeatures(setFeatureField(optionsFieldValue));
+            film.setFeatures(writeFeatureField(optionsFieldValue));
 
             Language languageField = (Language) languageComboboxField.getValue();
             film.setLanguage(languageField);
@@ -184,15 +179,13 @@ public class FilmCardWindow extends SkWindowField {
         });
     }
 
-    private void getFeatureField(String[] features) {
-
+    private void fillFeatureField(String[] features) {
         for (String feature : features) {
             featureOptionField.select(feature);
         }
-
     }
 
-    private String setFeatureField(Set<String> features) {
+    private String writeFeatureField(Set<String> features) {
 
         int size = features.size();
         if (size == 0) return "";

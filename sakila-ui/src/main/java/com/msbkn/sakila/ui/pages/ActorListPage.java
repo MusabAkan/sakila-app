@@ -40,7 +40,8 @@ public class ActorListPage extends SkVerticalLayoutField {
     }
 
     private void builFilterPanel() {
-        filterLayoutField = new SkFormLayoutField();       
+        filterLayoutField = new SkFormLayoutField();
+
         SkTextField nameFilterField = new SkTextField();
         nameFilterField.setCaption("Adı Ara..");
         nameFilterField.addTextChangeListener(event -> {
@@ -68,10 +69,10 @@ public class ActorListPage extends SkVerticalLayoutField {
         tableDataField.addContainerProperty(lastNameStr, String.class, null);
         tableDataField.addContainerProperty(creationDateStr, String.class, null);
         fillDataField();
-        doubleClickGetItem();
+        doubleClickSelectItem();
     }
 
-    private void doubleClickGetItem() {
+    private void doubleClickSelectItem() {
         tableDataField.addItemClickListener(event -> {
             boolean isDoubleClick = event.isDoubleClick();
             if (isDoubleClick) {

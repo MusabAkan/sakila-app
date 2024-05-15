@@ -5,8 +5,8 @@ import com.msbkn.sakila.domain.Film;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,38 +23,52 @@ public class FilmDao {
     public Film findById(long id) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Film) session.get(Film.class, id);
+        Film film = (Film) session.createCriteria(Film.class)
+                .add(Restrictions.eq("id", id))
+                .add(Restrictions.eq("deleted", false))
+                .uniqueResult();
+        return film;
     }
 
     public List<Film> findAll() {
-
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Criteria criteria = session.createCriteria(Film.class);
-        return criteria.list();
+        List<Film> films = (List<Film>) session.createCriteria(Film.class)
+                .add(Restrictions.eq("deleted", false)).list();
+        return films;
     }
 
-
-    public List<String> findRatingList() {
+    public Set<String> findRatingList() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String sqlQuery = "select DISTINCT( rating) as rating from sakila.film";
         Query query = session.createSQLQuery(sqlQuery);
-        return query.list();
+        return fillSetList(query.list());
     }
 
     public Set<String> findFeatureList() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         String sqlQuery = "select distinct( special_features) as feature from sakila.film";
         Query query = session.createSQLQuery(sqlQuery);
-        return fillFeature(query.list());
+        return fillSetList(query.list());
     }
 
-    private Set fillFeature(List<String> features) {
-        Set featureSet = new HashSet<>();
-        for (String feature : features) {
-            String[] splits = feature.split(",");
+    public void deleteFilm(Film film) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        String sqlQuery = "update sakila.film set film_deleted = 1 where film_id =  " + film.getId();
+        Query query = session.createSQLQuery(sqlQuery);
+        query.executeUpdate();
+        session.getTransaction().commit();
+
+        //todo: Böyle yapmamın sebebi film_category tablosunda Foregin key var film_Id ile yapıyı bozmak yerine bu şekilde yaptım
+    }
+
+    private Set fillSetList(List<String> strings) {
+        Set stringSet = new HashSet<>();
+        for (String string : strings) {
+            String[] splits = string.split(",");
             for (String split : splits)
-                featureSet.add(split);
+                stringSet.add(split);
         }
-        return featureSet;
+        return stringSet;
     }
 }

@@ -10,6 +10,7 @@ public class FilmService {
     FilmDao filmDao = new FilmDao();
 
     public void saveFilm(Film film) {
+        if (film == null) throw new NullPointerException("Film boş..");
         filmDao.saveFilm(film);
     }
 
@@ -21,11 +22,17 @@ public class FilmService {
         return filmDao.findAll();
     }
 
-    public  List<String> findRatingList(){
+    public Set<String> findRatingList() {
         return filmDao.findRatingList();
     }
-    public Set<String> findFeatureList(){
-        return  filmDao.findFeatureList();
+
+    public Set<String> findFeatureList() {
+        return filmDao.findFeatureList();
+    }
+
+    public void deleteFilm(Film film) {
+        if (film == null) throw new NullPointerException("Film boş");
+        filmDao.deleteFilm(film);
     }
 }
 
