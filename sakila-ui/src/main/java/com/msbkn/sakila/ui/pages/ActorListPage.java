@@ -7,6 +7,7 @@ import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.windows.ActorCardWindow;
 import com.msbkn.sakila.ui.pages.windows.DialogCardWinddow;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,9 +24,11 @@ public class ActorListPage extends SkVerticalLayoutField {
     private SkFormLayoutField filterLayoutField;
     private SkDeleteButtonField deleteButtonField;
 
-
     public ActorListPage() {
         verticalLayoutField = new SkVerticalLayoutField();
+        filterLayoutField = new SkFormLayoutField();
+        tableDataField = new SkTableField();
+        actorService = new ActorService();
 
         builFilterPanel();
         verticalLayoutField.addComponent(filterLayoutField);
@@ -41,8 +44,6 @@ public class ActorListPage extends SkVerticalLayoutField {
     }
 
     private void builFilterPanel() {
-        filterLayoutField = new SkFormLayoutField();
-
         SkTextField nameFilterField = new SkTextField();
         nameFilterField.setCaption("Adı Ara..");
         nameFilterField.addTextChangeListener(event -> {
@@ -64,7 +65,6 @@ public class ActorListPage extends SkVerticalLayoutField {
     }
 
     private void builTableField() {
-        tableDataField = new SkTableField();
         tableDataField.addContainerProperty(emptyStr, SkDeleteButtonField.class, null);
         tableDataField.addContainerProperty(nameStr, String.class, null);
         tableDataField.addContainerProperty(lastNameStr, String.class, null);
@@ -85,35 +85,14 @@ public class ActorListPage extends SkVerticalLayoutField {
         });
     }
 
-
     private void fillDataField() {
         tableDataField.removeAllItems();
-
         List<Actor> actors = actorService.findAll();
-
-        for (Actor actor : actors) {
-            addItemToTable(actor);
-        }
+        for (Actor actor : actors)
+            addActorToTable(actor);
     }
 
-    private void actorDeleteField(Actor actor) {
-        ActorService actorService = new ActorService();
-        String question = actor.getFullName() + " seçili Aktör silmek istediğinizden emin misiniz?";
-
-        DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
-        MyUI.getCurrent().addWindow(dialogCardWinddow);
-
-        dialogCardWinddow.addCloseListener(closeEvent -> {
-            boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
-            if (dialogCardWinddowResult) {
-                actorService.deleteActor(actor);
-                fillDataField();
-            }
-        });
-    }
-
-
-    private void addItemToTable(Actor actor) {
+    private void addActorToTable(Actor actor) {
         tableDataField.addItem(actor);
 
         String firstNameField = actor.getFirstName();
@@ -122,21 +101,37 @@ public class ActorListPage extends SkVerticalLayoutField {
         String lastNameField = actor.getLastName();
         tableDataField.getContainerProperty(actor, lastNameStr).setValue(lastNameField);
 
-        String creationDateField = actor.toString();
+        Date lastUpdate = actor.getLastUpdate();
+        String creationDateField = actor.getDateString(lastUpdate);
         tableDataField.getContainerProperty(actor, creationDateStr).setValue(creationDateField);
 
+        buildActorDeleteField(actor);
+    }
+
+    private void buildActorDeleteField(Actor actor) {
         deleteButtonField = new SkDeleteButtonField();
         deleteButtonField.setData(actor);
-
         tableDataField.getContainerProperty(actor, emptyStr).setValue(deleteButtonField);
-
-        deleteButtonField.addClickListener(event -> {
-            Actor selectActorField = (Actor) event.getButton().getData();
-            actorDeleteField(selectActorField);
-        });
+        actorDeleteField();
 
     }
 
+    private void actorDeleteField() {
+        deleteButtonField.addClickListener(event -> {
+            Actor selectdActorField = (Actor) event.getButton().getData();;
+            String question = selectdActorField.getFullName() + " seçili Aktör silmek istediğinizden emin misiniz?";
 
+            DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
+            MyUI.getCurrent().addWindow(dialogCardWinddow);
+
+            dialogCardWinddow.addCloseListener(closeEvent -> {
+                boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
+                if (dialogCardWinddowResult) {
+                    actorService.deleteActor(selectdActorField);
+                    fillDataField();
+                }
+            });
+        });
+    }
 }
 

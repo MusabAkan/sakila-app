@@ -30,7 +30,7 @@ public class FilmServiceTest {
     @Test
     public void getFilmById() {
         filmService = new FilmService();
-        Film Film = filmService.findById(999);
+        Film Film = filmService.findById(5);
         if (Film == null) return;
         writter(Film);
         System.out.println(text);
@@ -73,7 +73,7 @@ public class FilmServiceTest {
     @Test
     public void deleteTest() {
         filmService = new FilmService();
-        Film film = filmService.findById(999);
+        Film film = filmService.findById(700);
         filmService.delete(film);
     }
 

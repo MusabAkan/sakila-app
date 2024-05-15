@@ -24,8 +24,6 @@ public class FilmCardWindow extends SkWindowField {
     private FeatureOptionField featureOptionField;
     private Film selectFilmField;
     private FilmService filmService;
-
-
     SkSaveButtonField saveButtonField;
     SkVerticalLayoutField verticalLayout;
 
@@ -139,41 +137,40 @@ public class FilmCardWindow extends SkWindowField {
 
     private void buildSaveFilmField() {
         saveButtonField.addClickListener(clickEvent -> {
-            Film film = new Film();
 
             String titleField = filmTitleTextField.getValue();
-            film.setTitle(titleField);
+            selectFilmField.setTitle(titleField);
 
             String descriptionField = filmDescriptionTextField.getValue();
-            film.setDescription(descriptionField);
+            selectFilmField.setDescription(descriptionField);
 
             String durationField = filmDurationTextField.getValue();
-            film.setDuration(Integer.parseInt(durationField));
+            selectFilmField.setDuration(Integer.parseInt(durationField));
 
             String rateField = filmRateTextField.getValue();
-            film.setRate(Double.parseDouble(rateField));
+            selectFilmField.setRate(Double.parseDouble(rateField));
 
             String lengthField = filmLengthTextField.getValue();
-            film.setLength(Long.parseLong(lengthField));
+            selectFilmField.setLength(Long.parseLong(lengthField));
 
             String costField = filmCostTextField.getValue();
-            film.setCost(Double.parseDouble(costField));
+            selectFilmField.setCost(Double.parseDouble(costField));
 
             String yearField = filmYearTextField.getValue();
-            film.setYear(Integer.parseInt(yearField));
+            selectFilmField.setYear(Integer.parseInt(yearField));
 
             Set<String> optionsFieldValue = (Set<String>) featureOptionField.getValue();
-            film.setFeatures(writeFeatureField(optionsFieldValue));
+            selectFilmField.setFeatures(writeFeatureField(optionsFieldValue));
 
             Language languageField = (Language) filmLanguageComboboxField.getValue();
-            film.setLanguage(languageField);
+            selectFilmField.setLanguage(languageField);
 
             String ratingField = filmRatingComboboxField.getValue().toString();
-            film.setRating(ratingField);
+            selectFilmField.setRating(ratingField);
 
-            long filmFieldId = selectFilmField.getId();
+            Long filmFieldId = selectFilmField.getId();
 
-            if (filmFieldId == 0)
+            if (filmFieldId == null)
                 addFilmField();
 
             else

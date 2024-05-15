@@ -7,6 +7,7 @@ import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.windows.DialogCardWinddow;
 import com.msbkn.sakila.ui.pages.windows.FilmCardWindow;
 
+import java.util.Date;
 import java.util.List;
 
 public class FilmListPage extends SkVerticalLayoutField {
@@ -25,8 +26,10 @@ public class FilmListPage extends SkVerticalLayoutField {
 
 
     public FilmListPage() {
-        filmService = new FilmService();
         verticalLayoutField = new SkVerticalLayoutField();
+        filmService = new FilmService();
+        filterLayoutField = new SkFormLayoutField();
+        tableDataField = new SkTableField();
 
         builFilterPanel();
         verticalLayoutField.addComponent(filterLayoutField);
@@ -42,8 +45,6 @@ public class FilmListPage extends SkVerticalLayoutField {
     }
 
     private void builFilterPanel() {
-        filterLayoutField = new SkFormLayoutField();
-
         SkTextField titleFilterTextField = new SkTextField();
         titleFilterTextField.setCaption("Başlık Ara..");
         titleFilterTextField.addTextChangeListener(event -> {
@@ -72,11 +73,9 @@ public class FilmListPage extends SkVerticalLayoutField {
         });
 
         filterLayoutField.addComponents(languageFilterTextField);
-
     }
 
     private void builTableField() {
-        tableDataField = new SkTableField();
         tableDataField.addContainerProperty(emptyStr, SkDeleteButtonField.class, null);
         tableDataField.addContainerProperty(titleStr, String.class, null);
         tableDataField.addContainerProperty(descriptionStr, String.class, null);
@@ -103,28 +102,11 @@ public class FilmListPage extends SkVerticalLayoutField {
         tableDataField.removeAllItems();
         List<Film> films = filmService.findAll();
         for (Film film : films) {
-            addItemToTable(film);
+            addFlimToTable(film);
         }
     }
 
-    private void filmDeleteField(Film film) {
-        String question = film.getTitle() + " seçili Flim silmek istediğinizden emin misiniz?";
-
-        DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
-        MyUI.getCurrent().addWindow(dialogCardWinddow);
-
-        dialogCardWinddow.addCloseListener(closeEvent -> {
-            boolean dialogCardWindowResult = dialogCardWinddow.getResult();
-            if (dialogCardWindowResult) {
-                filmService.delete(film);
-                fillDataField();
-            }
-        });
-
-    }
-
-
-    private void addItemToTable(Film film) {
+    private void addFlimToTable(Film film) {
         tableDataField.addItem(film);
 
         String firstNameField = film.getTitle();
@@ -136,19 +118,36 @@ public class FilmListPage extends SkVerticalLayoutField {
         String languageNameField = film.getLanguageName();
         tableDataField.getContainerProperty(film, languageStr).setValue(languageNameField);
 
-        String creationDateField = film.toString();
+        Date lastUpdate = film.getLastUpdate();
+        String creationDateField = film.getDateString(lastUpdate);
         tableDataField.getContainerProperty(film, creationDateStr).setValue(creationDateField);
 
+        buildDeleteField(film);
+    }
+
+    private void buildDeleteField(Film film) {
         deleteButtonField = new SkDeleteButtonField();
         deleteButtonField.setData(film);
-
         tableDataField.getContainerProperty(film, emptyStr).setValue(deleteButtonField);
+        filmDeleteField();
+    }
 
+    private void filmDeleteField() {
         deleteButtonField.addClickListener(event -> {
             Film selectFilmField = (Film) event.getButton().getData();
-            filmDeleteField(selectFilmField);
-        });
+            String question = selectFilmField.getTitle() + " seçili Flim silmek istediğinizden emin misiniz?";
 
+            DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
+            MyUI.getCurrent().addWindow(dialogCardWinddow);
+
+            dialogCardWinddow.addCloseListener(closeEvent -> {
+                boolean dialogCardWindowResult = dialogCardWinddow.getResult();
+                if (dialogCardWindowResult) {
+                    filmService.delete(selectFilmField);
+                    fillDataField();
+                }
+            });
+        });
     }
 
 

@@ -43,6 +43,7 @@ public class ActorCardWindow extends SkWindowField {
     private void buildWindowField() {
         verticalLayoutField = new SkVerticalLayoutField();
         selectActorField = new Actor();
+        actorService = new ActorService();
 
         SkFormLayoutField formLayout = new SkFormLayoutField();
         verticalLayoutField.addComponent(formLayout);
@@ -72,16 +73,16 @@ public class ActorCardWindow extends SkWindowField {
 
             String actorNameField = actorNameTextField.getValue();
             selectActorField.setFirstName(actorNameField);
-            
+
             String actorLastNameField = actorLastNameTextField.getValue();
             selectActorField.setLastName(actorLastNameField);
 
             Date actorLastUpdateField = new Date();
             selectActorField.setLastUpdate(actorLastUpdateField);
 
-            long actorFieldId = selectActorField.getId();
+            Long actorFieldId = selectActorField.getId();
 
-            if (actorFieldId == 0)
+            if (actorFieldId == null)
                 addActorField();
 
             else
@@ -93,7 +94,6 @@ public class ActorCardWindow extends SkWindowField {
     }
 
     private void uptadeActorField() {
-        actorService = new ActorService();
         actorService.updateActor(selectActorField);
         Notification.show("Aktör günceleme yapılmıştır.");
     }

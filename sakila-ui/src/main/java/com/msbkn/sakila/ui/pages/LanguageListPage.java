@@ -7,6 +7,7 @@ import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.windows.DialogCardWinddow;
 import com.msbkn.sakila.ui.pages.windows.LanguageCardWindow;
 
+import java.util.Date;
 import java.util.List;
 
 public class LanguageListPage extends SkVerticalLayoutField {
@@ -72,9 +73,8 @@ public class LanguageListPage extends SkVerticalLayoutField {
     public void fillDataField() {
         tableDataField.removeAllItems();
         List<Language> languageList = languageService.findAll();
-        for (Language language : languageList) {
+        for (Language language : languageList)
             addLanguageToTable(language);
-        }
     }
 
     private void addLanguageToTable(Language language) {
@@ -83,7 +83,8 @@ public class LanguageListPage extends SkVerticalLayoutField {
         String languageNameField = language.getName();
         tableDataField.getContainerProperty(language, languageNameStr).setValue(languageNameField);
 
-        String creationDateField = language.getDateString();
+        Date lastUpdate = language.getLastUpdate();
+        String creationDateField = language.getDateString(lastUpdate);
         tableDataField.getContainerProperty(language, creationDateStr).setValue(creationDateField);
 
         buildLanguageDeleteField(language);

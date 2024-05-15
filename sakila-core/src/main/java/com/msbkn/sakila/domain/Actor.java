@@ -3,6 +3,8 @@ package com.msbkn.sakila.domain;
 import com.msbkn.sakila.common.BaseEntity;
 
 import javax.persistence.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Table
@@ -46,5 +48,4 @@ public class Actor extends BaseEntity {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
-
 }

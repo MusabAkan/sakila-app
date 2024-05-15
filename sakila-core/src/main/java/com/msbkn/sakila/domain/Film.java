@@ -101,7 +101,6 @@ public class Film extends BaseEntity {
         this.language = language;
     }
 
-
     public long getDuration() {
         return duration;
     }
@@ -161,10 +160,5 @@ public class Film extends BaseEntity {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
-    }
-
-    public String getDateString() {
-        Format formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        return formatDate.format(lastUpdate);
     }
 }

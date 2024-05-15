@@ -36,8 +36,9 @@ public class LanguageCardWindow extends SkWindowField {
     }
 
     private void buildWindowField() {
-        verticalLayoutField = new SkVerticalLayoutField();
         selectLanguageField = new Language();
+        verticalLayoutField = new SkVerticalLayoutField();
+        languageService = new LanguageService();
 
         SkFormLayoutField formLayout = new SkFormLayoutField();
         verticalLayoutField.addComponent(formLayout);
@@ -67,7 +68,6 @@ public class LanguageCardWindow extends SkWindowField {
             Date languageLastUpdateField = new Date();
             selectLanguageField.setLastUpdate(languageLastUpdateField);
 
-
             Long languageFieldId = selectLanguageField.getId();
 
             if (languageFieldId == null)
@@ -82,14 +82,12 @@ public class LanguageCardWindow extends SkWindowField {
     }
 
     private void uptadeLanguageField() {
-        languageService = new LanguageService();
         languageService.updateLanguage(selectLanguageField);
         Notification.show("Dil günceleme yapılmıştır.");
 
     }
 
     private void addLanguageField() {
-        languageService = new LanguageService();
         languageService.saveLanguage(selectLanguageField);
         Notification.show("Dil ekleme yapılmıştır.");
     }
