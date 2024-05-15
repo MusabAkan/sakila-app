@@ -14,8 +14,17 @@ public class FilmServiceTest {
     @Test
     public void save() {
         filmService = new FilmService();
-        Film film = new Film();
-        filmService.saveFilm(film);
+        Film film = filmService.findById(999);
+        film.setId(null);
+        filmService.save(film);
+    }
+
+    @Test
+    public  void update(){
+        filmService = new FilmService();
+        Film film = filmService.findById(999);
+        film.setDescription("Banane");
+        filmService.update(film);;
     }
 
     @Test
@@ -62,10 +71,10 @@ public class FilmServiceTest {
     }
 
     @Test
-    public void deleteFilmTest() {
+    public void deleteTest() {
         filmService = new FilmService();
         Film film = filmService.findById(999);
-        filmService.deleteFilm(film);
+        filmService.delete(film);
     }
 
 }

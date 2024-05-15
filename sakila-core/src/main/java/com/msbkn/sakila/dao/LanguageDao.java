@@ -1,45 +1,28 @@
 package com.msbkn.sakila.dao;
 
-import com.msbkn.sakila.common.HibernateUtil;
+import com.msbkn.sakila.common.GenericDao;
 import com.msbkn.sakila.domain.Language;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
 
 import java.util.List;
 
-public class LanguageDao {
+public class LanguageDao extends GenericDao {
 
     public void saveLanguage(Language language) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(language);
-        session.getTransaction().commit();
+        save(language);
     }
 
-    public  void updateLanguage(Language language) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.update(language);
-        session.getTransaction().commit();
+    public void updateLanguage(Language language) {
+        update(language);
     }
 
+    public void deleteLanguage(Language language) {
+        delete(language);
+    }
     public Language findById(long id) {
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Language) session.get(Language.class, id);
+         return findById(new Language(), id);
     }
 
     public List<Language> findAll() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Criteria criteria = session.createCriteria(Language.class);
-        return criteria.list();
-    }
-
-
-    public void deleteLanguage(Language language) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.delete(language);
-        session.getTransaction().commit();
+        return findAll(new Language());
     }
 }

@@ -1,4 +1,4 @@
-package com.msbkn.sakila.ui.pages.component;
+package com.msbkn.sakila.ui.pages.windows;
 
 import com.msbkn.sakila.domain.Actor;
 import com.msbkn.sakila.service.ActorService;

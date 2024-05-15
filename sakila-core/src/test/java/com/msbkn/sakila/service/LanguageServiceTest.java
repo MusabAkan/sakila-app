@@ -14,7 +14,9 @@ public class LanguageServiceTest {
     @Test
     public void saveLanguage() {
         languageService = new LanguageService();
-        Language language = new Language("Japanese", new Date());
+        Language language = new Language();
+        language.setName("Kenya");
+        language.setLastUpdate(new Date());
         languageService.saveLanguage(language);
     }
 

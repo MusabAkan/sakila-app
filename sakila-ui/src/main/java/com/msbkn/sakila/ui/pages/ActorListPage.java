@@ -4,7 +4,8 @@ import com.msbkn.sakila.domain.Actor;
 import com.msbkn.sakila.service.ActorService;
 import com.msbkn.sakila.ui.MyUI;
 import com.msbkn.sakila.ui.common.components.*;
-import com.msbkn.sakila.ui.pages.component.*;
+import com.msbkn.sakila.ui.pages.windows.ActorCardWindow;
+import com.msbkn.sakila.ui.pages.windows.DialogCardWinddow;
 
 import java.util.List;
 
@@ -86,14 +87,9 @@ public class ActorListPage extends SkVerticalLayoutField {
 
 
     private void fillDataField() {
-        actorService = new ActorService();
         tableDataField.removeAllItems();
 
-        Object result = actorService.findAll();
-
-        if (result == null && result instanceof List) return;
-
-        List<Actor> actors = (List<Actor>) result;
+        List<Actor> actors = actorService.findAll();
 
         for (Actor actor : actors) {
             addItemToTable(actor);

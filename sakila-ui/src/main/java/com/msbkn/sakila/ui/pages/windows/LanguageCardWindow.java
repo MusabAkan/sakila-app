@@ -1,4 +1,4 @@
-package com.msbkn.sakila.ui.pages.component;
+package com.msbkn.sakila.ui.pages.windows;
 
 import com.msbkn.sakila.domain.Language;
 import com.msbkn.sakila.service.LanguageService;
@@ -67,9 +67,10 @@ public class LanguageCardWindow extends SkWindowField {
             Date languageLastUpdateField = new Date();
             selectLanguageField.setLastUpdate(languageLastUpdateField);
 
-            long languageFieldId = selectLanguageField.getId();
 
-            if (languageFieldId == 0)
+            Long languageFieldId = selectLanguageField.getId();
+
+            if (languageFieldId == null)
                 addLanguageField();
 
             else

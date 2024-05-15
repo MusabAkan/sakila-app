@@ -1,21 +1,18 @@
 package com.msbkn.sakila.domain;
 
+import com.msbkn.sakila.common.BaseEntity;
 import org.hibernate.annotations.ForeignKey;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 
 @Table
 @Entity
-public class Film {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "film_id")
-    private long id;
+public class Film extends BaseEntity {
 
     @Column(name = "title")
     private String title;
@@ -24,7 +21,7 @@ public class Film {
     private String description;
 
     @Column(name = "release_year")
-    private int year;
+    private Integer year;
 
     @ManyToOne
     @JoinColumn(name = "LANGUAGE_ID")
@@ -32,16 +29,16 @@ public class Film {
     private Language language;
 
     @Column(name = "rental_duration")
-    private long duration;
+    private Long duration;
 
     @Column(name = "rental_rate")
-    private double rate;
+    private Double rate;
 
     @Column(name = "length")
-    private long length;
+    private Long length;
 
     @Column(name = "replacement_cost")
-    private double cost;
+    private Double cost;
 
     @Column(name = "rating")
     private String rating;
@@ -53,7 +50,7 @@ public class Film {
     private Date lastUpdate;
 
     @Column(name = "film_deleted")
-    private boolean deleted;
+    private Boolean deleted;
 
 
     public boolean isDeleted() {
@@ -62,18 +59,6 @@ public class Film {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -151,14 +136,14 @@ public class Film {
 
 
     public String getRating() {
-            return rating;
+        return rating;
     }
 
     public void setRating(String rating) {
         this.rating = rating;
     }
 
-    public String[] getFeatureList(){
+    public String[] getFeatureList() {
         return features.split(",");
     }
 
@@ -178,24 +163,8 @@ public class Film {
         this.lastUpdate = lastUpdate;
     }
 
-    @Override
-    public String toString() {
+    public String getDateString() {
         Format formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         return formatDate.format(lastUpdate);
-
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Film film = (Film) o;
-        return id == film.id && year == film.year && duration == film.duration && Double.compare(rate, film.rate) == 0 && length == film.length && Double.compare(cost, film.cost) == 0 && deleted == film.deleted && Objects.equals(title, film.title) && Objects.equals(description, film.description) && Objects.equals(language, film.language) && Objects.equals(rating, film.rating) && Objects.equals(features, film.features) && Objects.equals(lastUpdate, film.lastUpdate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, description, year, language, duration, rate, length, cost, rating, features, lastUpdate, deleted);
-    }
-
 }

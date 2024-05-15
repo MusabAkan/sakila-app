@@ -1,8 +1,8 @@
 package com.msbkn.sakila.dao;
 
+import com.msbkn.sakila.common.GenericDao;
 import com.msbkn.sakila.common.HibernateUtil;
 import com.msbkn.sakila.domain.Film;
-import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
@@ -11,13 +11,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class FilmDao {
-    public void saveFilm(Film Film) {
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(Film);
-        session.getTransaction().commit();
+public class FilmDao extends GenericDao {
+    public void saveFilm(Film film) {
+        save(film);
     }
 
     public Film findById(long id) {
@@ -51,7 +47,7 @@ public class FilmDao {
         return fillSetList(query.list());
     }
 
-    public void deleteFilm(Film film) {
+    public void delete(Film film) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         String sqlQuery = "update sakila.film set film_deleted = 1 where film_id =  " + film.getId();
@@ -70,5 +66,13 @@ public class FilmDao {
                 stringSet.add(split);
         }
         return stringSet;
+    }
+
+    public void updateFilm(Film film) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        session.update(film);
+        session.getTransaction().commit();
+
     }
 }

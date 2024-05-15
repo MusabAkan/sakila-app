@@ -1,12 +1,11 @@
 package com.msbkn.sakila.ui.pages;
 
-import com.msbkn.sakila.domain.Actor;
 import com.msbkn.sakila.domain.Film;
 import com.msbkn.sakila.service.FilmService;
 import com.msbkn.sakila.ui.MyUI;
 import com.msbkn.sakila.ui.common.components.*;
-import com.msbkn.sakila.ui.pages.component.DialogCardWinddow;
-import com.msbkn.sakila.ui.pages.component.FilmCardWindow;
+import com.msbkn.sakila.ui.pages.windows.DialogCardWinddow;
+import com.msbkn.sakila.ui.pages.windows.FilmCardWindow;
 
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class FilmListPage extends SkVerticalLayoutField {
 
 
     public FilmListPage() {
-
+        filmService = new FilmService();
         verticalLayoutField = new SkVerticalLayoutField();
 
         builFilterPanel();
@@ -101,22 +100,14 @@ public class FilmListPage extends SkVerticalLayoutField {
 
 
     private void fillDataField() {
-        filmService = new FilmService();
         tableDataField.removeAllItems();
-
-        Object result = filmService.findAll();
-
-        if (result == null && result instanceof List) return;
-
-        List<Film> films = (List<Film>) result;
-
+        List<Film> films = filmService.findAll();
         for (Film film : films) {
             addItemToTable(film);
         }
     }
 
     private void filmDeleteField(Film film) {
-        FilmService filmService = new FilmService();
         String question = film.getTitle() + " seçili Flim silmek istediğinizden emin misiniz?";
 
         DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
@@ -125,7 +116,7 @@ public class FilmListPage extends SkVerticalLayoutField {
         dialogCardWinddow.addCloseListener(closeEvent -> {
             boolean dialogCardWindowResult = dialogCardWinddow.getResult();
             if (dialogCardWindowResult) {
-                filmService.deleteFilm(film);
+                filmService.delete(film);
                 fillDataField();
             }
         });

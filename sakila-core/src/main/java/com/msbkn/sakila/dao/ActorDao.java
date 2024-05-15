@@ -1,48 +1,30 @@
 package com.msbkn.sakila.dao;
 
-
-import com.msbkn.sakila.common.HibernateUtil;
+import com.msbkn.sakila.common.GenericDao;
 import com.msbkn.sakila.domain.Actor;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
 
 import java.util.List;
 
-public class ActorDao {
+public class ActorDao extends GenericDao {
 
 
     public void saveActor(Actor actor) {
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(actor);
-        session.getTransaction().commit();
+        save(actor);
     }
 
     public void updateActor(Actor actor) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.update(actor);
-        session.getTransaction().commit();
-    }
-
-    public Actor findById(long id) {
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        return (Actor) session.get(Actor.class, id);
-    }
-
-    public List<Actor> findAll() {
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        Criteria criteria = session.createCriteria(Actor.class);
-        return criteria.list();
+        update(actor);
     }
 
     public void deleteActor(Actor actor) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.delete(actor);
-        session.getTransaction().commit();
+        delete(actor);
+    }
+
+    public Actor findById(long id) {
+        return findById(new Actor(), id);
+    }
+
+    public List<Actor> findAll() {
+        return findAll(new Actor());
     }
 }

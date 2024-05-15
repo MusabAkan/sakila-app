@@ -4,7 +4,8 @@ import com.msbkn.sakila.domain.Language;
 import com.msbkn.sakila.service.LanguageService;
 import com.msbkn.sakila.ui.*;
 import com.msbkn.sakila.ui.common.components.*;
-import com.msbkn.sakila.ui.pages.component.*;
+import com.msbkn.sakila.ui.pages.windows.DialogCardWinddow;
+import com.msbkn.sakila.ui.pages.windows.LanguageCardWindow;
 
 import java.util.List;
 
@@ -20,9 +21,11 @@ public class LanguageListPage extends SkVerticalLayoutField {
     private SkFormLayoutField filterLayoutField;
     private SkDeleteButtonField deleteButtonField;
 
-
     public LanguageListPage() {
         verticalLayoutField = new SkVerticalLayoutField();
+        languageService = new LanguageService();
+        filterLayoutField = new SkFormLayoutField();
+        tableDataField = new SkTableField();
 
         builFilterPanel();
         verticalLayoutField.addComponent(filterLayoutField);
@@ -34,11 +37,9 @@ public class LanguageListPage extends SkVerticalLayoutField {
 
         verticalLayoutField.setExpandRatio(filterLayoutField, 0.2f);
         verticalLayoutField.setExpandRatio(tableDataField, 0.8f);
-
     }
 
     private void builFilterPanel() {
-        filterLayoutField = new SkFormLayoutField();
         SkTextField languageNameFilterField = new SkTextField();
         languageNameFilterField.setCaption("Dil Adı Ara..");
         languageNameFilterField.addTextChangeListener(event -> {
@@ -49,7 +50,6 @@ public class LanguageListPage extends SkVerticalLayoutField {
     }
 
     private void builTableField() {
-        tableDataField = new SkTableField();
         tableDataField.addContainerProperty(emptyStr, SkDeleteButtonField.class, null);
         tableDataField.addContainerProperty(languageNameStr, String.class, null);
         tableDataField.addContainerProperty(creationDateStr, String.class, null);
@@ -69,59 +69,48 @@ public class LanguageListPage extends SkVerticalLayoutField {
         });
     }
 
-
     public void fillDataField() {
-        languageService = new LanguageService();
         tableDataField.removeAllItems();
-
-        Object result = languageService.findAll();
-
-        if (result == null && result instanceof List) return;
-
-        List<Language> languages = (List<Language>) result;
-
-        for (Language language : languages) {
-            addItemToTable(language);
+        List<Language> languageList = languageService.findAll();
+        for (Language language : languageList) {
+            addLanguageToTable(language);
         }
     }
 
-    private void languageDeleteField(Language language) {
-        LanguageService languageService = new LanguageService();
-        String question = language.getName() + " seçili dili silmek istediğinizden emin misiniz?";
-
-        DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
-        MyUI.getCurrent().addWindow(dialogCardWinddow);
-
-        dialogCardWinddow.addCloseListener(closeEvent -> {
-            boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
-            if (dialogCardWinddowResult) {
-                languageService.deleteLanguage(language);
-                fillDataField();
-            }
-        });
-    }
-
-
-    private void addItemToTable(Language language) {
+    private void addLanguageToTable(Language language) {
         tableDataField.addItem(language);
 
         String languageNameField = language.getName();
         tableDataField.getContainerProperty(language, languageNameStr).setValue(languageNameField);
 
-        String creationDateField = language.toString();
+        String creationDateField = language.getDateString();
         tableDataField.getContainerProperty(language, creationDateStr).setValue(creationDateField);
 
-        deleteButtonField = new SkDeleteButtonField();
-        deleteButtonField.setData(language);
-
-        tableDataField.getContainerProperty(language, emptyStr).setValue(deleteButtonField);
-
-        deleteButtonField.addClickListener(event -> {
-            Language selectLanguageField = (Language) event.getButton().getData();
-            languageDeleteField(selectLanguageField);
-        });
-
+        buildLanguageDeleteField(language);
     }
 
+    private void buildLanguageDeleteField(Language language) {
+        deleteButtonField = new SkDeleteButtonField();
+        deleteButtonField.setData(language);
+        tableDataField.getContainerProperty(language, emptyStr).setValue(deleteButtonField);
+        languageDeleteField();
+    }
 
+    private void languageDeleteField() {
+        deleteButtonField.addClickListener(event -> {
+            Language selectLanguageField = (Language) event.getButton().getData();
+            String question = selectLanguageField.getName() + " seçili dili silmek istediğinizden emin misiniz?";
+
+            DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
+            MyUI.getCurrent().addWindow(dialogCardWinddow);
+
+            dialogCardWinddow.addCloseListener(closeEvent -> {
+                boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
+                if (dialogCardWinddowResult) {
+                    languageService.deleteLanguage(selectLanguageField);
+                    fillDataField();
+                }
+            });
+        });
+    }
 }

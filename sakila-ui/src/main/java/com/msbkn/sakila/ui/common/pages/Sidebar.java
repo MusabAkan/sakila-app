@@ -3,7 +3,9 @@ package com.msbkn.sakila.ui.common.pages;
 import com.msbkn.sakila.ui.MyUI;
 import com.msbkn.sakila.ui.common.components.SkVerticalLayoutField;
 import com.msbkn.sakila.ui.pages.*;
-import com.msbkn.sakila.ui.pages.component.*;
+import com.msbkn.sakila.ui.pages.windows.ActorCardWindow;
+import com.msbkn.sakila.ui.pages.windows.FilmCardWindow;
+import com.msbkn.sakila.ui.pages.windows.LanguageCardWindow;
 import com.vaadin.ui.Tree;
 
 public class Sidebar extends SkVerticalLayoutField {
