@@ -26,6 +26,7 @@ public class LanguageService {
     }
 
     public void deleteLanguage(Language language) {
+        if (language == null) throw new NullPointerException("Dil boş..");
         languageDao.deleteLanguage(language);
     }
 

@@ -8,6 +8,7 @@ import com.msbkn.sakila.ui.pages.component.LanguageComboboxField;
 import com.msbkn.sakila.ui.pages.component.RatingComboboxField;
 import com.vaadin.ui.Notification;
 
+import java.util.Date;
 import java.util.Set;
 
 public class FilmCardWindow extends SkWindowField {
@@ -46,7 +47,6 @@ public class FilmCardWindow extends SkWindowField {
         Language language = film.getLanguage();
         filmLanguageComboboxField.setValue(language);
 
-
         String ratingField = String.valueOf(film.getRating());
         filmRatingComboboxField.setValue(ratingField);
 
@@ -76,6 +76,7 @@ public class FilmCardWindow extends SkWindowField {
 
     private void buildWindowField() {
         verticalLayout = new SkVerticalLayoutField();
+        filmService = new FilmService();
         selectFilmField = new Film();
 
         setHeight("90%");
@@ -168,6 +169,10 @@ public class FilmCardWindow extends SkWindowField {
             String ratingField = filmRatingComboboxField.getValue().toString();
             selectFilmField.setRating(ratingField);
 
+            Date now = new Date();
+            selectFilmField.setLastUpdate(now);
+            selectFilmField.setDeleted(false);
+
             Long filmFieldId = selectFilmField.getId();
 
             if (filmFieldId == null)
@@ -182,13 +187,11 @@ public class FilmCardWindow extends SkWindowField {
     }
 
     private void uptadeFilmField() {
-        filmService = new FilmService();
         filmService.update(selectFilmField);
         Notification.show("Film güncelleme yapılmıştır");
     }
 
     private void addFilmField() {
-        filmService = new FilmService();
         filmService.save(selectFilmField);
         Notification.show("Film ekleme yapılmıştır");
     }
@@ -208,6 +211,4 @@ public class FilmCardWindow extends SkWindowField {
         text = text.substring(0, endIndex);
         return text;
     }
-
-
 }

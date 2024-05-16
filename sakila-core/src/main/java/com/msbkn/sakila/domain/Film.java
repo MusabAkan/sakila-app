@@ -52,7 +52,6 @@ public class Film extends BaseEntity {
     @Column(name = "film_deleted")
     private Boolean deleted;
 
-
     public boolean isDeleted() {
         return deleted;
     }
@@ -74,6 +73,7 @@ public class Film extends BaseEntity {
     }
 
     public String getDescription25Limt() {
+        if (description.length() <= 25) return description;
         return description.substring(0, 25) + "...";
     }
 

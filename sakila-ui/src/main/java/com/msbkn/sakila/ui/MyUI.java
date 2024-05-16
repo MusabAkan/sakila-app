@@ -17,8 +17,6 @@ public class MyUI extends UI {
     protected void init(VaadinRequest vaadinRequest) {
         SkVerticalLayoutField layoutField = new SkVerticalLayoutField();
 
-        layoutField.setSizeFull();
-
         Header header = new Header();
         layoutField.addComponent(header);
 

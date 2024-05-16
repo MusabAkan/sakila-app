@@ -1,8 +1,6 @@
 package com.msbkn.sakila.common;
 
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
+import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
 
 import java.util.List;

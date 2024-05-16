@@ -3,8 +3,6 @@ package com.msbkn.sakila.domain;
 import com.msbkn.sakila.common.BaseEntity;
 
 import javax.persistence.*;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Table
