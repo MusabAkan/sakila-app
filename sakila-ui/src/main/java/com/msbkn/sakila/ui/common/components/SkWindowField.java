@@ -1,6 +1,5 @@
 package com.msbkn.sakila.ui.common.components;
 
-import com.msbkn.sakila.common.CommonService;
 import com.vaadin.ui.*;
 
 public class SkWindowField extends Window {
