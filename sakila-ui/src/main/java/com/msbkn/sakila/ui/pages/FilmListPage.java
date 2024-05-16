@@ -46,32 +46,15 @@ public class FilmListPage extends SkVerticalLayoutField {
 
     private void builFilterPanel() {
         SkTextField titleFilterTextField = new SkTextField();
-        titleFilterTextField.setCaption("Başlık Ara..");
-        titleFilterTextField.addTextChangeListener(event -> {
-            String searchIdField = event.getText();
-            filterLayoutField.filterSearch(searchIdField, titleStr, tableDataField);
-        });
-
+        buildItemFilterPanel(titleFilterTextField, "Adı Ara..", titleStr, tableDataField, filterLayoutField );
         filterLayoutField.addComponents(titleFilterTextField);
 
-
         SkTextField descriptionFilterTextField = new SkTextField();
-        descriptionFilterTextField.setCaption("Açıklama Ara..");
-        descriptionFilterTextField.addTextChangeListener(event -> {
-            String searchIdField = event.getText();
-            filterLayoutField.filterSearch(searchIdField, descriptionStr, tableDataField);
-        });
-
+        buildItemFilterPanel(descriptionFilterTextField, "Açıklama Ara..", descriptionStr, tableDataField, filterLayoutField );
         filterLayoutField.addComponents(descriptionFilterTextField);
 
-
         SkTextField languageFilterTextField = new SkTextField();
-        languageFilterTextField.setCaption("Dil Adı Ara..");
-        languageFilterTextField.addTextChangeListener(event -> {
-            String searchIdField = event.getText();
-            filterLayoutField.filterSearch(searchIdField, languageStr, tableDataField);
-        });
-
+        buildItemFilterPanel(languageFilterTextField, "Dil Ara..", languageStr, tableDataField, filterLayoutField );
         filterLayoutField.addComponents(languageFilterTextField);
     }
 
@@ -96,7 +79,6 @@ public class FilmListPage extends SkVerticalLayoutField {
             }
         });
     }
-
 
     private void fillDataField() {
         tableDataField.removeAllItems();
@@ -149,6 +131,7 @@ public class FilmListPage extends SkVerticalLayoutField {
             });
         });
     }
+
 
 
 }

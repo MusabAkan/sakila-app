@@ -18,7 +18,7 @@ public class ActorServiceTest {
         actor.setFirstName("Musab");
         actor.setLastName("Akan");
         actor.setLastUpdate(new Date(98,01,01));
-        actorService.saveActor(actor);
+        actorService.save(actor);
     }
     @Test
     public void getActorById() { ;
@@ -44,7 +44,7 @@ public class ActorServiceTest {
     public void deleteActor() {
         actorService = new ActorService();
         Actor actor = actorService.findById(999);
-        actorService.deleteActor(actor);
+        actorService.delete(actor);
     }
 
     @Test
@@ -54,7 +54,7 @@ public class ActorServiceTest {
         actor.setFirstName("Musab");
         actor.setLastName("Akan");
         actor.setLastUpdate(new Date(98,01,01));
-        actorService.updateActor(actor);
+        actorService.update(actor);
 
 
     }

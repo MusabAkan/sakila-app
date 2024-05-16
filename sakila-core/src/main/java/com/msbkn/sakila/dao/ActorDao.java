@@ -7,7 +7,6 @@ import java.util.List;
 
 public class ActorDao extends GenericDao {
 
-
     public void saveActor(Actor actor) {
         save(actor);
     }

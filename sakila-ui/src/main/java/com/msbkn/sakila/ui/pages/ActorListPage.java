@@ -2,7 +2,7 @@ package com.msbkn.sakila.ui.pages;
 
 import com.msbkn.sakila.domain.Actor;
 import com.msbkn.sakila.service.ActorService;
-import com.msbkn.sakila.ui.MyUI;
+import com.msbkn.sakila.ui.*;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.windows.ActorCardWindow;
 import com.msbkn.sakila.ui.pages.windows.DialogCardWinddow;
@@ -45,23 +45,12 @@ public class ActorListPage extends SkVerticalLayoutField {
 
     private void builFilterPanel() {
         SkTextField nameFilterField = new SkTextField();
-        nameFilterField.setCaption("Adı Ara..");
-        nameFilterField.addTextChangeListener(event -> {
-            String searchIdField = event.getText();
-            filterLayoutField.filterSearch(searchIdField, nameStr, tableDataField);
-        });
-
+        buildItemFilterPanel(nameFilterField, "Adı Ara..", nameStr, tableDataField, filterLayoutField);
         filterLayoutField.addComponents(nameFilterField);
 
         SkTextField lastFilterField = new SkTextField();
-        lastFilterField.setCaption("Soyadı Ara...");
-        lastFilterField.addTextChangeListener(event -> {
-            String searchNameField = event.getText();
-            filterLayoutField.filterSearch(searchNameField, nameStr, tableDataField);
-        });
-
+        buildItemFilterPanel(lastFilterField, "Soyadı Ara...", lastNameStr, tableDataField, filterLayoutField);
         filterLayoutField.addComponent(lastFilterField);
-
     }
 
     private void builTableField() {
@@ -118,7 +107,7 @@ public class ActorListPage extends SkVerticalLayoutField {
 
     private void actorDeleteField() {
         deleteButtonField.addClickListener(event -> {
-            Actor selectdActorField = (Actor) event.getButton().getData();;
+            Actor selectdActorField = (Actor) event.getButton().getData();
             String question = selectdActorField.getFullName() + " seçili Aktör silmek istediğinizden emin misiniz?";
 
             DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
@@ -127,11 +116,13 @@ public class ActorListPage extends SkVerticalLayoutField {
             dialogCardWinddow.addCloseListener(closeEvent -> {
                 boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
                 if (dialogCardWinddowResult) {
-                    actorService.deleteActor(selectdActorField);
+                    actorService.delete(selectdActorField);
                     fillDataField();
                 }
             });
         });
     }
+
+
 }
 

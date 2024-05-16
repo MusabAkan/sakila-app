@@ -176,10 +176,10 @@ public class FilmCardWindow extends SkWindowField {
             Long filmFieldId = selectFilmField.getId();
 
             if (filmFieldId == null)
-                addFilmField();
+                addItemField(selectFilmField, filmService);
 
             else
-                uptadeFilmField();
+                uptadeItemField(selectFilmField, filmService);
 
             quit();
 

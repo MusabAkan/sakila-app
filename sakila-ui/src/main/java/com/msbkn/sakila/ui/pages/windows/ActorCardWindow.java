@@ -83,26 +83,13 @@ public class ActorCardWindow extends SkWindowField {
             Long actorFieldId = selectActorField.getId();
 
             if (actorFieldId == null)
-                addActorField();
+                addItemField(selectActorField, actorService);
 
             else
-                uptadeActorField();
+                uptadeItemField(selectActorField, actorService);
 
             quit();
 
         });
     }
-
-    private void uptadeActorField() {
-        actorService.updateActor(selectActorField);
-        Notification.show("Aktör günceleme yapılmıştır.");
-    }
-
-    private void addActorField() {
-        actorService = new ActorService();
-        actorService.saveActor(selectActorField);
-        Notification.show("Aktör ekleme yapılmıştır.");
-    }
-
-
 }

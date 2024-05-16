@@ -73,7 +73,7 @@ public class Sidebar extends SkVerticalLayoutField {
                 buildItemListPage(new ActorListPage());
 
             if (selectedItemChildren == actorAddStr)
-                buildCardWindow(new ActorCardWindow(), new ActorListPage()) ;
+                buildCardWindow(new ActorCardWindow(), new ActorListPage());
 
             if (selectedItemChildren == languageListStr)
                 buildItemListPage(new LanguageListPage());
@@ -88,6 +88,7 @@ public class Sidebar extends SkVerticalLayoutField {
                 buildCardWindow(new FilmCardWindow(), new FilmListPage());
         });
     }
+
     private <T> void buildCardWindow(T cardWindowEntity, T itemListPage) {
         Window cardWindow = (Window) cardWindowEntity;
         MyUI.getCurrent().addWindow(cardWindow);
@@ -96,6 +97,14 @@ public class Sidebar extends SkVerticalLayoutField {
 
     private <T> void buildItemListPage(T itemListPage) {
         content.removeAllComponents();
-        content.addComponent((Component) itemListPage);
+
+        if (itemListPage instanceof ActorListPage)
+            content.addComponent(new ActorListPage());
+
+        if (itemListPage instanceof LanguageListPage)
+            content.addComponent(new LanguageListPage());
+
+        if (itemListPage instanceof FilmListPage)
+            content.addComponent(new FilmListPage());
     }
 }

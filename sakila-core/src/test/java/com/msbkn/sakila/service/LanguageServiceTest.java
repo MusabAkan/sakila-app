@@ -17,7 +17,7 @@ public class LanguageServiceTest {
         Language language = new Language();
         language.setName("Kenya");
         language.setLastUpdate(new Date());
-        languageService.saveLanguage(language);
+        languageService.save(language);
     }
 
     @Test
@@ -44,14 +44,14 @@ public class LanguageServiceTest {
         Language language = languageService.findById(10);
         language.setLastUpdate(new Date());
         language.setName("New Language");
-        languageService.updateLanguage(language);
+        languageService.update(language);
     }
 
     @Test
     public void deleteLanguage() {
         languageService = new LanguageService();
         Language language = languageService.findById(10);
-        languageService.deleteLanguage(language);
+        languageService.delete(language);
 
     }
 
