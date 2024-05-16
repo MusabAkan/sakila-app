@@ -1,7 +1,6 @@
 package com.msbkn.sakila.ui.common.pages;
 
 import com.msbkn.sakila.ui.common.components.SkHorizontalLayoutField;
-import com.vaadin.ui.HorizontalLayout;
 
 public class Body extends SkHorizontalLayoutField {
     private Content content;
