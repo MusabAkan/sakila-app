@@ -4,10 +4,11 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class SkSuccessButtonField  extends Button {
-    public SkSuccessButtonField() {
-        setIcon(FontAwesome.CHEVRON_CIRCLE_DOWN);
-        addStyleName(ValoTheme.BUTTON_PRIMARY);
+public class SkNoButtonField extends Button {
+    public SkNoButtonField() {
+        setIcon(FontAwesome.CIRCLE);
+        addStyleName(ValoTheme.BUTTON_DANGER);
         setHtmlContentAllowed(true);
     }
+
 }
