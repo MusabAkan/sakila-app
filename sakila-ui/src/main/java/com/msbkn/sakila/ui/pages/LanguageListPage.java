@@ -5,9 +5,7 @@ import com.msbkn.sakila.service.LanguageService;
 import com.msbkn.sakila.ui.*;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.common.pages.Content;
-import com.msbkn.sakila.ui.pages.windows.ActorCardWindow;
-import com.msbkn.sakila.ui.pages.windows.DialogCardWinddow;
-import com.msbkn.sakila.ui.pages.windows.LanguageCardWindow;
+import com.msbkn.sakila.ui.pages.windows.*;
 
 import java.util.Date;
 import java.util.List;
@@ -62,7 +60,6 @@ public class LanguageListPage extends SkVerticalLayoutField {
             if (isDoubleClick) {
                 Language selectItemField = (Language) event.getItemId();
                 LanguageCardWindow languageCardWindow = new LanguageCardWindow(selectItemField);
-
                 MyUI.getCurrent().addWindow(languageCardWindow);
                 languageCardWindow.addCloseListener(closeEvent -> fillDataField());
             }
