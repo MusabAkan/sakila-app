@@ -1,12 +1,17 @@
 package com.msbkn.sakila.ui.common.pages;
 
 import com.msbkn.sakila.ui.MyUI;
-import com.msbkn.sakila.ui.common.components.SkVerticalLayoutField;
-import com.msbkn.sakila.ui.pages.*;
+import com.msbkn.sakila.ui.common.components.*;
+import com.msbkn.sakila.ui.pages.ActorListPage;
+import com.msbkn.sakila.ui.pages.FilmListPage;
+import com.msbkn.sakila.ui.pages.LanguageListPage;
 import com.msbkn.sakila.ui.pages.windows.ActorCardWindow;
 import com.msbkn.sakila.ui.pages.windows.FilmCardWindow;
 import com.msbkn.sakila.ui.pages.windows.LanguageCardWindow;
+import com.vaadin.ui.*;
+
 import com.vaadin.ui.Tree;
+
 
 public class Sidebar extends SkVerticalLayoutField {
     private Tree childrenListTree;
@@ -65,61 +70,32 @@ public class Sidebar extends SkVerticalLayoutField {
             String selectedItemChildren = event.getItemId().toString();
 
             if (selectedItemChildren == actorListStr)
-                buildActorListPage();
+                buildItemListPage(new ActorListPage());
 
             if (selectedItemChildren == actorAddStr)
-                buildActorCardWindow();
+                buildCardWindow(new ActorCardWindow()); ;
 
             if (selectedItemChildren == languageListStr)
-                buildLanguageListPage();
+                buildItemListPage(new LanguageListPage());
 
             if (selectedItemChildren == languageAddStr)
-                buildLanguageCardWindow();
+                buildCardWindow(new LanguageCardWindow());
 
             if (selectedItemChildren == flimListStr)
-                buildFilmListPage();
+                buildItemListPage(new FilmListPage());
 
             if (selectedItemChildren == flimAddStr)
-                buildFilmCardWindow();
+                buildCardWindow(new FilmCardWindow());
         });
     }
+    private <T> void buildCardWindow(T cardWindowEntity) {
+        Window cardWindow = (Window) cardWindowEntity;
+        MyUI.getCurrent().addWindow(cardWindow);
+        cardWindow.addCloseListener(closeEvent -> buildItemListPage(cardWindowEntity));
+    }
 
-
-    private void buildLanguageListPage() {
-        LanguageListPage languageListPage = new LanguageListPage();
+    private <T> void buildItemListPage(T itemListPage) {
         content.removeAllComponents();
-        content.addComponent(languageListPage);
+        content.addComponent((Component) itemListPage);
     }
-
-    private void buildLanguageCardWindow() {
-        LanguageCardWindow languageCardWindow = new LanguageCardWindow();
-        MyUI.getCurrent().addWindow(languageCardWindow);
-        languageCardWindow.addCloseListener(closeEvent -> buildLanguageListPage());
-    }
-
-    private void buildActorListPage() {
-        ActorListPage actorListPage = new ActorListPage();
-        content.removeAllComponents();
-        content.addComponent(actorListPage);
-    }
-
-    private void buildActorCardWindow() {
-        ActorCardWindow actorCardWindow = new ActorCardWindow();
-        MyUI.getCurrent().addWindow(actorCardWindow);
-        actorCardWindow.addCloseListener(closeEvent -> buildActorListPage());
-    }
-
-    private void buildFilmListPage() {
-        FilmListPage filmListPage = new FilmListPage();
-        content.removeAllComponents();
-        content.addComponent(filmListPage);
-    }
-
-    private void buildFilmCardWindow() {
-        FilmCardWindow filmCardWindow = new FilmCardWindow();
-        MyUI.getCurrent().addWindow(filmCardWindow);
-        filmCardWindow.addCloseListener(closeEvent -> buildFilmListPage());
-    }
-
-
 }

@@ -5,6 +5,7 @@ import com.msbkn.sakila.service.LanguageService;
 import com.msbkn.sakila.ui.common.components.*;
 import com.vaadin.ui.Notification;
 
+
 import java.util.Date;
 
 public class LanguageCardWindow extends SkWindowField {

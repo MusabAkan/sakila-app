@@ -31,6 +31,8 @@ public class FilmListPage extends SkVerticalLayoutField {
         filterLayoutField = new SkFormLayoutField();
         tableDataField = new SkTableField();
 
+
+
         builFilterPanel();
         verticalLayoutField.addComponent(filterLayoutField);
 

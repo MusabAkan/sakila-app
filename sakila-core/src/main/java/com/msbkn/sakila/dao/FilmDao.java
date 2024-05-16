@@ -47,7 +47,7 @@ public class FilmDao extends GenericDao {
     public void delete(Film film) {
         String sqlQuery = "update sakila.film set film_deleted = 1 where id =  " + film.getId();
         executeNonQuery(sqlQuery);
-        //todo: Böyle yapmamın sebebi film_category tablosunda Foregin key var film_Id ile yapıyı bozmak yerine bu şekilde yaptım
+        //todo: Böyle yapmamın sebebi schema şeması göre  film_category tablosunda Foregin key var film_Id ile yapıyı bozmak yerine bu şekilde yaptım
     }
 
     public void updateFilm(Film film) {
