@@ -188,12 +188,12 @@ public class FilmCardWindow extends SkWindowField {
     }
 
     private void uptadeFilmField() {
-        filmService.update(selectFilmField);
+        filmService.updateFilm(selectFilmField);
         Notification.show("Film güncelleme yapılmıştır");
     }
 
     private void addFilmField() {
-        filmService.save(selectFilmField);
+        filmService.saveFilm(selectFilmField);
         Notification.show("Film ekleme yapılmıştır");
     }
 

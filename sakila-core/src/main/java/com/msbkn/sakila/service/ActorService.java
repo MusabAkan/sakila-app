@@ -8,28 +8,23 @@ import java.util.List;
 public class ActorService {
     ActorDao actorDao = new ActorDao();
 
-
-    public void save(Actor actor) {
+    public void saveActor(Actor actor) {
         actorDao.saveActor(actor);
     }
-
 
     public Actor findById(long id) {
         return actorDao.findById(id);
     }
 
-
     public List<Actor> findAll() {
         return actorDao.findAll();
     }
 
-
-    public void delete(Actor actor) {
+    public void deleteActor(Actor actor) {
         actorDao.deleteActor(actor);
     }
 
-
-    public void update(Actor actor) {
+    public void updateActor(Actor actor) {
         actorDao.updateActor(actor);
     }
 }

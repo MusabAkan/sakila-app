@@ -12,19 +12,19 @@ public class FilmServiceTest {
     String text;
 
     @Test
-    public void save() {
+    public void saveFilm() {
         filmService = new FilmService();
         Film film = filmService.findById(999);
         film.setId(null);
-        filmService.save(film);
+        filmService.saveFilm(film);
     }
 
     @Test
-    public  void update(){
+    public  void updateFilm(){
         filmService = new FilmService();
         Film film = filmService.findById(999);
         film.setDescription("Banane");
-        filmService.update(film);;
+        filmService.updateFilm(film);;
     }
 
     @Test
@@ -71,10 +71,10 @@ public class FilmServiceTest {
     }
 
     @Test
-    public void deleteTest() {
+    public void deleteFilmTest() {
         filmService = new FilmService();
         Film film = filmService.findById(700);
-        filmService.delete(film);
+        filmService.deleteFilm(film);
     }
 
 }

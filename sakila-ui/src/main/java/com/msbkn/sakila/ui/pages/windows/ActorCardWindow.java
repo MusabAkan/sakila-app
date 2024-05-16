@@ -94,12 +94,12 @@ public class ActorCardWindow extends SkWindowField {
     }
 
     private void uptadeActorField() {
-        actorService.update(selectActorField);
+        actorService.updateActor(selectActorField);
         Notification.show("Aktör tarafında güncelem yapılmıştır");
     }
 
     private void addActorField() {
-        actorService.save(selectActorField);
+        actorService.saveActor(selectActorField);
         Notification.show("Aktör tarafında ekleme yapılmıştır");
     }
 }

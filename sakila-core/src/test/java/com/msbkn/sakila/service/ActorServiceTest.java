@@ -12,13 +12,13 @@ public class ActorServiceTest {
     String text;
 
     @Test
-    public void save() {;
+    public void saveActor() {;
         actorService = new ActorService();
         Actor actor = new Actor();
         actor.setFirstName("Musab");
         actor.setLastName("Akan");
         actor.setLastUpdate(new Date(98,01,01));
-        actorService.save(actor);
+        actorService.saveActor(actor);
     }
     @Test
     public void getActorById() { ;
@@ -41,20 +41,20 @@ public class ActorServiceTest {
         }
     }
     @Test
-    public void deleteActor() {
+    public void deleteActorActor() {
         actorService = new ActorService();
         Actor actor = actorService.findById(999);
-        actorService.delete(actor);
+        actorService.deleteActor(actor);
     }
 
     @Test
-    public void updateActor() {
+    public void updateActorActor() {
         actorService = new ActorService();
         Actor actor = actorService.findById(999);
         actor.setFirstName("Musab");
         actor.setLastName("Akan");
         actor.setLastUpdate(new Date(98,01,01));
-        actorService.update(actor);
+        actorService.updateActor(actor);
 
 
     }

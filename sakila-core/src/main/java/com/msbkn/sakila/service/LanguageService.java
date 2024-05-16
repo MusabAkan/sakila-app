@@ -8,29 +8,24 @@ import java.util.List;
 public class LanguageService{
 
     LanguageDao languageDao = new LanguageDao();
-
     
-    public void save(Language language) {
+    public void saveLanguage(Language language) {
         languageDao.saveLanguage(language);
     }
-
     
-    public void update(Language language) {
+    public void updateLanguage(Language language) {
         languageDao.updateLanguage(language);
     }
-
     
     public Language findById(long id) {
         return languageDao.findById(id);
     }
-
     
     public List<Language> findAll() {
         return languageDao.findAll();
     }
-
     
-    public void delete(Language language) {
+    public void deleteLanguage(Language language) {
         if (language == null) throw new NullPointerException("Dil boş..");
         languageDao.deleteLanguage(language);
     }

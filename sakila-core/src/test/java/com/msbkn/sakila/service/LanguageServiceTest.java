@@ -3,7 +3,6 @@ package com.msbkn.sakila.service;
 import com.msbkn.sakila.domain.Language;
 import org.junit.*;
 
-import javax.persistence.EntityResult;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +16,7 @@ public class LanguageServiceTest {
         Language language = new Language();
         language.setName("Kenya");
         language.setLastUpdate(new Date());
-        languageService.save(language);
+        languageService.saveLanguage(language);
     }
 
     @Test
@@ -44,14 +43,14 @@ public class LanguageServiceTest {
         Language language = languageService.findById(10);
         language.setLastUpdate(new Date());
         language.setName("New Language");
-        languageService.update(language);
+        languageService.updateLanguage(language);
     }
 
     @Test
     public void deleteLanguage() {
         languageService = new LanguageService();
         Language language = languageService.findById(10);
-        languageService.delete(language);
+        languageService.deleteLanguage(language);
 
     }
 

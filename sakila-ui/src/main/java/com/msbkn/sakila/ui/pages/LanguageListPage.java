@@ -101,7 +101,7 @@ public class LanguageListPage extends SkVerticalLayoutField {
             dialogCardWinddow.addCloseListener(closeEvent -> {
                 boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
                 if (dialogCardWinddowResult) {
-                    languageService.delete(selectLanguageField);
+                    languageService.deleteLanguage(selectLanguageField);
                     fillDataField();
                 }
             });

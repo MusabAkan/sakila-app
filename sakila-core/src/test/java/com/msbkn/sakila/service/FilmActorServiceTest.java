@@ -11,7 +11,7 @@ public class FilmActorServiceTest {
     String text;
 
     @Test
-    public void save() {
+    public void saveActor() {
         filmActorService = new FilmActorService();
         FilmActor film = new FilmActor();
         filmActorService.findById(998);

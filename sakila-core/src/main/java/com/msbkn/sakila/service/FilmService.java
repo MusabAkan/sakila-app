@@ -9,17 +9,14 @@ import java.util.Set;
 public class FilmService {
     FilmDao filmDao = new FilmDao();
 
-
-    public void save(Film film) {
+    public void saveFilm(Film film) {
         if (film == null) throw new NullPointerException("Film boş..");
         filmDao.saveFilm(film);
     }
 
-
     public Film findById(long id) {
         return filmDao.findById(id);
     }
-
 
     public List<Film> findAll() {
         return filmDao.findAll();
@@ -33,14 +30,12 @@ public class FilmService {
         return filmDao.findFeatureList();
     }
 
-
-    public void delete(Film film) {
+    public void deleteFilm(Film film) {
         if (film == null) throw new NullPointerException("Film boş");
         filmDao.delete(film);
     }
 
-
-    public void update(Film film) {
+    public void updateFilm(Film film) {
         if (film == null) throw new NullPointerException("Film boş..");
         filmDao.updateFilm(film);
     }

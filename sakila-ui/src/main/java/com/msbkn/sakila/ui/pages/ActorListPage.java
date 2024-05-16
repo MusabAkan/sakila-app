@@ -116,7 +116,7 @@ public class ActorListPage extends SkVerticalLayoutField {
             dialogCardWinddow.addCloseListener(closeEvent -> {
                 boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
                 if (dialogCardWinddowResult) {
-                    actorService.delete(selectdActorField);
+                    actorService.deleteActor(selectdActorField);
                     fillDataField();
                 }
             });
