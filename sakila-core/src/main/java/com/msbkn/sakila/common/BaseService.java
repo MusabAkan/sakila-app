@@ -1,13 +1,15 @@
 package com.msbkn.sakila.common;
 
+import com.msbkn.sakila.dao.FilmDao;
+import com.msbkn.sakila.domain.Film;
 import org.hibernate.criterion.Criterion;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 public class BaseService<E extends BaseEntity> {
 
     private BaseDao<E> dao;
-
     public BaseService(Class entity) {
         dao = new BaseDao<E>(entity);
     }
@@ -33,6 +35,6 @@ public class BaseService<E extends BaseEntity> {
     }
 
     public BaseDao<E> getDao() {
-        return dao;
+        return dao ;
     }
 }

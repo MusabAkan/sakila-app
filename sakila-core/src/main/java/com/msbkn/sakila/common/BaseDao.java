@@ -16,10 +16,8 @@ public class BaseDao<T extends BaseEntity> {
     public T save(T entity) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Object object =  session.save(entity);
-        System.out.println(object);
+        session.saveOrUpdate(entity);
         session.getTransaction().commit();
-        session.close();
         return entity;
     }
 
@@ -28,23 +26,18 @@ public class BaseDao<T extends BaseEntity> {
         session.beginTransaction();
         session.delete(entity);
         session.getTransaction().commit();
-        session.close();
     }
 
     public T findById(Long id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        T entity = (T) session.get(clazz, id);
-        session.close();
-        return entity;
+        return (T) session.get(clazz, id);
     }
 
     public List<T> findAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Criteria criteria = session.createCriteria(clazz);
-        List<T> criterialist = criteria.list();
-        session.close();
-        return criterialist;
+        return criteria.list();
     }
 
     public List<T> findAllParams(Criterion... criterionCriteria) {
@@ -53,8 +46,6 @@ public class BaseDao<T extends BaseEntity> {
         for (Criterion criterion : criterionCriteria) {
             sessionCriteria.add(criterion);
         }
-        List<T> sessionCriteriaList = sessionCriteria.list();
-        session.close();
-        return sessionCriteriaList;
+        return sessionCriteria.list();
     }
 }

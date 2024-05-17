@@ -19,14 +19,14 @@ public class FilmDao extends BaseDao<Film> {
     public Set<String> findRatingList() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("select distinct(rating) as rating from sakila.film");
+        Query query = session.createSQLQuery("select distinct(rating) as rating from sakila.film");
         return fillSetList(query.list());
     }
 
     public Set<String> findFeatureList() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        Query query = session.createQuery("select distinct( special_features) as feature from sakila.film");
+        Query query = session.createSQLQuery("select distinct(special_features) as feature from sakila.film");
         return fillSetList(query.list());
     }
 

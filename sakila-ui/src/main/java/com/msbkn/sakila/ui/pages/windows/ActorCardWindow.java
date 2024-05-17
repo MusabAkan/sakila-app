@@ -77,6 +77,9 @@ public class ActorCardWindow extends SkWindowField {
             String actorLastNameField = actorLastNameTextField.getValue();
             selectActorField.setLastName(actorLastNameField);
 
+            Date actorLastUpdateField = new Date();
+            selectActorField.setLastUpdate(actorLastUpdateField);
+
             actorService.save(selectActorField);
             Notification.show("Aktör tarafında kaydetme işlemi yapılmıştır");
 

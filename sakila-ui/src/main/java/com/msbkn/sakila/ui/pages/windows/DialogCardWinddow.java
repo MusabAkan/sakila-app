@@ -31,7 +31,7 @@ public class DialogCardWinddow extends Window {
         layoutField.addComponent(yesButtonField);
 
         noButtonField = new SkNoButtonField();
-        builItemButtonField(noButtonField, "Hayır", true);
+        builItemButtonField(noButtonField, "Hayır", false);
         layoutField.addComponent(noButtonField);
 
         layoutField.setComponentAlignment(yesButtonField, Alignment.MIDDLE_LEFT);

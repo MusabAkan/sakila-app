@@ -138,8 +138,6 @@ public class FilmCardWindow extends SkWindowField {
 
     private void buildSaveFilmField() {
         saveButtonField.addClickListener(clickEvent -> {
-
-
             String titleField = filmTitleTextField.getValue();
             selectFilmField.setTitle(titleField);
 
@@ -171,13 +169,15 @@ public class FilmCardWindow extends SkWindowField {
             selectFilmField.setRating(ratingField);
             selectFilmField.setDeleted(false);
 
+            Date filmLastUpdateField = new Date();
+            selectFilmField.setLastUpdate(filmLastUpdateField);
+
             filmService.save(selectFilmField);
             Notification.show("Film kaydetme işlemi yapılmıştır");
             quit();
 
         });
     }
-
 
 
     private void fillFeatureField(String[] features) {
