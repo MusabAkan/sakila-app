@@ -1,25 +1,13 @@
 package com.msbkn.sakila.ui.pages.common;
 
-import com.msbkn.sakila.common.BaseEntity;
-import com.msbkn.sakila.common.BaseService;
-import com.msbkn.sakila.domain.Language;
+import com.msbkn.sakila.common.*;
 import com.msbkn.sakila.ui.MyUI;
-import com.msbkn.sakila.ui.common.components.SkDeleteButtonField;
-import com.msbkn.sakila.ui.common.components.SkFormLayoutField;
-import com.msbkn.sakila.ui.common.components.SkTableField;
+import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.common.components.SkVerticalLayoutField;
-import com.msbkn.sakila.ui.pages.windows.DialogCardWinddow;
-import com.msbkn.sakila.ui.pages.windows.LanguageCardWindow;
-import com.vaadin.ui.TextField;
-import com.vaadin.ui.VerticalLayout;
+import com.msbkn.sakila.ui.pages.windows.*;
+import com.vaadin.ui.*;
 
-import java.awt.*;
-
-public class BaseListPage extends VerticalLayout {
-    public BaseListPage() {
-
-    }
-
+public abstract class BaseListPage extends VerticalLayout {
     private BaseService service;
     protected DialogCardWinddow dialogCardField;
     protected SkDeleteButtonField deleteButtonField;
@@ -29,13 +17,27 @@ public class BaseListPage extends VerticalLayout {
     protected SkVerticalLayoutField verticalLayoutField;
     protected SkFormLayoutField formLayoutField;
 
-    protected <T> void buildItemFilterPanel(T entityTextField, String caption, String searchStr) {
-        TextField textField = (TextField) entityTextField;
+    public abstract void fillDataField();
+
+    public BaseListPage() {
+        setSizeFull();
+        verticalLayoutField = new SkVerticalLayoutField();
+        filterLayoutField = new SkFormLayoutField();
+        tableDataField = new SkTableField();
+        dialogCardField = new DialogCardWinddow();
+        formLayoutField = new SkFormLayoutField();
+    }
+    protected <T> void addTableColumn(String emptyStr, Class<T> clazz, Object object) {
+        tableDataField.addContainerProperty(emptyStr, clazz, object);
+    }
+    protected void addItemTextFilterPanel(String caption, String searchStr) {
+        SkTextField textField = new SkTextField();
         textField.setCaption(caption);
         textField.addTextChangeListener(event -> {
             String searchIdField = event.getText();
             formLayoutField.filterSearch(searchIdField, searchStr, tableDataField);
         });
+        filterLayoutField.addComponent(textField);
     }
 
     protected <T> void buildItemDeleteField(T entityField, T serviceField) {
@@ -45,8 +47,8 @@ public class BaseListPage extends VerticalLayout {
         tableDataField.getContainerProperty(entityField, emptyStr).setValue(deleteButtonField);
         deleteButtonField.addClickListener(event -> {
 
-            T selectFilmField = (T) event.getButton().getData();
-            Long idField = ((BaseEntity) selectFilmField).getId();
+            BaseEntity selectedEntity = (BaseEntity) event.getButton().getData();
+            Long idField = selectedEntity.getId();
             String question = idField + " seçili id silmek istediğinizden emin misiniz?";
             DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
             MyUI.getCurrent().addWindow(dialogCardWinddow);
@@ -54,25 +56,24 @@ public class BaseListPage extends VerticalLayout {
             dialogCardWinddow.addCloseListener(closeEvent -> {
                 boolean dialogCardWindowResult = dialogCardWinddow.getResult();
                 if (dialogCardWindowResult) {
-                    service.delete(selectFilmField);
-                    //fillDataField();
+                    service.delete(selectedEntity);
+                    fillDataField();
                 }
             });
         });
     }
 
-//    protected <T> void doubleClickSelectItem(T entityField, T entityCardField) {
-//        tableDataField.addItemClickListener(event -> {
-//            boolean isDoubleClick = event.isDoubleClick();
-//            if (isDoubleClick) {
-//                T selectItemField = (T) event.getItemId();
-//                Window windowField = (Window) entityCardField;
-//                LanguageCardWindow languageCardWindow = new LanguageCardWindow(selectItemField);
-//                MyUI.getCurrent().addWindow(languageCardWindow);
-//
-//            }
-//        });
-//    }
+    protected <T> void doubleClickSelectItem() {
+        tableDataField.addItemClickListener(event -> {
+            boolean isDoubleClick = event.isDoubleClick();
+            if (isDoubleClick) {
+                BaseEntity selectItemField = (BaseEntity) event.getItemId();
+                Window cardWindow = new BaseCardWindow().GetCardWindow(selectItemField);
+                MyUI.getCurrent().addWindow(cardWindow);
+                cardWindow.addCloseListener(closeEvent -> fillDataField());
+            }
+        });
+    }
 
 
 }

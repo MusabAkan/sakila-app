@@ -4,30 +4,21 @@ import com.msbkn.sakila.domain.Actor;
 import com.msbkn.sakila.service.ActorService;
 import com.msbkn.sakila.ui.*;
 import com.msbkn.sakila.ui.common.components.*;
-import com.msbkn.sakila.ui.pages.windows.ActorCardWindow;
+import com.msbkn.sakila.ui.pages.common.BaseListPage;
 import com.msbkn.sakila.ui.pages.windows.DialogCardWinddow;
 
 import java.util.Date;
 import java.util.List;
 
 
-public class ActorListPage extends SkVerticalLayoutField {
+public class ActorListPage extends BaseListPage {
     private ActorService actorService;
 
     private String nameStr = "Ad";
     private String lastNameStr = "Soyad";
     private String creationDateStr = "Oluşturma Tarihi";
-    private String emptyStr = " ";
-
-    private SkTableField tableDataField;
-    private SkVerticalLayoutField verticalLayoutField;
-    private SkFormLayoutField filterLayoutField;
-    private SkDeleteButtonField deleteButtonField;
 
     public ActorListPage() {
-        verticalLayoutField = new SkVerticalLayoutField();
-        filterLayoutField = new SkFormLayoutField();
-        tableDataField = new SkTableField();
         actorService = new ActorService();
 
         builFilterPanel();
@@ -40,41 +31,23 @@ public class ActorListPage extends SkVerticalLayoutField {
 
         verticalLayoutField.setExpandRatio(filterLayoutField, 0.2f);
         verticalLayoutField.setExpandRatio(tableDataField, 0.8f);
-
     }
 
     private void builFilterPanel() {
-        SkTextField nameFilterField = new SkTextField();
-        buildItemFilterPanel(nameFilterField, "Adı Ara..", nameStr, tableDataField, filterLayoutField);
-        filterLayoutField.addComponents(nameFilterField);
-
-        SkTextField lastFilterField = new SkTextField();
-        buildItemFilterPanel(lastFilterField, "Soyadı Ara...", lastNameStr, tableDataField, filterLayoutField);
-        filterLayoutField.addComponent(lastFilterField);
+        addItemTextFilterPanel("Adı Ara..", nameStr);
+        addItemTextFilterPanel("Soyadı Ara...", lastNameStr);
     }
 
     private void builTableField() {
-        tableDataField.addContainerProperty(emptyStr, SkDeleteButtonField.class, null);
-        tableDataField.addContainerProperty(nameStr, String.class, null);
-        tableDataField.addContainerProperty(lastNameStr, String.class, null);
-        tableDataField.addContainerProperty(creationDateStr, String.class, null);
+        addTableColumn(emptyStr, SkDeleteButtonField.class, null);
+        addTableColumn(nameStr, String.class, null);
+        addTableColumn(lastNameStr, String.class, null);
+        addTableColumn(creationDateStr, String.class, null);
         fillDataField();
         doubleClickSelectItem();
     }
 
-    private void doubleClickSelectItem() {
-        tableDataField.addItemClickListener(event -> {
-            boolean isDoubleClick = event.isDoubleClick();
-            if (isDoubleClick) {
-                Actor selectActor = (Actor) event.getItemId();
-                ActorCardWindow actorCardWindow = new ActorCardWindow(selectActor);
-                MyUI.getCurrent().addWindow(actorCardWindow);
-                actorCardWindow.addCloseListener(closeEvent -> fillDataField());
-            }
-        });
-    }
-
-    private void fillDataField() {
+    public void fillDataField() {
         tableDataField.removeAllItems();
         List<Actor> actors = actorService.findAll();
         for (Actor actor : actors)
@@ -94,35 +67,8 @@ public class ActorListPage extends SkVerticalLayoutField {
         String creationDateField = actor.getDateString(lastUpdate);
         tableDataField.getContainerProperty(actor, creationDateStr).setValue(creationDateField);
 
-        buildActorDeleteField(actor);
+        buildItemDeleteField(actor, actorService);
     }
-
-    private void buildActorDeleteField(Actor actor) {
-        deleteButtonField = new SkDeleteButtonField();
-        deleteButtonField.setData(actor);
-        tableDataField.getContainerProperty(actor, emptyStr).setValue(deleteButtonField);
-        actorDeleteField();
-
-    }
-
-    private void actorDeleteField() {
-        deleteButtonField.addClickListener(event -> {
-            Actor selectdActorField = (Actor) event.getButton().getData();
-            String question = selectdActorField.getFullName() + " seçili Aktör silmek istediğinizden emin misiniz?";
-
-            DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
-            MyUI.getCurrent().addWindow(dialogCardWinddow);
-
-            dialogCardWinddow.addCloseListener(closeEvent -> {
-                boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
-                if (dialogCardWinddowResult) {
-                    actorService.deleteActor(selectdActorField);
-                    fillDataField();
-                }
-            });
-        });
-    }
-
 
 }
 

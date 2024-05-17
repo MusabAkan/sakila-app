@@ -10,6 +10,7 @@ public class ActorServiceTest {
 
     ActorService actorService;
     String text;
+    Long  actorId = 999L;
 
     @Test
     public void saveActor() {;
@@ -18,12 +19,13 @@ public class ActorServiceTest {
         actor.setFirstName("Musab");
         actor.setLastName("Akan");
         actor.setLastUpdate(new Date(98,01,01));
-        actorService.saveActor(actor);
+        actorService.save(actor);
     }
     @Test
     public void getActorById() { ;
         actorService = new ActorService();
-        Actor actor = actorService.findById(5);
+
+        Actor actor = actorService.findById(actorId);
         text = actor.getFirstName() + " " + actor.getLastName();
         System.out.println(text);
     }
@@ -42,19 +44,20 @@ public class ActorServiceTest {
     }
     @Test
     public void deleteActorActor() {
+
         actorService = new ActorService();
-        Actor actor = actorService.findById(999);
-        actorService.deleteActor(actor);
+        Actor actor = actorService.findById(actorId);
+        actorService.delete(actor);
     }
 
     @Test
     public void updateActorActor() {
         actorService = new ActorService();
-        Actor actor = actorService.findById(999);
+        Actor actor = actorService.findById(actorId);
         actor.setFirstName("Musab");
         actor.setLastName("Akan");
         actor.setLastUpdate(new Date(98,01,01));
-        actorService.updateActor(actor);
+        actorService.save(actor);
 
 
     }

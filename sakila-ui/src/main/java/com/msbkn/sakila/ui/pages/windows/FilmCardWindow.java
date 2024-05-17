@@ -139,6 +139,7 @@ public class FilmCardWindow extends SkWindowField {
     private void buildSaveFilmField() {
         saveButtonField.addClickListener(clickEvent -> {
 
+
             String titleField = filmTitleTextField.getValue();
             selectFilmField.setTitle(titleField);
 
@@ -168,34 +169,16 @@ public class FilmCardWindow extends SkWindowField {
 
             String ratingField = filmRatingComboboxField.getValue().toString();
             selectFilmField.setRating(ratingField);
-
-            Date now = new Date();
-            selectFilmField.setLastUpdate(now);
             selectFilmField.setDeleted(false);
 
-            Long filmFieldId = selectFilmField.getId();
-
-            if (filmFieldId == null)
-                addFilmField();
-
-            else {
-                uptadeFilmField();
-            }
-
+            filmService.save(selectFilmField);
+            Notification.show("Film kaydetme işlemi yapılmıştır");
             quit();
 
         });
     }
 
-    private void uptadeFilmField() {
-        filmService.updateFilm(selectFilmField);
-        Notification.show("Film güncelleme yapılmıştır");
-    }
 
-    private void addFilmField() {
-        filmService.save(selectFilmField);
-        Notification.show("Film ekleme yapılmıştır");
-    }
 
     private void fillFeatureField(String[] features) {
         for (String feature : features)

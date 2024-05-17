@@ -9,12 +9,13 @@ import java.util.List;
 public class FilmActorServiceTest {
     FilmActorService filmActorService;
     String text;
+    Long flimId = 998L;
 
     @Test
     public void saveActor() {
         filmActorService = new FilmActorService();
         FilmActor film = new FilmActor();
-        filmActorService.findById(998);
+        filmActorService.findById(flimId);
 
 
     }
@@ -22,8 +23,8 @@ public class FilmActorServiceTest {
     @Test
     public void getFilmById() {
         filmActorService = new FilmActorService();
-        FilmActor filmActor = filmActorService.findById(5);
-        text = filmActor.getId() + " " + filmActor.getLastUpdate()  + " " +filmActor.getActor().getLastName() + " " +filmActor.getActor().getFirstName();
+        FilmActor filmActor = filmActorService.findById(flimId);
+        text = filmActor.getId() + " " + filmActor.getLastUpdate() + " " + filmActor.getActor().getLastName() + " " + filmActor.getActor().getFirstName();
         System.out.println(text);
     }
 

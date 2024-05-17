@@ -2,28 +2,22 @@ package com.msbkn.sakila.ui.pages;
 
 import com.msbkn.sakila.domain.Language;
 import com.msbkn.sakila.service.LanguageService;
-import com.msbkn.sakila.ui.*;
 import com.msbkn.sakila.ui.common.components.*;
-import com.msbkn.sakila.ui.common.pages.Content;
 import com.msbkn.sakila.ui.pages.common.BaseListPage;
-import com.msbkn.sakila.ui.pages.windows.*;
 
 import java.util.Date;
 import java.util.List;
 
 public class LanguageListPage extends BaseListPage {
+
     private LanguageService languageService;
     private String languageNameStr = "Dil Adı";
     private String languageNaneSearchStr = "Dil Adı Ara..";
     private String creationDateStr = "Oluşturma Tarihi";
-    private String emptyStr = " ";
 
     public LanguageListPage() {
+
         languageService = new LanguageService();
-        verticalLayoutField = new SkVerticalLayoutField();
-        filterLayoutField = new SkFormLayoutField();
-        tableDataField = new SkTableField();
-        dialogCardField = new DialogCardWinddow();
 
         builFilterPanel();
         verticalLayoutField.addComponent(filterLayoutField);
@@ -38,30 +32,15 @@ public class LanguageListPage extends BaseListPage {
     }
 
     private void builFilterPanel() {
-        SkTextField languageNameFilterField = new SkTextField();
-        buildItemFilterPanel(languageNameFilterField, languageNaneSearchStr, languageNameStr);
-        filterLayoutField.addComponent(languageNameFilterField);
+        addItemTextFilterPanel(languageNaneSearchStr, languageNameStr);
     }
 
     private void builTableField() {
-        tableDataField.addContainerProperty(emptyStr, SkDeleteButtonField.class, null);
-        tableDataField.addContainerProperty(languageNameStr, String.class, null);
-        tableDataField.addContainerProperty(creationDateStr, String.class, null);
+        addTableColumn(emptyStr, SkDeleteButtonField.class, null);
+        addTableColumn(languageNameStr, String.class, null);
+        addTableColumn(creationDateStr, String.class, null);
         fillDataField();
         doubleClickSelectItem();
-        dialogCardField.addCloseListener(closeEvent -> fillDataField());
-    }
-
-    private void doubleClickSelectItem() {
-        tableDataField.addItemClickListener(event -> {
-            boolean isDoubleClick = event.isDoubleClick();
-            if (isDoubleClick) {
-                Language selectItemField = (Language) event.getItemId();
-                LanguageCardWindow languageCardWindow = new LanguageCardWindow(selectItemField);
-                MyUI.getCurrent().addWindow(languageCardWindow);
-
-            }
-        });
     }
 
     public void fillDataField() {
@@ -82,10 +61,5 @@ public class LanguageListPage extends BaseListPage {
         tableDataField.getContainerProperty(language, creationDateStr).setValue(creationDateField);
 
         buildItemDeleteField(language, languageService);
-        dialogCardField.addCloseListener(closeEvent -> {
-            fillDataField();
-        });
     }
-
-
 }

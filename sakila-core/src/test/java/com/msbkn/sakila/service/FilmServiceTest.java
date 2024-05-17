@@ -10,27 +10,28 @@ public class FilmServiceTest {
 
     FilmService filmService;
     String text;
+    Long filmID = 999L;
 
     @Test
     public void save() {
         filmService = new FilmService();
-        Film film = filmService.findById(999);
+        Film film = filmService.findById(filmID);
         film.setId(null);
         filmService.save(film);
     }
 
     @Test
-    public  void updateFilm(){
+    public void update() {
         filmService = new FilmService();
-        Film film = filmService.findById(999);
+        Film film = filmService.findById(filmID);
         film.setDescription("Banane");
-        filmService.updateFilm(film);;
+        filmService.save(film);
     }
 
     @Test
-    public void getFilmById() {
+    public void fillById() {
         filmService = new FilmService();
-        Film Film = filmService.findById(5);
+        Film Film = filmService.findById(filmID);
         if (Film == null) return;
         writter(Film);
         System.out.println(text);
@@ -41,8 +42,7 @@ public class FilmServiceTest {
     }
 
     @Test
-    public void getAllFilms() {
-
+    public void fillAll() {
         filmService = new FilmService();
         List<Film> films = filmService.findAll();
         for (Film Film : films) {
@@ -73,7 +73,7 @@ public class FilmServiceTest {
     @Test
     public void deleteTest() {
         filmService = new FilmService();
-        Film film = filmService.findById(700);
+        Film film = filmService.findById(filmID);
         filmService.delete(film);
     }
 

@@ -8,40 +8,32 @@ import org.hibernate.criterion.Restrictions;
 import java.util.List;
 import java.util.Set;
 
-public class FilmService extends BaseService<Film, FilmDao> {
+public class FilmService extends BaseService<Film> {
 
     public FilmService() {
-        super(new FilmDao());
+        super(Film.class);
     }
 
-    public Film save(Film film) {
-        return getDaoClazz().save(film);
-    }
+//    public Film findById(long id) {
+//        Criterion[] criterionCriteria = {
+//                Restrictions.eq("deleted", false),
+//                Restrictions.eq("id", id)
+//        };
+//        return super.findAllParams(criterionCriteria).get(0);
+//    }
 
-    public Film findById(long id) {
-        return getDaoClazz().findAllParams(
-                Restrictions.eq("deleted", false),
-                Restrictions.eq("id", id)
-        ).get(0);
-    }
-
+    @Override
     public List<Film> findAll() {
-        return getDaoClazz().findAllParams(
-                Restrictions.eq("deleted", false)
-        );
+        return super.findAllParams(Restrictions.eq("deleted", false));
     }
 
     public Set<String> findRatingList() {
-        return ((FilmDao) getDaoClazz()).findRatingList();
+        FilmDao filmDao = (FilmDao) getDao();
+        return filmDao.findRatingList();
     }
 
     public Set<String> findFeatureList() {
-        return getDaoClazz().findFeatureList();
-    }
-
-    public void delete(Film film) {
-        if (film == null) throw new NullPointerException("Film boş");
-        film.setDeleted(true);
-        getDaoClazz().save(film);
+        FilmDao filmDao = (FilmDao) getDao();
+        return filmDao.findFeatureList();
     }
 }

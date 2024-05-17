@@ -69,28 +69,15 @@ public class LanguageCardWindow extends SkWindowField {
             Date languageLastUpdateField = new Date();
             selectLanguageField.setLastUpdate(languageLastUpdateField);
 
-            Long languageFieldId = selectLanguageField.getId();
-
-            if (languageFieldId == null)
-                addLanguageField();
-
-            else
-                uptadeLanguageField();
+            languageService.save(selectLanguageField);
+            Notification.show("Dil tarafında kaydetme işlemi yapılmıştır.");
 
             quit();
 
         });
     }
 
-    private void addLanguageField() {
-        languageService.saveLanguage(selectLanguageField);
-        Notification.show("Dil tarafında ekleme işlemi yapılmıştır.");
-    }
 
-    private void uptadeLanguageField() {
-        languageService.updateLanguage(selectLanguageField);
-        Notification.show("Dil tarafında günceleme işlemi yapılmıştır.");
-    }
 
 
 }

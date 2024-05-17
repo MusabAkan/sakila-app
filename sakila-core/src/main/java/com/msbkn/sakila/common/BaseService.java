@@ -1,34 +1,38 @@
 package com.msbkn.sakila.common;
 
-import com.msbkn.sakila.domain.Film;
+import org.hibernate.criterion.Criterion;
 
 import java.util.List;
 
-public class BaseService<E extends BaseEntity, D extends BaseDao<Film>> {
-    
-    public Class<E> daoClazz;
-    
-    public BaseService(BaseDao<T> dao) {
-        this.daoClazz = daoClazz;
+public class BaseService<E extends BaseEntity> {
+
+    private BaseDao<E> dao;
+
+    public BaseService(Class entity) {
+        dao = new BaseDao<E>(entity);
     }
 
     public E save(E entity) {
-        return daoClazz.save(entity);;
+        return dao.save(entity);
     }
 
     public void delete(E entity) {
-        daoClazz.delete(entity);
+        dao.delete(entity);
     }
 
     public List<E> findAll() {
-        return daoClazz.findAll();
+        return dao.findAll();
     }
 
     public E findById(Long id) {
-        return daoClazz.findById(id);
+        return dao.findById(id);
     }
-    
-    public BaseDao<E> getDaoClazz() {
-        return daoClazz;
+
+    public List<E> findAllParams(Criterion... criterionCriteria) {
+        return dao.findAllParams(criterionCriteria);
+    }
+
+    public BaseDao<E> getDao() {
+        return dao;
     }
 }

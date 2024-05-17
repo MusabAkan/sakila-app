@@ -77,29 +77,12 @@ public class ActorCardWindow extends SkWindowField {
             String actorLastNameField = actorLastNameTextField.getValue();
             selectActorField.setLastName(actorLastNameField);
 
-            Date actorLastUpdateField = new Date();
-            selectActorField.setLastUpdate(actorLastUpdateField);
-
-            Long actorFieldId = selectActorField.getId();
-
-            if (actorFieldId == null)
-                addActorField();
-
-            else
-                uptadeActorField();
+            actorService.save(selectActorField);
+            Notification.show("Aktör tarafında kaydetme işlemi yapılmıştır");
 
             quit();
-
         });
     }
 
-    private void uptadeActorField() {
-        actorService.updateActor(selectActorField);
-        Notification.show("Aktör tarafında güncelem yapılmıştır");
-    }
 
-    private void addActorField() {
-        actorService.saveActor(selectActorField);
-        Notification.show("Aktör tarafında ekleme yapılmıştır");
-    }
 }

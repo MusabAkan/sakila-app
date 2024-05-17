@@ -9,6 +9,7 @@ import java.util.List;
 public class LanguageServiceTest {
     LanguageService languageService;
     String text;
+    Long languageId = 44L;
 
     @Test
     public void saveLanguage() {
@@ -16,13 +17,13 @@ public class LanguageServiceTest {
         Language language = new Language();
         language.setName("Kenya");
         language.setLastUpdate(new Date());
-        languageService.saveLanguage(language);
+        languageService.save(language);
     }
 
     @Test
     public void getLanguageById() {
         languageService = new LanguageService();
-        Language language = languageService.findById(5);
+        Language language = languageService.findById(languageId);
         text = language.getId() + " " + language.getName() + " " + language.getLastUpdate();
         System.out.println(text);
     }
@@ -40,17 +41,17 @@ public class LanguageServiceTest {
     @Test
     public void updateLanguage() {
         languageService = new LanguageService();
-        Language language = languageService.findById(10);
+        Language language = languageService.findById(languageId);
         language.setLastUpdate(new Date());
         language.setName("New Language");
-        languageService.updateLanguage(language);
+        languageService.save(language);
     }
 
     @Test
     public void deleteLanguage() {
         languageService = new LanguageService();
-        Language language = languageService.findById(10);
-        languageService.deleteLanguage(language);
+        Language language = languageService.findById(languageId);
+        languageService.delete(language);
 
     }
 
