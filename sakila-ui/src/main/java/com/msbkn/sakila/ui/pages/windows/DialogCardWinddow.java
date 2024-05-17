@@ -11,9 +11,12 @@ public class DialogCardWinddow extends Window {
     private SkYesButtonField yesButtonField;
     private SkNoButtonField noButtonField;
 
+    public  DialogCardWinddow() {
+
+    }
+
     public DialogCardWinddow(String titleSubjectField) {
         super(titleSubjectField);
-
         center();
         setClosable(false);
         setModal(true);

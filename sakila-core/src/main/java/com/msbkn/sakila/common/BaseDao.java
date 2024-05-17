@@ -5,68 +5,48 @@ import org.hibernate.criterion.Criterion;
 
 import java.util.List;
 
-public class BaseDao {
+public class BaseDao<T extends BaseEntity> {
 
-    public <T> void save(T entity) {
+    public Class clazz;
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        session.save(entity);
-        session.getTransaction().commit();
+    public BaseDao(Class clazz) {
+        this.clazz = clazz;
     }
 
-    public <T> void update(T entity) {
+    public T save(T entity) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        session.update(entity);
+        entity = (T) session.save(entity);
         session.getTransaction().commit();
+        return entity;
     }
 
-    public <T> void delete(T entity) {
+    public void delete(T entity) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         session.delete(entity);
         session.getTransaction().commit();
+        session.close();
     }
 
-    public <T> T findById(T entity, long id) {
+    public T findById(Long id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
-        return (T) session.get(entity.getClass(), id);
+        return (T) session.get(clazz, id);
     }
 
-
-    public <T> List<T> findAll(T entity) {
+    public List<T> findAll() {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        return (List<T>) session.createCriteria(entity.getClass()).list();
+        Criteria criteria = session.createCriteria(clazz);
+        return (List<T>) criteria.list();
     }
 
-    public <T> List<T> findAllParams(T entity, Criterion... criterionCriteria) {
+    public List<T> findAllParams(Criterion... criterionCriteria) {
         Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Criteria sessionCriteria = session.createCriteria(entity.getClass());
-        for (Criterion criterion : criterionCriteria)
+        Criteria sessionCriteria = session.createCriteria(clazz);
+        for (Criterion criterion : criterionCriteria) {
             sessionCriteria.add(criterion);
+        }
         return (List<T>) sessionCriteria.list();
     }
-
-
-    public Query executeReaderQuery(String sql) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createSQLQuery(sql);
-        session.getTransaction().commit();
-        return query;
-    }
-
-    public void executeNonQuery(String sql) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Query query = session.createSQLQuery(sql);
-        query.executeUpdate();
-        session.getTransaction().commit();
-    }
-
-
 }

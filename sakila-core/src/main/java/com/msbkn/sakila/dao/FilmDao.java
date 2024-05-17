@@ -1,25 +1,33 @@
 package com.msbkn.sakila.dao;
 
 import com.msbkn.sakila.common.BaseDao;
+import com.msbkn.sakila.common.HibernateUtil;
 import com.msbkn.sakila.domain.Film;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class FilmDao extends BaseDao {
+public class FilmDao extends BaseDao<Film> {
+
+    public FilmDao() {
+        super(Film.class);
+    }
 
     public Set<String> findRatingList() {
-        String sqlQuery = "select DISTINCT(rating) as rating from sakila.film";
-        return fillSetList(executeReaderQuery(sqlQuery).list());
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("select distinct(rating) as rating from sakila.film");
+        return fillSetList(query.list());
     }
 
     public Set<String> findFeatureList() {
-        String sqlQuery = "select distinct( special_features) as feature from sakila.film";
-        return fillSetList(executeReaderQuery(sqlQuery).list());
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query query = session.createQuery("select distinct( special_features) as feature from sakila.film");
+        return fillSetList(query.list());
     }
 
     private Set fillSetList(List<String> strings) {

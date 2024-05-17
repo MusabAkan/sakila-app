@@ -1,26 +1,34 @@
 package com.msbkn.sakila.common;
 
+import com.msbkn.sakila.domain.Film;
+
 import java.util.List;
 
-public class BaseService extends BaseDao {
-
-    public <T> void save(T entity) {
-        super.save(entity);
+public class BaseService<E extends BaseEntity, D extends BaseDao<Film>> {
+    
+    public Class<E> daoClazz;
+    
+    public BaseService(BaseDao<T> dao) {
+        this.daoClazz = daoClazz;
     }
 
-    public <T> void update(T entity) {
-        super.update(entity);
+    public E save(E entity) {
+        return daoClazz.save(entity);;
     }
 
-    public <T> void delete(T entity) {
-        super.delete(entity);
+    public void delete(E entity) {
+        daoClazz.delete(entity);
     }
 
-    public <T> List<T> findAll(T entity) {
-        return super.findAll(entity);
+    public List<E> findAll() {
+        return daoClazz.findAll();
     }
 
-    public <T> T findById(T entity, long id) {
-        return super.findById(entity, id);
+    public E findById(Long id) {
+        return daoClazz.findById(id);
+    }
+    
+    public BaseDao<E> getDaoClazz() {
+        return daoClazz;
     }
 }

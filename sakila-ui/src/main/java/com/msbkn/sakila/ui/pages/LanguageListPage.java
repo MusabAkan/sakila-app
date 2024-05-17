@@ -5,28 +5,25 @@ import com.msbkn.sakila.service.LanguageService;
 import com.msbkn.sakila.ui.*;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.common.pages.Content;
+import com.msbkn.sakila.ui.pages.common.BaseListPage;
 import com.msbkn.sakila.ui.pages.windows.*;
 
 import java.util.Date;
 import java.util.List;
 
-public class LanguageListPage extends SkVerticalLayoutField {
+public class LanguageListPage extends BaseListPage {
     private LanguageService languageService;
-    private Content content;
     private String languageNameStr = "Dil Adı";
+    private String languageNaneSearchStr = "Dil Adı Ara..";
     private String creationDateStr = "Oluşturma Tarihi";
     private String emptyStr = " ";
 
-    private SkTableField tableDataField;
-    private SkVerticalLayoutField verticalLayoutField;
-    private SkFormLayoutField filterLayoutField;
-    private SkDeleteButtonField deleteButtonField;
-
     public LanguageListPage() {
-        verticalLayoutField = new SkVerticalLayoutField();
         languageService = new LanguageService();
+        verticalLayoutField = new SkVerticalLayoutField();
         filterLayoutField = new SkFormLayoutField();
         tableDataField = new SkTableField();
+        dialogCardField = new DialogCardWinddow();
 
         builFilterPanel();
         verticalLayoutField.addComponent(filterLayoutField);
@@ -42,7 +39,7 @@ public class LanguageListPage extends SkVerticalLayoutField {
 
     private void builFilterPanel() {
         SkTextField languageNameFilterField = new SkTextField();
-        buildItemFilterPanel(languageNameFilterField, "Dil Adı Ara..", languageNameStr, tableDataField, filterLayoutField);
+        buildItemFilterPanel(languageNameFilterField, languageNaneSearchStr, languageNameStr);
         filterLayoutField.addComponent(languageNameFilterField);
     }
 
@@ -52,6 +49,7 @@ public class LanguageListPage extends SkVerticalLayoutField {
         tableDataField.addContainerProperty(creationDateStr, String.class, null);
         fillDataField();
         doubleClickSelectItem();
+        dialogCardField.addCloseListener(closeEvent -> fillDataField());
     }
 
     private void doubleClickSelectItem() {
@@ -61,7 +59,7 @@ public class LanguageListPage extends SkVerticalLayoutField {
                 Language selectItemField = (Language) event.getItemId();
                 LanguageCardWindow languageCardWindow = new LanguageCardWindow(selectItemField);
                 MyUI.getCurrent().addWindow(languageCardWindow);
-                languageCardWindow.addCloseListener(closeEvent -> fillDataField());
+
             }
         });
     }
@@ -83,29 +81,11 @@ public class LanguageListPage extends SkVerticalLayoutField {
         String creationDateField = language.getDateString(lastUpdate);
         tableDataField.getContainerProperty(language, creationDateStr).setValue(creationDateField);
 
-        buildLanguageDeleteField(language);
-    }
-
-    private void buildLanguageDeleteField(Language language) {
-        deleteButtonField = new SkDeleteButtonField();
-        deleteButtonField.setData(language);
-        tableDataField.getContainerProperty(language, emptyStr).setValue(deleteButtonField);
-        deleteButtonField.addClickListener(event -> {
-
-            Language selectLanguageField = (Language) event.getButton().getData();
-            String question = selectLanguageField.getName() + " seçili dili silmek istediğinizden emin misiniz?";
-
-            DialogCardWinddow dialogCardWinddow = new DialogCardWinddow(question);
-            MyUI.getCurrent().addWindow(dialogCardWinddow);
-
-            dialogCardWinddow.addCloseListener(closeEvent -> {
-                boolean dialogCardWinddowResult = dialogCardWinddow.getResult();
-                if (dialogCardWinddowResult) {
-                    languageService.deleteLanguage(selectLanguageField);
-                    fillDataField();
-                }
-            });
+        buildItemDeleteField(language, languageService);
+        dialogCardField.addCloseListener(closeEvent -> {
+            fillDataField();
         });
     }
+
 
 }
