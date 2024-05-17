@@ -125,6 +125,7 @@ public class FilmListPage extends SkVerticalLayoutField {
             dialogCardWinddow.addCloseListener(closeEvent -> {
                 boolean dialogCardWindowResult = dialogCardWinddow.getResult();
                 if (dialogCardWindowResult) {
+
                     filmService.deleteFilm(selectFilmField);
                     fillDataField();
                 }

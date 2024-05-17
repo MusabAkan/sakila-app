@@ -5,7 +5,7 @@ import org.hibernate.criterion.Criterion;
 
 import java.util.List;
 
-public class GenericDao {
+public class BaseDao {
 
     public <T> void save(T entity) {
 
@@ -29,18 +29,28 @@ public class GenericDao {
         session.getTransaction().commit();
     }
 
-
     public <T> T findById(T entity, long id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         return (T) session.get(entity.getClass(), id);
     }
 
+
     public <T> List<T> findAll(T entity) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         return (List<T>) session.createCriteria(entity.getClass()).list();
     }
+
+    public <T> List<T> findAllParams(T entity, Criterion... criterionCriteria) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Criteria sessionCriteria = session.createCriteria(entity.getClass());
+        for (Criterion criterion : criterionCriteria)
+            sessionCriteria.add(criterion);
+        return (List<T>) sessionCriteria.list();
+    }
+
 
     public Query executeReaderQuery(String sql) {
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -58,22 +68,5 @@ public class GenericDao {
         session.getTransaction().commit();
     }
 
-    public <T> List<T> findAllParams(T entity, List<Criterion> criterionList) {
-        return (List<T>)  fillCriterionField(entity, criterionList);
-    }
-
-    public <T> T findByIdParams(T entity, List<Criterion> criterionList) {
-        return (T) fillCriterionField(entity, criterionList).get(0);
-        //todo:Burada dönen liste  olduğu için 1 tane seçim
-    }
-
-    private static <T> List fillCriterionField(T entity, List<Criterion> criterionList) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        session.beginTransaction();
-        Criteria sessionCriteria = session.createCriteria(entity.getClass());
-        for (Criterion criterion : criterionList)
-            sessionCriteria.add(criterion);
-        return sessionCriteria.list();
-    }
 
 }

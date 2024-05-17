@@ -1,30 +1,29 @@
 package com.msbkn.sakila.service;
 
-import com.msbkn.sakila.dao.ActorDao;
+import com.msbkn.sakila.common.BaseService;
 import com.msbkn.sakila.domain.Actor;
 
 import java.util.List;
 
-public class ActorService {
-    ActorDao actorDao = new ActorDao();
+public class ActorService extends BaseService {
 
     public void saveActor(Actor actor) {
-        actorDao.saveActor(actor);
+        super.save(actor);
     }
 
     public Actor findById(long id) {
-        return actorDao.findById(id);
+        return super.findById(new Actor(), id);
     }
 
     public List<Actor> findAll() {
-        return actorDao.findAll();
+        return super.findAll(new Actor());
     }
 
     public void deleteActor(Actor actor) {
-        actorDao.deleteActor(actor);
+        super.delete(actor);
     }
 
     public void updateActor(Actor actor) {
-        actorDao.updateActor(actor);
+        super.update(actor);
     }
 }
