@@ -38,40 +38,25 @@ public class FilmListPage extends BaseListPage {
     }
 
     private void builTableField() {
-        addTableColumn(emptyStr, SkDeleteButtonField.class, null);
-        addTableColumn(titleStr, String.class, null);
-        addTableColumn(descriptionStr, String.class, null);
-        addTableColumn(languageStr, String.class, null);
-        addTableColumn(creationDateStr, String.class, null);
+        addTableItemColumn(emptyStr, SkDeleteButtonField.class, null);
+        addTableItemColumn(titleStr, String.class, null);
+        addTableItemColumn(descriptionStr, String.class, null);
+        addTableItemColumn(languageStr, String.class, null);
+        addTableItemColumn(creationDateStr, String.class, null);
         fillDataField();
         doubleClickSelectItem();
     }
 
     public void fillDataField() {
-        tableDataField.removeAllItems();
+        removeTableAllField();
         List<Film> films = filmService.findAll();
         for (Film film : films) {
-            addFlimToTable(film);
+            addTableItemRow(film, film.getTitle(), titleStr);
+            addTableItemRow(film, film.getDescription25Limt(), descriptionStr);
+            addTableItemRow(film, film.getLanguageName(), languageStr);
+            addTableItemRow(film, film.getDateString(), creationDateStr);
+            buildItemDeleteField(film, filmService);
         }
-    }
-
-    private void addFlimToTable(Film film) {
-        tableDataField.addItem(film);
-
-        String firstNameField = film.getTitle();
-        tableDataField.getContainerProperty(film, titleStr).setValue(firstNameField);
-
-        String lastNameField = film.getDescription25Limt();
-        tableDataField.getContainerProperty(film, descriptionStr).setValue(lastNameField);
-
-        String languageNameField = film.getLanguageName();
-        tableDataField.getContainerProperty(film, languageStr).setValue(languageNameField);
-
-        Date lastUpdate = film.getLastUpdate();
-        String creationDateField = film.getDateString(lastUpdate);
-        tableDataField.getContainerProperty(film, creationDateStr).setValue(creationDateField);
-
-        buildItemDeleteField(film, filmService);
     }
 }
 

@@ -3,6 +3,8 @@ package com.msbkn.sakila.domain;
 import com.msbkn.sakila.common.BaseEntity;
 
 import javax.persistence.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -28,5 +30,9 @@ public class Language extends BaseEntity {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+    public String getDateString() {
+        Format formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        return formatDate.format(lastUpdate);
     }
 }

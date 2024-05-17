@@ -3,6 +3,8 @@ package com.msbkn.sakila.domain;
 import com.msbkn.sakila.common.BaseEntity;
 
 import javax.persistence.*;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Table
@@ -17,7 +19,6 @@ public class Actor extends BaseEntity {
 
     @Column(name = "last_update")
     private Date lastUpdate;
-
 
     public String getFirstName() {
         return firstName;
@@ -45,5 +46,10 @@ public class Actor extends BaseEntity {
 
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
+    }
+
+    public String getDateString() {
+        Format formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        return formatDate.format(lastUpdate);
     }
 }

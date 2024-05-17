@@ -12,7 +12,7 @@ public class FilmActorServiceTest {
     Long flimId = 998L;
 
     @Test
-    public void saveActor() {
+    public void saveTest() {
         filmActorService = new FilmActorService();
         FilmActor film = new FilmActor();
         filmActorService.findById(flimId);
@@ -21,7 +21,7 @@ public class FilmActorServiceTest {
     }
 
     @Test
-    public void getFilmById() {
+    public void findByIdTest() {
         filmActorService = new FilmActorService();
         FilmActor filmActor = filmActorService.findById(flimId);
         text = filmActor.getId() + " " + filmActor.getLastUpdate() + " " + filmActor.getActor().getLastName() + " " + filmActor.getActor().getFirstName();
@@ -29,7 +29,7 @@ public class FilmActorServiceTest {
     }
 
     @Test
-    public void getAllFilms() {
+    public void fillAllTest() {
         filmActorService = new FilmActorService();
         List<FilmActor> filmActors = filmActorService.findAll();
         for (FilmActor filmActor : filmActors) {

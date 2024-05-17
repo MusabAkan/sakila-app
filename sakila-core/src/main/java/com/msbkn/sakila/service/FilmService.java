@@ -15,22 +15,13 @@ public class FilmService extends BaseService<Film> {
         super(Film.class);
     }
 
-//    public Film findById(long id) {
-//        Criterion[] criterionCriteria = {
-//                Restrictions.eq("deleted", false),
-//                Restrictions.eq("id", id)
-//        };
-//        return super.findAllParams(criterionCriteria).get(0);
-//    }
-
     @Override
     public List<Film> findAll() {
-        return super.findAllParams(Restrictions.eq("deleted", false));
+        return super.findAllParams(
+                Restrictions.eq("deleted", false));
     }
 
     public Set<String> findRatingList() {
-
-
         //FilmDao filmDao = (FilmDao) getDao();
         FilmDao filmDao = new FilmDao();
         return filmDao.findRatingList();

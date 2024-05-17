@@ -1,6 +1,7 @@
 package com.msbkn.sakila.common;
 
 import javax.persistence.*;
+import javax.xml.crypto.Data;
 import java.io.Serializable;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -34,10 +35,5 @@ public abstract class BaseEntity implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hashCode(id);
-    }
-
-    public String getDateString(Date date) {
-        Format formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
-        return formatDate.format(date);
     }
 }

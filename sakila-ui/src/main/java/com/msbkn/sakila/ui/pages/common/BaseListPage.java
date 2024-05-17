@@ -27,9 +27,7 @@ public abstract class BaseListPage extends VerticalLayout {
         dialogCardField = new DialogCardWinddow();
         formLayoutField = new SkFormLayoutField();
     }
-    protected <T> void addTableColumn(String emptyStr, Class<T> clazz, Object object) {
-        tableDataField.addContainerProperty(emptyStr, clazz, object);
-    }
+
     protected void addItemTextFilterPanel(String caption, String searchStr) {
         SkTextField textField = new SkTextField();
         textField.setCaption(caption);
@@ -75,5 +73,17 @@ public abstract class BaseListPage extends VerticalLayout {
         });
     }
 
+    protected <T> void addTableItemColumn(String emptyStr, Class<T> clazz, Object object) {
+        tableDataField.addContainerProperty(emptyStr, clazz, object);
+    }
+
+    protected <T> void addTableItemRow(T entityField, String titleNameField, String rowNameField) {
+        tableDataField.addItem(entityField);
+        tableDataField.getContainerProperty(entityField, rowNameField).setValue(titleNameField);
+    }
+
+    protected void removeTableAllField() {
+        tableDataField.removeAllItems();
+    }
 
 }
