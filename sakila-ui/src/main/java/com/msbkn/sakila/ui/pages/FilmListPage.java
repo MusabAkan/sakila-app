@@ -5,7 +5,6 @@ import com.msbkn.sakila.service.FilmService;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.common.BaseListPage;
 
-import java.util.Date;
 import java.util.List;
 
 public class FilmListPage extends BaseListPage {
@@ -38,11 +37,11 @@ public class FilmListPage extends BaseListPage {
     }
 
     private void builTableField() {
-        addTableItemColumn(emptyStr, SkDeleteButtonField.class, null);
-        addTableItemColumn(titleStr, String.class, null);
-        addTableItemColumn(descriptionStr, String.class, null);
-        addTableItemColumn(languageStr, String.class, null);
-        addTableItemColumn(creationDateStr, String.class, null);
+        addTableData(emptyStr, SkDeleteButtonField.class, null);
+        addTableData(titleStr, String.class, null);
+        addTableData(descriptionStr, String.class, null);
+        addTableData(languageStr, String.class, null);
+        addTableData(creationDateStr, String.class, null);
         fillDataField();
         doubleClickSelectItem();
     }
@@ -51,10 +50,10 @@ public class FilmListPage extends BaseListPage {
         removeTableAllField();
         List<Film> films = filmService.findAll();
         for (Film film : films) {
-            addTableItemRow(film, film.getTitle(), titleStr);
-            addTableItemRow(film, film.getDescription25Limt(), descriptionStr);
-            addTableItemRow(film, film.getLanguageName(), languageStr);
-            addTableItemRow(film, film.getDateString(), creationDateStr);
+            getTableData(film, film.getTitle(), titleStr);
+            getTableData(film, film.getDescription25Limt(), descriptionStr);
+            getTableData(film, film.getLanguageName(), languageStr);
+            getTableData(film, film.getDateString(), creationDateStr);
             buildItemDeleteField(film, filmService);
         }
     }

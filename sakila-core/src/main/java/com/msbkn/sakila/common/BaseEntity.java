@@ -1,11 +1,7 @@
 package com.msbkn.sakila.common;
 
 import javax.persistence.*;
-import javax.xml.crypto.Data;
 import java.io.Serializable;
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Objects;
 
 @MappedSuperclass

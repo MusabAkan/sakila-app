@@ -8,6 +8,8 @@ import com.msbkn.sakila.ui.MyUI;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.common.components.SkVerticalLayoutField;
 import com.msbkn.sakila.ui.pages.windows.*;
+import com.vaadin.data.Container;
+import com.vaadin.data.util.filter.Like;
 import com.vaadin.ui.*;
 
 public abstract class BaseListPage extends VerticalLayout {
@@ -36,16 +38,16 @@ public abstract class BaseListPage extends VerticalLayout {
         textField.setCaption(caption);
         textField.addTextChangeListener(event -> {
             String searchIdField = event.getText();
-            formLayoutField.filterSearch(searchIdField, searchStr, tableDataField);
+            filterSearch(searchIdField, searchStr, tableDataField);
         });
         filterLayoutField.addComponent(textField);
     }
 
     protected <T> void buildItemDeleteField(T entityField, T serviceField) {
         deleteButtonField = new SkDeleteButtonField();
-        service = (BaseService) serviceField;
         deleteButtonField.setData(entityField);
-        tableDataField.getContainerProperty(entityField, emptyStr).setValue(deleteButtonField);
+        getTableData(entityField, deleteButtonField, emptyStr);
+        service = (BaseService) serviceField;
         deleteButtonField.addClickListener(event -> {
 
             BaseEntity selectedEntity = (BaseEntity) event.getButton().getData();
@@ -64,19 +66,26 @@ public abstract class BaseListPage extends VerticalLayout {
         });
     }
 
+    protected void filterSearch(String filterString, String columnName, Table table) {
+        Container.Filterable filter = (Container.Filterable) (table.getContainerDataSource());
+        filter.removeAllContainerFilters();
+        if (filterString.length() == 0) fillDataField();
+        filter.addContainerFilter(new Like(columnName, "%" + filterString + "%"));
+    }
+
     protected <T> void doubleClickSelectItem() {
         tableDataField.addItemClickListener(event -> {
             boolean isDoubleClick = event.isDoubleClick();
             if (isDoubleClick) {
                 BaseEntity selectItemField = (BaseEntity) event.getItemId();
-                Window cardWindow = GetCardWindow(selectItemField);
+                Window cardWindow = getCardWindow(selectItemField);
                 MyUI.getCurrent().addWindow(cardWindow);
                 cardWindow.addCloseListener(closeEvent -> fillDataField());
             }
         });
     }
 
-    private static <T> Window GetCardWindow(T selectItemField) {
+    private static <T> Window getCardWindow(T selectItemField) {
         if (selectItemField instanceof Language)
             return new LanguageCardWindow((Language) selectItemField);
         if (selectItemField instanceof Actor)
@@ -86,17 +95,16 @@ public abstract class BaseListPage extends VerticalLayout {
         return null;
     }
 
-    protected <T> void addTableItemColumn(String emptyStr, Class<T> clazz, Object object) {
-        tableDataField.addContainerProperty(emptyStr, clazz, object);
+    protected <T> void addTableData(String propertyId, Class<T> type, Object defayltObject) {
+        tableDataField.addContainerProperty(propertyId, type, defayltObject);
     }
 
-    protected <T> void addTableItemRow(T entityField, String titleNameField, String rowNameField) {
-        tableDataField.addItem(entityField);
-        tableDataField.getContainerProperty(entityField, rowNameField).setValue(titleNameField);
+    protected <T> void getTableData(T itemId, Object setValue, Object propertyId) {
+        tableDataField.addItem(itemId);
+        tableDataField.getContainerProperty(itemId, propertyId).setValue(setValue);
     }
 
     protected void removeTableAllField() {
         tableDataField.removeAllItems();
     }
-
 }

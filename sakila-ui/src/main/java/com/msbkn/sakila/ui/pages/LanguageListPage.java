@@ -5,7 +5,6 @@ import com.msbkn.sakila.service.LanguageService;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.common.BaseListPage;
 
-import java.util.Date;
 import java.util.List;
 
 public class LanguageListPage extends BaseListPage {
@@ -36,9 +35,9 @@ public class LanguageListPage extends BaseListPage {
     }
 
     private void builTableField() {
-        addTableItemColumn(emptyStr, SkDeleteButtonField.class, null);
-        addTableItemColumn(languageNameStr, String.class, null);
-        addTableItemColumn(creationDateStr, String.class, null);
+        addTableData(emptyStr, SkDeleteButtonField.class, null);
+        addTableData(languageNameStr, String.class, null);
+        addTableData(creationDateStr, String.class, null);
         fillDataField();
         doubleClickSelectItem();
     }
@@ -47,8 +46,8 @@ public class LanguageListPage extends BaseListPage {
         removeTableAllField();
         List<Language> languageList = languageService.findAll();
         for (Language language : languageList) {
-            addTableItemRow(language, language.getName(), languageNameStr);
-            addTableItemRow(language, language.getDateString(), creationDateStr);
+            getTableData(language, language.getName(), languageNameStr);
+            getTableData(language, language.getDateString(), creationDateStr);
             buildItemDeleteField(language, languageService);
         }
     }

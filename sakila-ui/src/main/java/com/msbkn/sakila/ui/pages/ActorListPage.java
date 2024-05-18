@@ -34,9 +34,9 @@ public class ActorListPage extends BaseListPage {
     }
 
     private void builTableField() {
-        addTableItemColumn(emptyStr, SkDeleteButtonField.class, null);
-        addTableItemColumn(fullNameStr, String.class, null);
-        addTableItemColumn(creationDateStr, String.class, null);
+        addTableData(emptyStr, SkDeleteButtonField.class, null);
+        addTableData(fullNameStr, String.class, null);
+        addTableData(creationDateStr, String.class, null);
         fillDataField();
         doubleClickSelectItem();
     }
@@ -45,8 +45,8 @@ public class ActorListPage extends BaseListPage {
         removeTableAllField();
         List<Actor> actors = actorService.findAll();
         for (Actor actor : actors) {
-            addTableItemRow(actor, actor.getFullName(), fullNameStr);
-            addTableItemRow(actor, actor.getDateString(), creationDateStr);
+            getTableData(actor, actor.getFullName(), fullNameStr);
+            getTableData(actor, actor.getDateString(), creationDateStr);
             buildItemDeleteField(actor, actorService);
         }
     }
