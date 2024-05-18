@@ -5,6 +5,7 @@ import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.ActorListPage;
 import com.msbkn.sakila.ui.pages.FilmListPage;
 import com.msbkn.sakila.ui.pages.LanguageListPage;
+import com.msbkn.sakila.ui.pages.common.BaseListPage;
 import com.msbkn.sakila.ui.pages.windows.ActorCardWindow;
 import com.msbkn.sakila.ui.pages.windows.FilmCardWindow;
 import com.msbkn.sakila.ui.pages.windows.LanguageCardWindow;

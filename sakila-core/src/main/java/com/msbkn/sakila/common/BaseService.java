@@ -1,10 +1,7 @@
 package com.msbkn.sakila.common;
 
-import com.msbkn.sakila.dao.FilmDao;
-import com.msbkn.sakila.domain.Film;
 import org.hibernate.criterion.Criterion;
 
-import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 public class BaseService<E extends BaseEntity> {

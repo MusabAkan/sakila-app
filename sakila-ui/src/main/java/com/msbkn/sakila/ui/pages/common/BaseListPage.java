@@ -1,6 +1,9 @@
 package com.msbkn.sakila.ui.pages.common;
 
 import com.msbkn.sakila.common.*;
+import com.msbkn.sakila.domain.Actor;
+import com.msbkn.sakila.domain.Film;
+import com.msbkn.sakila.domain.Language;
 import com.msbkn.sakila.ui.MyUI;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.common.components.SkVerticalLayoutField;
@@ -66,11 +69,21 @@ public abstract class BaseListPage extends VerticalLayout {
             boolean isDoubleClick = event.isDoubleClick();
             if (isDoubleClick) {
                 BaseEntity selectItemField = (BaseEntity) event.getItemId();
-                Window cardWindow = new BaseCardWindow().GetCardWindow(selectItemField);
+                Window cardWindow = GetCardWindow(selectItemField);
                 MyUI.getCurrent().addWindow(cardWindow);
                 cardWindow.addCloseListener(closeEvent -> fillDataField());
             }
         });
+    }
+
+    private static <T> Window GetCardWindow(T selectItemField) {
+        if (selectItemField instanceof Language)
+            return new LanguageCardWindow((Language) selectItemField);
+        if (selectItemField instanceof Actor)
+            return new ActorCardWindow((Actor) selectItemField);
+        if (selectItemField instanceof Film)
+            return new FilmCardWindow((Film) selectItemField);
+        return null;
     }
 
     protected <T> void addTableItemColumn(String emptyStr, Class<T> clazz, Object object) {

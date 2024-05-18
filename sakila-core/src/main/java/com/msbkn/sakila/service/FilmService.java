@@ -17,8 +17,7 @@ public class FilmService extends BaseService<Film> {
 
     @Override
     public List<Film> findAll() {
-        return super.findAllParams(
-                Restrictions.eq("deleted", false));
+        return super.findAllParams(Restrictions.eq("deleted", false));
     }
 
     public Set<String> findRatingList() {
