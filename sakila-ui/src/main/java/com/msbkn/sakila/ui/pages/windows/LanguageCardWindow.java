@@ -12,7 +12,6 @@ public class LanguageCardWindow extends SkWindowField {
     private SkLabelField languageIdTextField;
     private SkTextField languageNameTextField;
     private SkSaveButtonField languageSaveButtonField;
-    private SkVerticalLayoutField verticalLayoutField;
     private LanguageService languageService;
     private Language selectLanguageField;
 
@@ -40,21 +39,21 @@ public class LanguageCardWindow extends SkWindowField {
         selectLanguageField = new Language();
         verticalLayoutField = new SkVerticalLayoutField();
         languageService = new LanguageService();
+        formLayoutField = new SkFormLayoutField();
 
-        SkFormLayoutField formLayout = new SkFormLayoutField();
-        verticalLayoutField.addComponent(formLayout);
+        verticalLayoutField.addComponent(formLayoutField);
 
         languageIdTextField = new SkLabelField();
         languageIdTextField.setCaption("Id :");
-        formLayout.addComponent(languageIdTextField);
+        formLayoutField.addComponent(languageIdTextField);
 
         languageNameTextField = new SkTextField();
         languageNameTextField.setCaption("Dilin Adı :");
 
-        formLayout.addComponent(languageNameTextField);
+        formLayoutField.addComponent(languageNameTextField);
 
         languageSaveButtonField = new SkSaveButtonField();
-        formLayout.addComponent(languageSaveButtonField);
+        formLayoutField.addComponent(languageSaveButtonField);
         buildSaveLanguageField();
 
         setContent(verticalLayoutField);
@@ -76,8 +75,6 @@ public class LanguageCardWindow extends SkWindowField {
 
         });
     }
-
-
 
 
 }

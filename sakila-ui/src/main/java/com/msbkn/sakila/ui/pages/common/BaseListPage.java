@@ -46,7 +46,7 @@ public abstract class BaseListPage extends VerticalLayout {
     protected <T> void buildItemDeleteField(T entityField, T serviceField) {
         deleteButtonField = new SkDeleteButtonField();
         deleteButtonField.setData(entityField);
-        getTableData(entityField, deleteButtonField, emptyStr);
+        addItemTableData(entityField, deleteButtonField, emptyStr);
         service = (BaseService) serviceField;
         deleteButtonField.addClickListener(event -> {
 
@@ -65,6 +65,7 @@ public abstract class BaseListPage extends VerticalLayout {
             });
         });
     }
+
 
     protected void filterSearch(String filterString, String columnName, Table table) {
         Container.Filterable filter = (Container.Filterable) (table.getContainerDataSource());
@@ -95,11 +96,11 @@ public abstract class BaseListPage extends VerticalLayout {
         return null;
     }
 
-    protected <T> void addTableData(String propertyId, Class<T> type, Object defayltObject) {
+    protected <T> void addItemTableColumn(String propertyId, Class<T> type, Object defayltObject) {
         tableDataField.addContainerProperty(propertyId, type, defayltObject);
     }
 
-    protected <T> void getTableData(T itemId, Object setValue, Object propertyId) {
+    protected <T> void addItemTableData(T itemId, Object setValue, Object propertyId) {
         tableDataField.addItem(itemId);
         tableDataField.getContainerProperty(itemId, propertyId).setValue(setValue);
     }

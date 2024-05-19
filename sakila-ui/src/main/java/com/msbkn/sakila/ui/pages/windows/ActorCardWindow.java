@@ -12,7 +12,6 @@ public class ActorCardWindow extends SkWindowField {
     private SkTextField actorNameTextField;
     private SkTextField actorLastNameTextField;
     private SkSaveButtonField actorSaveButtonField;
-    private SkVerticalLayoutField verticalLayoutField;
     private ActorService actorService;
     private Actor selectActorField;
 
@@ -44,24 +43,24 @@ public class ActorCardWindow extends SkWindowField {
         verticalLayoutField = new SkVerticalLayoutField();
         selectActorField = new Actor();
         actorService = new ActorService();
+        formLayoutField = new SkFormLayoutField();
 
-        SkFormLayoutField formLayout = new SkFormLayoutField();
-        verticalLayoutField.addComponent(formLayout);
+        verticalLayoutField.addComponent(formLayoutField);
 
         actorIdTextField = new SkLabelField();
         actorIdTextField.setCaption("Id :");
-        formLayout.addComponent(actorIdTextField);
+        formLayoutField.addComponent(actorIdTextField);
 
         actorNameTextField = new SkTextField();
         actorNameTextField.setCaption("Adı:");
-        formLayout.addComponent(actorNameTextField);
+        formLayoutField.addComponent(actorNameTextField);
 
         actorLastNameTextField = new SkTextField();
         actorLastNameTextField.setCaption("Soyadı :");
-        formLayout.addComponent(actorLastNameTextField);
+        formLayoutField.addComponent(actorLastNameTextField);
 
         actorSaveButtonField = new SkSaveButtonField();
-        formLayout.addComponent(actorSaveButtonField);
+        formLayoutField.addComponent(actorSaveButtonField);
         buildSaveActorField();
 
         setContent(verticalLayoutField);

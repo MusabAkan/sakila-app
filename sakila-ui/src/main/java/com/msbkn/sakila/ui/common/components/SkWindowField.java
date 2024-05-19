@@ -3,6 +3,8 @@ package com.msbkn.sakila.ui.common.components;
 import com.vaadin.ui.*;
 
 public class SkWindowField extends Window {
+    protected SkVerticalLayoutField verticalLayoutField;
+    protected SkFormLayoutField formLayoutField;
 
     public SkWindowField() {
         center();

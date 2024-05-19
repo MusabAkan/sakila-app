@@ -12,7 +12,6 @@ public class DialogCardWinddow extends Window {
     private SkNoButtonField noButtonField;
     private SkHorizontalLayoutField layoutField;
     public  DialogCardWinddow() {
-
     }
 
     public DialogCardWinddow(String titleSubjectField) {

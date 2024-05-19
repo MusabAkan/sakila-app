@@ -2,13 +2,18 @@ package com.msbkn.sakila.ui.pages;
 
 import com.msbkn.sakila.domain.Film;
 import com.msbkn.sakila.service.FilmService;
+import com.msbkn.sakila.ui.MyUI;
 import com.msbkn.sakila.ui.common.components.*;
 import com.msbkn.sakila.ui.pages.common.BaseListPage;
+import com.msbkn.sakila.ui.pages.windows.FilmActorCardWindow;
+import com.vaadin.ui.Notification;
 
 import java.util.List;
 
 public class FilmListPage extends BaseListPage {
     private FilmService filmService;
+    private String actorStr = "Aktörler";
+    private SkButtonField filmActorButtonField;
 
     private String titleStr = "Başlık";
     private String descriptionStr = "Kısa Açıklama";
@@ -37,11 +42,12 @@ public class FilmListPage extends BaseListPage {
     }
 
     private void builTableField() {
-        addTableData(emptyStr, SkDeleteButtonField.class, null);
-        addTableData(titleStr, String.class, null);
-        addTableData(descriptionStr, String.class, null);
-        addTableData(languageStr, String.class, null);
-        addTableData(creationDateStr, String.class, null);
+        addItemTableColumn(emptyStr, SkDeleteButtonField.class, null);
+        addItemTableColumn(actorStr, SkButtonField.class, null);
+        addItemTableColumn(titleStr, String.class, null);
+        addItemTableColumn(descriptionStr, String.class, null);
+        addItemTableColumn(languageStr, String.class, null);
+        addItemTableColumn(creationDateStr, String.class, null);
         fillDataField();
         doubleClickSelectItem();
     }
@@ -50,12 +56,24 @@ public class FilmListPage extends BaseListPage {
         removeTableAllField();
         List<Film> films = filmService.findAll();
         for (Film film : films) {
-            getTableData(film, film.getTitle(), titleStr);
-            getTableData(film, film.getDescription25Limt(), descriptionStr);
-            getTableData(film, film.getLanguageName(), languageStr);
-            getTableData(film, film.getDateString(), creationDateStr);
+            addItemTableData(film, film.getTitle(), titleStr);
+            addItemTableData(film, film.getDescription25Limt(), descriptionStr);
+            addItemTableData(film, film.getLanguageName(), languageStr);
+            addItemTableData(film, film.getDateString(), creationDateStr);
+            buildItemFilmActorField(film);
             buildItemDeleteField(film, filmService);
         }
+    }
+
+    private void buildItemFilmActorField(Film filmField) {
+        filmActorButtonField = new SkButtonField();
+        filmActorButtonField.setData(filmField);
+        addItemTableData(filmField, filmActorButtonField, actorStr);
+        filmActorButtonField.addClickListener(clickEvent -> {
+            Film selectFilmField = (Film) clickEvent.getButton().getData();
+            FilmActorCardWindow actorCardWindow = new FilmActorCardWindow(selectFilmField);
+            MyUI.getCurrent().addWindow(actorCardWindow);
+        });
     }
 }
 

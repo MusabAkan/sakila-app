@@ -35,9 +35,9 @@ public class LanguageListPage extends BaseListPage {
     }
 
     private void builTableField() {
-        addTableData(emptyStr, SkDeleteButtonField.class, null);
-        addTableData(languageNameStr, String.class, null);
-        addTableData(creationDateStr, String.class, null);
+        addItemTableColumn(emptyStr, SkDeleteButtonField.class, null);
+        addItemTableColumn(languageNameStr, String.class, null);
+        addItemTableColumn(creationDateStr, String.class, null);
         fillDataField();
         doubleClickSelectItem();
     }
@@ -46,8 +46,8 @@ public class LanguageListPage extends BaseListPage {
         removeTableAllField();
         List<Language> languageList = languageService.findAll();
         for (Language language : languageList) {
-            getTableData(language, language.getName(), languageNameStr);
-            getTableData(language, language.getDateString(), creationDateStr);
+            addItemTableData(language, language.getName(), languageNameStr);
+            addItemTableData(language, language.getDateString(), creationDateStr);
             buildItemDeleteField(language, languageService);
         }
     }

@@ -26,7 +26,7 @@ public class FilmCardWindow extends SkWindowField {
     private Film selectFilmField;
     private FilmService filmService;
     SkSaveButtonField saveButtonField;
-    SkVerticalLayoutField verticalLayout;
+
 
     public FilmCardWindow() {
         buildWindowField();
@@ -75,65 +75,65 @@ public class FilmCardWindow extends SkWindowField {
     }
 
     private void buildWindowField() {
-        verticalLayout = new SkVerticalLayoutField();
+        verticalLayoutField = new SkVerticalLayoutField();
+        formLayoutField = new SkFormLayoutField();
         filmService = new FilmService();
         selectFilmField = new Film();
 
         setHeight("90%");
         setWidth("40%");
 
-        SkFormLayoutField formLayout = new SkFormLayoutField();
-        verticalLayout.addComponent(formLayout);
+        verticalLayoutField.addComponent(formLayoutField);
 
         filmIdTextField = new SkLabelField();
         filmIdTextField.setCaption("Id :");
-        formLayout.addComponent(filmIdTextField);
+        formLayoutField.addComponent(filmIdTextField);
 
         filmTitleTextField = new SkTextField();
         filmTitleTextField.setCaption("Başlık :");
-        formLayout.addComponent(filmTitleTextField);
+        formLayoutField.addComponent(filmTitleTextField);
 
         filmLanguageComboboxField = new LanguageComboboxField();
         filmLanguageComboboxField.setCaption("Dil :");
-        formLayout.addComponent(filmLanguageComboboxField);
+        formLayoutField.addComponent(filmLanguageComboboxField);
 
         filmDescriptionTextField = new SkTextAreaField();
         filmDescriptionTextField.setCaption("Açıklama:");
-        formLayout.addComponent(filmDescriptionTextField);
+        formLayoutField.addComponent(filmDescriptionTextField);
 
         filmRatingComboboxField = new RatingComboboxField();
         filmRatingComboboxField.setCaption("Değerlendirme : ");
-        formLayout.addComponent(filmRatingComboboxField);
+        formLayoutField.addComponent(filmRatingComboboxField);
 
         featureOptionField = new FeatureOptionField();
         featureOptionField.setCaption("Özellikler : ");
-        formLayout.addComponent(featureOptionField);
+        formLayoutField.addComponent(featureOptionField);
 
         filmDurationTextField = new SkTextField();
         filmDurationTextField.setCaption("Süre : ");
-        formLayout.addComponent(filmDurationTextField);
+        formLayoutField.addComponent(filmDurationTextField);
 
         filmYearTextField = new SkTextField();
         filmYearTextField.setCaption("Yıl : ");
-        formLayout.addComponent(filmYearTextField);
+        formLayoutField.addComponent(filmYearTextField);
 
         filmLengthTextField = new SkTextField();
         filmLengthTextField.setCaption("Uzunluk : ");
-        formLayout.addComponent(filmLengthTextField);
+        formLayoutField.addComponent(filmLengthTextField);
 
         filmCostTextField = new SkTextField();
         filmCostTextField.setCaption("Maliyet : ");
-        formLayout.addComponent(filmCostTextField);
+        formLayoutField.addComponent(filmCostTextField);
 
         filmRateTextField = new SkTextField();
         filmRateTextField.setCaption("Oran : ");
-        formLayout.addComponent(filmRateTextField);
+        formLayoutField.addComponent(filmRateTextField);
 
         saveButtonField = new SkSaveButtonField();
-        formLayout.addComponent(saveButtonField);
+        formLayoutField.addComponent(saveButtonField);
         buildSaveFilmField();
 
-        setContent(verticalLayout);
+        setContent(verticalLayoutField);
     }
 
     private void buildSaveFilmField() {
