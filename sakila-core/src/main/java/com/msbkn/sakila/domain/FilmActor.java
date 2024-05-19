@@ -18,7 +18,7 @@ public class FilmActor extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "FILM_ID")
     @ForeignKey(name = "FK_FILM_ACTOR_FILM_2")
-    private Film filmId;
+    private Film film;
 
     @Column(name = "last_update")
     private Date lastUpdate;
@@ -32,11 +32,11 @@ public class FilmActor extends BaseEntity {
     }
 
     public Film getFilmId() {
-        return filmId;
+        return film;
     }
 
-    public void setFilmId(Film filmId) {
-        this.filmId = filmId;
+    public void setFilmId(Film film) {
+        this.film = film;
     }
 
     public Date getLastUpdate() {

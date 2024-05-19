@@ -10,7 +10,7 @@ public class DialogCardWinddow extends Window {
     private boolean result;
     private SkYesButtonField yesButtonField;
     private SkNoButtonField noButtonField;
-
+    private SkHorizontalLayoutField layoutField;
     public  DialogCardWinddow() {
 
     }
@@ -24,15 +24,14 @@ public class DialogCardWinddow extends Window {
         setWidth("600px");
         setHeight("150px");
 
-        SkHorizontalLayoutField layoutField = new SkHorizontalLayoutField();
+
+        layoutField = new SkHorizontalLayoutField();
 
         yesButtonField = new SkYesButtonField();
         builItemButtonField(yesButtonField, "Evet", true);
-        layoutField.addComponent(yesButtonField);
 
         noButtonField = new SkNoButtonField();
         builItemButtonField(noButtonField, "Hayır", false);
-        layoutField.addComponent(noButtonField);
 
         layoutField.setComponentAlignment(yesButtonField, Alignment.MIDDLE_LEFT);
         layoutField.setComponentAlignment(noButtonField, Alignment.MIDDLE_RIGHT);
@@ -43,6 +42,7 @@ public class DialogCardWinddow extends Window {
     private <T> void builItemButtonField(T entityButton, String caption, boolean result) {
         Button button = (Button) entityButton;
         button.setCaption(caption);
+        layoutField.addComponent((Component) entityButton);
         button.addClickListener(clickEvent -> {
             this.result = result;
             close();

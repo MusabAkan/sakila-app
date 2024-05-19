@@ -5,6 +5,7 @@ import com.msbkn.sakila.common.HibernateUtil;
 import com.msbkn.sakila.domain.Film;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ public class FilmDao extends BaseDao<Film> {
     public FilmDao() {
         super(Film.class);
     }
+
 
     public Set<String> findRatingList() {
         Session session = HibernateUtil.getSessionFactory().openSession();

@@ -21,9 +21,22 @@ public class FilmActorServiceTest {
     }
 
     @Test
+    public void findAllByFlim() {
+        filmActorService = new FilmActorService();
+        FilmService filmService = new FilmService();
+        Film film = filmService.findById(494L);
+        List<FilmActor> filmActors = filmActorService.findAllByFilm(film);
+        for (FilmActor filmActor : filmActors) {
+            System.out.println(filmActor);
+        }
+
+
+    }
+
+    @Test
     public void findByIdTest() {
         filmActorService = new FilmActorService();
-        FilmActor filmActor = filmActorService.findById(flimId);
+        FilmActor filmActor = (FilmActor) filmActorService.findAll();
         text = filmActor.getId() + " " + filmActor.getLastUpdate() + " " + filmActor.getActor().getLastName() + " " + filmActor.getActor().getFirstName();
         System.out.println(text);
     }
