@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.msbkn.sakila.service.LanguageServiceTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.079 s <<< FAILURE! - in com.msbkn.sakila.service.LanguageServiceTest
+updateLanguage(com.msbkn.sakila.service.LanguageServiceTest)  Time elapsed: 0.012 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.msbkn.sakila.service.LanguageServiceTest.updateLanguage(LanguageServiceTest.java:45)
+
+getLanguageById(com.msbkn.sakila.service.LanguageServiceTest)  Time elapsed: 0.013 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.msbkn.sakila.service.LanguageServiceTest.getLanguageById(LanguageServiceTest.java:27)
+
+deleteLanguage(com.msbkn.sakila.service.LanguageServiceTest)  Time elapsed: 0.023 s  <<< ERROR!
+java.lang.IllegalArgumentException: attempt to create delete event with null entity
+	at com.msbkn.sakila.service.LanguageServiceTest.deleteLanguage(LanguageServiceTest.java:54)
+

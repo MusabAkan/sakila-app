@@ -7,7 +7,6 @@ com\msbkn\sakila\common\HibernateUtil.class
 com\msbkn\sakila\dao\LanguageDao.class
 com\msbkn\sakila\domain\FilmActor.class
 com\msbkn\sakila\domain\Language.class
-com\msbkn\sakila\service\ActorService.class
 com\msbkn\sakila\domain\Film.class
 com\msbkn\sakila\dao\FilmDao.class
 com\msbkn\sakila\domain\Actor.class

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.msbkn.sakila.service.FilmActorServiceTest" time="0.359" tests="4" errors="1" skipped="0" failures="0">
+  <properties>
+    <property name="sun.desktop" value="windows"/>
+    <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="java.specification.version" value="1.8"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.class.path" value="C:\java\workspace\project\sakila-app\sakila-core\target\test-classes;C:\java\workspace\project\sakila-app\sakila-core\target\classes;C:\Users\Musab\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\Musab\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Musab\.m2\repository\com\mysql\mysql-connector-j\8.4.0\mysql-connector-j-8.4.0.jar;C:\Users\Musab\.m2\repository\com\google\protobuf\protobuf-java\3.25.1\protobuf-java-3.25.1.jar;C:\Users\Musab\.m2\repository\org\hibernate\hibernate-core\4.2.7.Final\hibernate-core-4.2.7.Final.jar;C:\Users\Musab\.m2\repository\antlr\antlr\2.7.7\antlr-2.7.7.jar;C:\Users\Musab\.m2\repository\org\jboss\logging\jboss-logging\3.1.0.GA\jboss-logging-3.1.0.GA.jar;C:\Users\Musab\.m2\repository\org\javassist\javassist\3.18.1-GA\javassist-3.18.1-GA.jar;C:\Users\Musab\.m2\repository\org\jboss\spec\javax\transaction\jboss-transaction-api_1.1_spec\1.0.1.Final\jboss-transaction-api_1.1_spec-1.0.1.Final.jar;C:\Users\Musab\.m2\repository\org\hibernate\javax\persistence\hibernate-jpa-2.0-api\1.0.1.Final\hibernate-jpa-2.0-api-1.0.1.Final.jar;C:\Users\Musab\.m2\repository\org\hibernate\common\hibernate-commons-annotations\4.0.2.Final\hibernate-commons-annotations-4.0.2.Final.jar;C:\Users\Musab\.m2\repository\org\hibernate\hibernate-entitymanager\4.2.7.Final\hibernate-entitymanager-4.2.7.Final.jar;C:\Users\Musab\.m2\repository\dom4j\dom4j\1.6.1\dom4j-1.6.1.jar;C:\Users\Musab\.m2\repository\xml-apis\xml-apis\1.0.b2\xml-apis-1.0.b2.jar;C:\Users\Musab\.m2\repository\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;C:\Users\Musab\.m2\repository\commons-collections\commons-collections\3.2.1\commons-collections-3.2.1.jar;C:\Users\Musab\.m2\repository\cglib\cglib\2.2\cglib-2.2.jar;C:\Users\Musab\.m2\repository\asm\asm\3.1\asm-3.1.jar;C:\Users\Musab\.m2\repository\javax\transaction\jta\1.1\jta-1.1.jar;C:\Users\Musab\.m2\repository\javax\annotation\jsr250-api\1.0\jsr250-api-1.0.jar;"/>
+    <property name="java.vm.vendor" value="ojdkbuild"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="user.variant" value=""/>
+    <property name="java.vendor.url" value="https://github.com/ojdkbuild"/>
+    <property name="user.timezone" value="Asia/Istanbul"/>
+    <property name="java.vm.specification.version" value="1.8"/>
+    <property name="os.name" value="Windows 10"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\bin"/>
+    <property name="sun.java.command" value="C:\Users\Musab\AppData\Local\Temp\surefire4843436208833861592\surefirebooter912625157210660745.jar C:\Users\Musab\AppData\Local\Temp\surefire4843436208833861592 2024-05-20T19-49-16_155-jvmRun1 surefire1822159694180357457tmp surefire_04093924281954502tmp"/>
+    <property name="surefire.test.class.path" value="C:\java\workspace\project\sakila-app\sakila-core\target\test-classes;C:\java\workspace\project\sakila-app\sakila-core\target\classes;C:\Users\Musab\.m2\repository\junit\junit\4.12\junit-4.12.jar;C:\Users\Musab\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\Musab\.m2\repository\com\mysql\mysql-connector-j\8.4.0\mysql-connector-j-8.4.0.jar;C:\Users\Musab\.m2\repository\com\google\protobuf\protobuf-java\3.25.1\protobuf-java-3.25.1.jar;C:\Users\Musab\.m2\repository\org\hibernate\hibernate-core\4.2.7.Final\hibernate-core-4.2.7.Final.jar;C:\Users\Musab\.m2\repository\antlr\antlr\2.7.7\antlr-2.7.7.jar;C:\Users\Musab\.m2\repository\org\jboss\logging\jboss-logging\3.1.0.GA\jboss-logging-3.1.0.GA.jar;C:\Users\Musab\.m2\repository\org\javassist\javassist\3.18.1-GA\javassist-3.18.1-GA.jar;C:\Users\Musab\.m2\repository\org\jboss\spec\javax\transaction\jboss-transaction-api_1.1_spec\1.0.1.Final\jboss-transaction-api_1.1_spec-1.0.1.Final.jar;C:\Users\Musab\.m2\repository\org\hibernate\javax\persistence\hibernate-jpa-2.0-api\1.0.1.Final\hibernate-jpa-2.0-api-1.0.1.Final.jar;C:\Users\Musab\.m2\repository\org\hibernate\common\hibernate-commons-annotations\4.0.2.Final\hibernate-commons-annotations-4.0.2.Final.jar;C:\Users\Musab\.m2\repository\org\hibernate\hibernate-entitymanager\4.2.7.Final\hibernate-entitymanager-4.2.7.Final.jar;C:\Users\Musab\.m2\repository\dom4j\dom4j\1.6.1\dom4j-1.6.1.jar;C:\Users\Musab\.m2\repository\xml-apis\xml-apis\1.0.b2\xml-apis-1.0.b2.jar;C:\Users\Musab\.m2\repository\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;C:\Users\Musab\.m2\repository\commons-collections\commons-collections\3.2.1\commons-collections-3.2.1.jar;C:\Users\Musab\.m2\repository\cglib\cglib\2.2\cglib-2.2.jar;C:\Users\Musab\.m2\repository\asm\asm\3.1\asm-3.1.jar;C:\Users\Musab\.m2\repository\javax\transaction\jta\1.1\jta-1.1.jar;C:\Users\Musab\.m2\repository\javax\annotation\jsr250-api\1.0\jsr250-api-1.0.jar;"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="C:\Users\Musab"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.home" value="C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre"/>
+    <property name="basedir" value="C:\java\workspace\project\sakila-app\sakila-core"/>
+    <property name="file.separator" value="\"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="surefire.real.class.path" value="C:\Users\Musab\AppData\Local\Temp\surefire4843436208833861592\surefirebooter912625157210660745.jar"/>
+    <property name="sun.boot.class.path" value="C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\lib\resources.jar;C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\lib\rt.jar;C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\lib\sunrsasign.jar;C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\lib\jsse.jar;C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\lib\jce.jar;C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\lib\charsets.jar;C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\lib\jfr.jar;C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\classes"/>
+    <property name="user.script" value=""/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="1.8.0_282-b08"/>
+    <property name="user.name" value="Musab"/>
+    <property name="path.separator" value=";"/>
+    <property name="os.version" value="10.0"/>
+    <property name="java.endorsed.dirs" value="C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\lib\endorsed"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="C:\Users\Musab\.m2\repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/ojdkbuild/ojdkbuild/issues"/>
+    <property name="java.io.tmpdir" value="C:\Users\Musab\AppData\Local\Temp\"/>
+    <property name="idea.version" value="2024.1"/>
+    <property name="java.version" value="1.8.0_282"/>
+    <property name="user.dir" value="C:\java\workspace\project\sakila-app\sakila-core"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="sun.os.patch.level" value=""/>
+    <property name="java.library.path" value="C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\bin;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;C:\java\prerequisites\apache-maven-3.6.1\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Musab\AppData\Local\Microsoft\WindowsApps;C:\Program Files\JetBrains\IntelliJ IDEA 2024.1\bin;;C:\Users\Musab\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Musab\AppData\Local\GitHubDesktop\bin;."/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.vendor" value="ojdkbuild"/>
+    <property name="java.vm.version" value="25.282-b08"/>
+    <property name="java.ext.dirs" value="C:\java\prerequisites\java-1.8.0-openjdk-1.8.0.282\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="52.0"/>
+  </properties>
+  <testcase name="saveTest" classname="com.msbkn.sakila.service.FilmActorServiceTest" time="0.002"/>
+  <testcase name="findAllByFlim" classname="com.msbkn.sakila.service.FilmActorServiceTest" time="0.034"/>
+  <testcase name="fillAllTest" classname="com.msbkn.sakila.service.FilmActorServiceTest" time="0.237"/>
+  <testcase name="findByIdTest" classname="com.msbkn.sakila.service.FilmActorServiceTest" time="0.086">
+    <error message="java.util.ArrayList cannot be cast to com.msbkn.sakila.domain.FilmActor" type="java.lang.ClassCastException">java.lang.ClassCastException: java.util.ArrayList cannot be cast to com.msbkn.sakila.domain.FilmActor
+	at com.msbkn.sakila.service.FilmActorServiceTest.findByIdTest(FilmActorServiceTest.java:37)
+</error>
+    <system-out><![CDATA[Hibernate: select this_.id as id1_3_3_, this_.ACTOR_ID as ACTOR_ID3_3_3_, this_.FILM_ID as FILM_ID4_3_3_, this_.last_update as last_upd2_3_3_, actor2_.id as id1_0_0_, actor2_.first_name as first_na2_0_0_, actor2_.last_name as last_nam3_0_0_, actor2_.last_update as last_upd4_0_0_, film3_.id as id1_1_1_, film3_.replacement_cost as replacem2_1_1_, film3_.film_deleted as film_del3_1_1_, film3_.description as descript4_1_1_, film3_.rental_duration as rental_d5_1_1_, film3_.special_features as special_6_1_1_, film3_.LANGUAGE_ID as LANGUAG13_1_1_, film3_.last_update as last_upd7_1_1_, film3_.length as length8_1_1_, film3_.rental_rate as rental_r9_1_1_, film3_.rating as rating10_1_1_, film3_.title as title11_1_1_, film3_.release_year as release12_1_1_, language4_.id as id1_2_2_, language4_.last_update as last_upd2_2_2_, language4_.name as name3_2_2_ from film_actor this_ left outer join Actor actor2_ on this_.ACTOR_ID=actor2_.id left outer join Film film3_ on this_.FILM_ID=film3_.id left outer join Language language4_ on film3_.LANGUAGE_ID=language4_.id
+]]></system-out>
+  </testcase>
+</testsuite>

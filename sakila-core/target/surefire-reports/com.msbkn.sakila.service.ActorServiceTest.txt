@@ -1,0 +1,16 @@
+-------------------------------------------------------------------------------
+Test set: com.msbkn.sakila.service.ActorServiceTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 1.597 s <<< FAILURE! - in com.msbkn.sakila.service.ActorServiceTest
+getActorById(com.msbkn.sakila.service.ActorServiceTest)  Time elapsed: 0.027 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.msbkn.sakila.service.ActorServiceTest.getActorById(ActorServiceTest.java:28)
+
+deleteActorActor(com.msbkn.sakila.service.ActorServiceTest)  Time elapsed: 0.031 s  <<< ERROR!
+java.lang.IllegalArgumentException: attempt to create delete event with null entity
+	at com.msbkn.sakila.service.ActorServiceTest.deleteActorActor(ActorServiceTest.java:49)
+
+updateActorActor(com.msbkn.sakila.service.ActorServiceTest)  Time elapsed: 0.016 s  <<< ERROR!
+java.lang.NullPointerException
+	at com.msbkn.sakila.service.ActorServiceTest.updateActorActor(ActorServiceTest.java:56)
+

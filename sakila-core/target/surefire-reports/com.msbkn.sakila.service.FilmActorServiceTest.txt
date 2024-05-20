@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: com.msbkn.sakila.service.FilmActorServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.359 s <<< FAILURE! - in com.msbkn.sakila.service.FilmActorServiceTest
+findByIdTest(com.msbkn.sakila.service.FilmActorServiceTest)  Time elapsed: 0.086 s  <<< ERROR!
+java.lang.ClassCastException: java.util.ArrayList cannot be cast to com.msbkn.sakila.domain.FilmActor
+	at com.msbkn.sakila.service.FilmActorServiceTest.findByIdTest(FilmActorServiceTest.java:37)
+

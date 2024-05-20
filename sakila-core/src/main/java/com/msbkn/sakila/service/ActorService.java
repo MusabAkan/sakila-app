@@ -13,6 +13,7 @@ public class ActorService extends BaseService<Actor> {
     }
 
     public List<Actor> findAllNotActorId(Set<Long> ids) {
+        if (ids.size() == 0) return findAll();
         return super.findAllParams(Restrictions.not(Restrictions.in("id", ids)));
 
     }

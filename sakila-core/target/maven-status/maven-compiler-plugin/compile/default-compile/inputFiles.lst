@@ -1,3 +1,5 @@
+C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\common\BaseDao.java
+C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\common\BaseService.java
 C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\domain\Language.java
 C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\service\LanguageService.java
 C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\domain\Film.java
@@ -8,6 +10,7 @@ C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\
 C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\service\FilmService.java
 C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\service\ActorService.java
 C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\dao\FilmActorDao.java
+C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\common\BaseEntity.java
 C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\dao\LanguageDao.java
 C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\dao\FilmDao.java
 C:\java\workspace\project\sakila-app\sakila-core\src\main\java\com\msbkn\sakila\dao\ActorDao.java
