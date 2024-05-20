@@ -14,7 +14,7 @@ public class BaseDao<T extends BaseEntity> {
     }
 
     public T save(T entity) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionField();
         session.beginTransaction();
         session.saveOrUpdate(entity);
         session.getTransaction().commit();
@@ -22,30 +22,35 @@ public class BaseDao<T extends BaseEntity> {
     }
 
     public void delete(T entity) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionField();
         session.beginTransaction();
         session.delete(entity);
         session.getTransaction().commit();
     }
 
     public T findById(Long id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionField();
         session.beginTransaction();
         return (T) session.get(clazz, id);
     }
 
     public List<T> findAll() {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionField();
         Criteria criteria = session.createCriteria(clazz);
         return criteria.list();
     }
 
     public List<T> findAllParams(Criterion... criterionCriteria) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionField();
         Criteria sessionCriteria = session.createCriteria(clazz);
-        for (Criterion criterion : criterionCriteria) {
-            sessionCriteria.add(criterion);
-        }
+        for (Criterion criterion : criterionCriteria) sessionCriteria.add(criterion);
         return sessionCriteria.list();
+    }
+
+    private  Session sessionField() {
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        if(sessionFactory.isClosed()) sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
+        return session;
     }
 }

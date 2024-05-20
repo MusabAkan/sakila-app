@@ -29,34 +29,7 @@ public class FilmActorCardWindow extends SkWindowField {
     public FilmActorCardWindow(Film film) {
         this();
         selectFilmField = film;
-        fillWindowByData();
-    }
-
-    private void fillActorField() {
-        Set<Long> ids = new HashSet<>();
-        allItemList.removeAllItems();
-        selectFilmActors.forEach(actor -> ids.add(actor.getActor().getId()));
-        actors = actorService.findAllNotActorId(ids);
-        if (actors.size() == 0) return;
-        actors.sort(Comparator.comparing(Actor::getFullName));
-        for (Actor actor : actors) {
-            String fullName = actor.getFullName();
-            allItemList.addItems(actor);
-            allItemList.setItemCaption(actor, fullName);
-        }
-
-    }
-
-    private void fillFilmActorField(Film film) {
-        selectFilmActorList.removeAllItems();
-        selectFilmActors = filmActorService.findAllByFilm(film);
-        if (selectFilmActors.size() == 0) return;
-        selectFilmActors.sort(Comparator.comparing(FilmActor::getActorFullName));
-        for (FilmActor filmActor : selectFilmActors) {
-            String fullName = filmActor.getActorFullName();
-            selectFilmActorList.addItem(filmActor);
-            selectFilmActorList.setItemCaption(filmActor, fullName);
-        }
+        fillWindowByFilmActor();
     }
 
     private void buildWindowField() {
@@ -69,7 +42,8 @@ public class FilmActorCardWindow extends SkWindowField {
         allItemList = new ListSelect();
         selectFilmActorList = new ListSelect();
 
-        setWidth("50%");
+        setWidth("60%");
+        setHeight("40%");
 
         selectFilmActorList = new ListSelect();
         selectFilmActorList.setCaption("Seçilen Listeler");
@@ -105,7 +79,7 @@ public class FilmActorCardWindow extends SkWindowField {
             Set<FilmActor> selectFilmActors = (Set<FilmActor>) value;
             for (FilmActor selectFilmActor : selectFilmActors) {
                 filmActorService.delete(selectFilmActor);
-                fillWindowByData();
+                fillWindowByFilmActor();
             }
         });
     }
@@ -122,12 +96,39 @@ public class FilmActorCardWindow extends SkWindowField {
                 filmActor.setFilm(selectFilmField);
                 filmActor.setLastUpdate(nowLastUptade);
                 filmActorService.save(filmActor);
-                fillWindowByData();
+                fillWindowByFilmActor();
             }
         });
     }
 
-    private void fillWindowByData() {
+    private void fillActorField() {
+        Set<Long> ids = new HashSet<>();
+        allItemList.removeAllItems();
+        selectFilmActors.forEach(actor -> ids.add(actor.getActor().getId()));
+        actors = actorService.findAllNotActorId(ids);
+        if (actors.size() == 0) return;
+        actors.sort(Comparator.comparing(Actor::getFullName));
+        for (Actor actor : actors) {
+            String fullName = actor.getFullName();
+            allItemList.addItems(actor);
+            allItemList.setItemCaption(actor, fullName);
+        }
+
+    }
+
+    private void fillFilmActorField(Film film) {
+        selectFilmActorList.removeAllItems();
+        selectFilmActors = filmActorService.findAllByFilm(film);
+        if (selectFilmActors.size() == 0) return;
+        selectFilmActors.sort(Comparator.comparing(FilmActor::getActorFullName));
+        for (FilmActor filmActor : selectFilmActors) {
+            String fullName = filmActor.getActorFullName();
+            selectFilmActorList.addItem(filmActor);
+            selectFilmActorList.setItemCaption(filmActor, fullName);
+        }
+    }
+
+    private void fillWindowByFilmActor() {
         fillFilmActorField(selectFilmField);
         fillActorField();
     }

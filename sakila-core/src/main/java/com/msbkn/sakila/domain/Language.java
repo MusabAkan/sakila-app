@@ -31,6 +31,7 @@ public class Language extends BaseEntity {
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
+
     public String getDateString() {
         Format formatDate = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         return formatDate.format(lastUpdate);

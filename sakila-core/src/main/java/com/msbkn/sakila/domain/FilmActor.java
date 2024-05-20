@@ -46,6 +46,7 @@ public class FilmActor extends BaseEntity {
     public String getActorFullName() {
         return actor.getFullName();
     }
+
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }
