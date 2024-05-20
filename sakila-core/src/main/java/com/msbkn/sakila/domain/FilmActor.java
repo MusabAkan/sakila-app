@@ -31,11 +31,11 @@ public class FilmActor extends BaseEntity {
         this.actor = actor;
     }
 
-    public Film getFilmId() {
+    public Film getFilm() {
         return film;
     }
 
-    public void setFilmId(Film film) {
+    public void setFilm(Film film) {
         this.film = film;
     }
 
@@ -43,6 +43,9 @@ public class FilmActor extends BaseEntity {
         return lastUpdate;
     }
 
+    public String getActorFullName() {
+        return actor.getFullName();
+    }
     public void setLastUpdate(Date lastUpdate) {
         this.lastUpdate = lastUpdate;
     }

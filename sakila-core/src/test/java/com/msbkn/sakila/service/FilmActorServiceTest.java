@@ -4,6 +4,7 @@ import com.msbkn.sakila.domain.Film;
 import com.msbkn.sakila.domain.FilmActor;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilmActorServiceTest {
@@ -16,9 +17,8 @@ public class FilmActorServiceTest {
         filmActorService = new FilmActorService();
         FilmActor film = new FilmActor();
         filmActorService.findById(flimId);
-
-
     }
+
 
     @Test
     public void findAllByFlim() {
@@ -29,8 +29,6 @@ public class FilmActorServiceTest {
         for (FilmActor filmActor : filmActors) {
             System.out.println(filmActor);
         }
-
-
     }
 
     @Test

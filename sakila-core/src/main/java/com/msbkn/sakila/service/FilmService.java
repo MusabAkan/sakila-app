@@ -19,10 +19,6 @@ public class FilmService extends BaseService<Film> {
         return super.findAllParams(Restrictions.eq("deleted", false));
     }
 
-//    public List<Film> findAllByNotDelete() {
-//        return super.findAllParams(Restrictions.eq("deleted", false));
-//    }
-
     @Override
     public void delete(Film entity) {
         entity.setDeleted(true);

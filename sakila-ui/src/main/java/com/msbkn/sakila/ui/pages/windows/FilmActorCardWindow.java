@@ -1,16 +1,26 @@
 package com.msbkn.sakila.ui.pages.windows;
 
 import com.msbkn.sakila.domain.*;
-import com.msbkn.sakila.service.FilmActorService;
+import com.msbkn.sakila.service.*;
 import com.msbkn.sakila.ui.common.components.*;
-import com.vaadin.ui.Button;
+import com.vaadin.ui.ListSelect;
 
-import java.util.List;
+import java.util.*;
 
 public class FilmActorCardWindow extends SkWindowField {
+    private Film selectFilmField;
+    private ListSelect selectFilmActorList;
+    private ListSelect allItemList;
+    private SkFormLayoutField formLayout2Field;
 
-    private List<FilmActor> filmActors;
+    private SkDeleteButtonField deleteButtonField;
+    private SkButtonField saveButtonField;
+
+    private List<FilmActor> selectFilmActors;
+    private List<Actor> actors;
+
     private FilmActorService filmActorService;
+    private ActorService actorService;
 
     public FilmActorCardWindow() {
         buildWindowField();
@@ -18,26 +28,99 @@ public class FilmActorCardWindow extends SkWindowField {
 
     public FilmActorCardWindow(Film film) {
         this();
-        fillWindowByFilmActor(film);
+        selectFilmField = film;
+        fillFilmActorField(selectFilmField);
     }
 
+    private void fillFilmActorField(Film film) {
+        Set<Long> ids = new HashSet<>();
+        selectFilmActorList.removeAllItems();
+        allItemList.removeAllItems();
 
-    private void fillWindowByFilmActor(Film film) {
-        filmActorService = new FilmActorService();
-        filmActors = filmActorService.findAllByFilm(film);
+        selectFilmActors = filmActorService.findAllByFilm(film);
+        selectFilmActors.sort(Comparator.comparing(FilmActor::getActorFullName));
+        for (FilmActor filmActor : selectFilmActors) {
+            String fullName = filmActor.getActorFullName();
+            selectFilmActorList.addItem(filmActor);
+            selectFilmActorList.setItemCaption(filmActor, fullName);
+        }
 
-        for (FilmActor filmActor : filmActors) {
-            Button buttonTestField = new Button();
-            buttonTestField.setCaption(filmActor.getActor().getFullName());
-            formLayoutField.addComponent(buttonTestField);
+        selectFilmActors.forEach(actor -> ids.add(actor.getActor().getId()));
+        actors = actorService.findAllNotActorId(ids);
+        actors.sort(Comparator.comparing(Actor::getFullName));
+        for (Actor actor : actors) {
+            String fullName = actor.getFullName();
+            allItemList.addItems(actor);
+            allItemList.setItemCaption(actor, fullName);
         }
     }
 
     private void buildWindowField() {
-        verticalLayoutField = new SkVerticalLayoutField();
+        horizontalLayoutField = new SkHorizontalLayoutField();
         formLayoutField = new SkFormLayoutField();
-        verticalLayoutField.addComponent(formLayoutField);
-        setContent(verticalLayoutField);
+
+        filmActorService = new FilmActorService();
+        actorService = new ActorService();
+
+        allItemList = new ListSelect();
+        selectFilmActorList = new ListSelect();
+
+        setWidth("50%");
+
+        selectFilmActorList = new ListSelect();
+        selectFilmActorList.setCaption("Seçilen Listeler");
+        selectFilmActorList.setWidth("90%");
+        selectFilmActorList.setMultiSelect(true);
+        formLayoutField.addComponent(selectFilmActorList);
+
+        deleteButtonField = new SkDeleteButtonField();
+        deleteActorFilmField();
+        formLayoutField.addComponent(deleteButtonField);
+
+        formLayout2Field = new SkFormLayoutField();
+        allItemList = new ListSelect();
+        allItemList.setCaption("Seçilmeyen Listeler");
+        allItemList.setWidth("90%");
+        allItemList.setMultiSelect(true);
+        formLayout2Field.addComponent(allItemList);
+
+        saveButtonField = new SkButtonField();
+        saveActorFilmField();
+        formLayout2Field.addComponent(saveButtonField);
+
+        horizontalLayoutField.addComponent(formLayoutField);
+        horizontalLayoutField.addComponent(formLayout2Field);
+
+        setContent(horizontalLayoutField);
+    }
+
+    private void deleteActorFilmField() {
+        deleteButtonField.addClickListener(clickEvent -> {
+            Object value = selectFilmActorList.getValue();
+            if (value == null) return;
+            Set<FilmActor> selectFilmActors = (Set<FilmActor>) value;
+            for (FilmActor selectFilmActor : selectFilmActors) {
+                filmActorService.delete(selectFilmActor);
+                fillFilmActorField(selectFilmField);
+            }
+        });
+    }
+
+    private void saveActorFilmField() {
+        saveButtonField.addClickListener(clickEvent -> {
+            Date nowLastUptade = new Date();
+            Object value = allItemList.getValue();
+            if (value == null) return;
+            Set<Actor> selectActors = (Set<Actor>) value;
+            for (Actor selectActor : selectActors) {
+                FilmActor filmActor = new FilmActor();
+                filmActor.setActor(selectActor);
+                filmActor.setFilm(selectFilmField);
+                filmActor.setLastUpdate(nowLastUptade);
+                filmActorService.save(filmActor);
+                fillFilmActorField(selectFilmField);
+            }
+        });
     }
 
 }

@@ -15,5 +15,4 @@ public class FilmActorService extends BaseService<FilmActor> {
     public List<FilmActor> findAllByFilm(Film film) {
         return super.findAllParams(Restrictions.eq("film", film));
     }
-
 }

@@ -4,6 +4,7 @@ import com.vaadin.ui.*;
 
 public class SkWindowField extends Window {
     protected SkVerticalLayoutField verticalLayoutField;
+    protected SkHorizontalLayoutField horizontalLayoutField;
     protected SkFormLayoutField formLayoutField;
 
     public SkWindowField() {
