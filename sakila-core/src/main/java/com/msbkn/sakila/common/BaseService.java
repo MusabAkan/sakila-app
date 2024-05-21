@@ -7,6 +7,7 @@ import java.util.List;
 public class BaseService<E extends BaseEntity> {
 
     private BaseDao<E> dao;
+
     public BaseService(Class entity) {
         dao = new BaseDao<E>(entity);
     }
@@ -32,6 +33,6 @@ public class BaseService<E extends BaseEntity> {
     }
 
     public BaseDao<E> getDao() {
-        return dao ;
+        return dao;
     }
 }

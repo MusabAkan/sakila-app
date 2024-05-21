@@ -36,8 +36,7 @@ public class FilmDao extends BaseDao<Film> {
         Set stringSet = new HashSet<>();
         for (String string : strings) {
             String[] splits = string.split(",");
-            for (String split : splits)
-                stringSet.add(split);
+            for (String split : splits) stringSet.add(split);
         }
         return stringSet;
     }

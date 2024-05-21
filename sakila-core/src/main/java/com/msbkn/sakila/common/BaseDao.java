@@ -14,7 +14,8 @@ public class BaseDao<T extends BaseEntity> {
     }
 
     public T save(T entity) {
-        Session session = sessionField();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.saveOrUpdate(entity);
         session.getTransaction().commit();
@@ -22,35 +23,33 @@ public class BaseDao<T extends BaseEntity> {
     }
 
     public void delete(T entity) {
-        Session session = sessionField();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         session.delete(entity);
         session.getTransaction().commit();
     }
 
     public T findById(Long id) {
-        Session session = sessionField();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
         session.beginTransaction();
         return (T) session.get(clazz, id);
     }
 
     public List<T> findAll() {
-        Session session = sessionField();
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
         Criteria criteria = session.createCriteria(clazz);
         return criteria.list();
     }
 
     public List<T> findAllParams(Criterion... criterionCriteria) {
-        Session session = sessionField();
+
+        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+        Session session = sessionFactory.openSession();
         Criteria sessionCriteria = session.createCriteria(clazz);
         for (Criterion criterion : criterionCriteria) sessionCriteria.add(criterion);
         return sessionCriteria.list();
-    }
-
-    private  Session sessionField() {
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        if(sessionFactory.isClosed()) sessionFactory.getCurrentSession();
-        Session session = sessionFactory.openSession();
-        return session;
     }
 }

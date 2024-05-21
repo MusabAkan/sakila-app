@@ -10,8 +10,7 @@ public class FeatureOptionField extends OptionGroup {
     public FeatureOptionField() {
         FilmService filmService = new FilmService();
         Set<String> features = filmService.findFeatureList();
-        for (String feature : features)
-            addItem(feature);
+        for (String feature : features) addItem(feature);
         setMultiSelect(true);
     }
 

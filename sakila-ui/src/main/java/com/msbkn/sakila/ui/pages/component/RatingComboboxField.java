@@ -9,8 +9,6 @@ public class RatingComboboxField extends ComboBox {
     public RatingComboboxField() {
         FilmService filmService = new FilmService();
         Set<String> ratings = filmService.findRatingList();
-        for (String rating : ratings) {
-            addItem(rating);
-        }
+        for (String rating : ratings) addItem(rating);
     }
 }
