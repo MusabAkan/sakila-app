@@ -104,28 +104,48 @@ public class FilmActorCardWindow extends SkWindowField {
     private void fillActorField() {
         Set<Long> ids = new HashSet<>();
         allItemList.removeAllItems();
-        selectFilmActors.forEach(actor -> ids.add(actor.getActor().getId()));
+        selectFilmActors.forEach(actor -> {
+            Actor actorField = actor.getActor();
+            ids.add(actorField.getId());
+        });
         actors = actorService.findAllNotActorId(ids);
         if (actors.size() == 0) return;
-        actors.sort(Comparator.comparing(Actor::getFullName));
-        for (Actor actor : actors) {
-            String fullName = actor.getFullName();
-            allItemList.addItems(actor);
-            allItemList.setItemCaption(actor, fullName);
-        }
+        actors.stream()
+                .parallel()
+                .sorted(Comparator.comparing(Actor::getFullName))
+                .forEachOrdered(actor -> {
+                            String fullName = actor.getFullName();
+                            allItemList.addItems(actor);
+                            allItemList.setItemCaption(actor, fullName);
+                        }
+                );
 
+        ////        actors.sort(Comparator.comparing(Actor::getFullName));
+        //        for (Actor actor : actors) {
+        //            String fullName = actor.getFullName();
+        //            allItemList.addItems(actor);
+        //            allItemList.setItemCaption(actor, fullName);
+        //        }
     }
 
     private void fillFilmActorField(Film film) {
         selectFilmActorList.removeAllItems();
         selectFilmActors = filmActorService.findAllByFilm(film);
         if (selectFilmActors.size() == 0) return;
-        selectFilmActors.sort(Comparator.comparing(FilmActor::getActorFullName));
-        for (FilmActor filmActor : selectFilmActors) {
-            String fullName = filmActor.getActorFullName();
-            selectFilmActorList.addItem(filmActor);
-            selectFilmActorList.setItemCaption(filmActor, fullName);
-        }
+        selectFilmActors.stream()
+                .parallel()
+                .sorted(Comparator.comparing(FilmActor::getActorFullName))
+                .forEachOrdered(filmActor -> {
+                    String fullName = filmActor.getActorFullName();
+                    selectFilmActorList.addItem(filmActor);
+                    selectFilmActorList.setItemCaption(filmActor, fullName);
+                });
+        //        selectFilmActors.sort(Comparator.comparing(FilmActor::getActorFullName));
+//        for (FilmActor filmActor : selectFilmActors) {
+//            String fullName = filmActor.getActorFullName();
+//            selectFilmActorList.addItem(filmActor);
+//            selectFilmActorList.setItemCaption(filmActor, fullName);
+//        }
     }
 
     private void fillWindowByFilmActor() {
